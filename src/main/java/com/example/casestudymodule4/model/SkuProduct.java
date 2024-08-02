@@ -10,7 +10,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Getter
 @Setter
 @Entity
-@Table(name = "sku_products", schema = "module4_shop")
+@Table
 public class SkuProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class SkuProduct {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -45,6 +45,10 @@ public class SkuProduct {
     private Integer quantity;
 
     @NotNull
+<<<<<<< HEAD
+=======
+    @Lob
+>>>>>>> 338a248ed4f3739fe22a16f24d8b615c67b875b6
     @Column(name = "status", nullable = false)
     private String status;
 
