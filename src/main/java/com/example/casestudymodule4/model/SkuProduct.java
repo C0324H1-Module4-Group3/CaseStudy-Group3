@@ -47,5 +47,5 @@ public class SkuProduct {
     @NotNull
     @Column(name = "status", nullable = false)
     private String status;
-//
+//fix
 }
