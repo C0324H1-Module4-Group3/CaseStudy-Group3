@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -29,5 +31,8 @@ public class Product {
     @NotNull
     @Column(name = "image_path", nullable = false)
     private String imagePath;
+
+    @OneToMany(mappedBy = "product")
+    private List<SkuProduct> skuProducts;
 
 }
