@@ -1,9 +1,10 @@
-package com.example.casestudymodule4.model;
+    package com.example.casestudymodule4.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+    import jakarta.persistence.*;
+    import jakarta.validation.constraints.Size;
+    import lombok.Getter;
+    import lombok.Setter;
+
 
 @Getter
 @Setter
