@@ -14,7 +14,14 @@ public class OrderDetail {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sku_id", nullable = false)
+    private SkuProduct sku;
+
     @Column(name = "quantity")
     private Integer quantity;
-
 }

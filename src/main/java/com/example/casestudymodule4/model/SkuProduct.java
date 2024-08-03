@@ -45,7 +45,6 @@ public class SkuProduct {
     private Integer quantity;
 
     @NotNull
-    @Lob
     @Column(name = "status", nullable = false)
     private String status;
 

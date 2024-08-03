@@ -17,6 +17,10 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private User customer;
+
     @Column(name = "booking_date")
     private LocalDate bookingDate;
 
@@ -30,5 +34,4 @@ public class Order {
     @Size(max = 255)
     @Column(name = "delivery_address")
     private String deliveryAddress;
-
 }

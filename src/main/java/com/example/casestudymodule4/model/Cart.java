@@ -14,7 +14,14 @@ public class Cart {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private User customer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sku_id", nullable = false)
+    private SkuProduct sku;
+
     @Column(name = "quantity")
     private Integer quantity;
-
 }
