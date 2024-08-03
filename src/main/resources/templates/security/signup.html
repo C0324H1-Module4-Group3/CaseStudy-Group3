@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login & Registration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logomu.svg">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/templatemo.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/login.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<body>
+<div style="background-color: red;" class="w-100 mt-0"><a class=" text-success logo h1 align-self-center w-100 fixed" href="/home">
+    <img src="/img/logomu.svg" style="height: 80px">
+</a>
+</div>
+<div class="form-box rounded-3 shadow-lg col-4 container mt-5"
+     style="background-color: rgba(12,12,12,0.44); font-family: 'Poppins', sans-serif; color: white;">
+    <div class="card-header" style="text-align: right ">
+        <span><span class="m-auto mx-0" style="text-align: right ; font-style: italic">Have an account?</span> <a
+                href="/login">Log in</a></span>
+        <header class="text-center">Register</header>
+        <p th:if="${error == 'true'}" style="color: red; font-style: italic">Register error</p>
+    </div>
+    <div class="card-body">
+        <form action="/signup" th:object="${userDto}" method="post">
+            <div class="form-group mt-2">
+                <label for="name">Full Name:</label>
+                <input type="text" class="form-control rounded-pill" id="name" th:field="*{name}"
+                       placeholder="Enter your full name" required>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red; font-style: italic"></p>
+            </div>
+            <div class="form-group mt-2">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" class="form-control rounded-pill" id="dob" th:field="*{dob}" required>
+                <p th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}" style="color: red; font-style: italic"></p>
+
+            </div>
+            <div class="form-group mt-2">
+                <label for="address">Address:</label>
+                <input type="text" class="form-control rounded-pill" id="address" th:field="*{address}"
+                       placeholder="Enter your address" required>
+                <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                   style="color: red; font-style: italic"></p>
+
+            </div>
+            <div class="form-group mt-2">
+                <label for="userName">Email:</label>
+                <input type="email" class="form-control rounded-pill" id="userName" th:field="*{userName}"
+                       placeholder="Enter your email" required>
+                <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+                   style="color: red; font-style: italic"></p>
+
+            </div>
+            <div class="form-group mt-2">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control rounded-pill" id="password" th:field="*{password}"
+                       placeholder="Create a password" required>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                   style="color: red; font-style: italic"></p>
+
+            </div>
+            <div class="form-group mt-2 ">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" class="form-control rounded-pill" id="confirmPassword"
+                       th:field="*{confirmPassword}" placeholder="Confirm your password" required>
+                <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                   style="color: red; font-style: italic"></p>
+
+            </div>
+            <button type="submit" class="btn btn-danger btn-block mt-4 rounded-pill w-100">Sign For United</button>
+        </form>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+</body>
+</html>

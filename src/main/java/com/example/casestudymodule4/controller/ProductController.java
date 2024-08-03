@@ -19,4 +19,5 @@ public class ProductController {
     public String shopSingle() {
         return "/shop-single";
     }
+
 }
