@@ -10,13 +10,41 @@ import lombok.Setter;
 @Entity
 @Table(name = "user_roles", schema = "module4_shop")
 public class UserRole {
+//     sua lai bang user role, de noi giua bang user và approle
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
-    @Size(max = 255)
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private AppRole appRole;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User appUser) {
+        this.user = appUser;
+    }
+
+    public AppRole getAppRole() {
+        return appRole;
+    }
+
+    public void setAppRole(AppRole appRole) {
+        this.appRole = appRole;
+    }
 }
