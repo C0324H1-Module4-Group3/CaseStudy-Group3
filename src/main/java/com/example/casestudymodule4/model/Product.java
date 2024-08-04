@@ -29,5 +29,4 @@ public class Product {
     @NotNull
     @Column(name = "image_path", nullable = false)
     private String imagePath;
-
 }

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/templatemo.css">
     <link rel="stylesheet" href="/css/custom.css">
 
-    <!-- Load fonts style after rendering the layout styles -->
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="/css/fontawesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -30,8 +30,8 @@
 
 <body>
 
-    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light shadow" style="background: #1e2125; color: white" >
-        <div class="container d-flex justify-content-between align-items-center">
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light shadow w-100 position-fixed" style="background: #c30808; z-index: 999;" >
+        <div class="container-fluid d-flex justify-content-between align-items-center mx-5">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
                <img src="/img/logomu.svg" style="height: 80px">
@@ -41,38 +41,31 @@
                 <span class="navbar-toggler-icon" style="fill:whitesmoke;!important;"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto" >
+            <div class="align-self-center d-flex justify-content-between w-100" id="templatemo_main_nav">
+                <div class="ms-5" style="width: 30%;">
+                    <ul class="nav navbar-nav d-flex justify-content-between" >
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link fs-4" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                            <a class="nav-link fs-4" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Shop</a>
+                            <a class="nav-link fs-4" href="shop.html">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
+                            <a class="nav-link fs-4" href="contact.html">Contact</a>
                         </li>
                     </ul>
                 </div>
-                <div class="input-group" style="width: 20% ; padding-right: 40px">
-                    <input type="text" class="form-control" id="MobileSearch" placeholder="Search ...">
-                    <div class="input-group-text">
-                        <i class="fa fa-fw fa-search"></i>
-                    </div>
-                </div>
+
                 <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
+                            <div class="input-group position-relative text-decoration-none" style="width: 70% ; padding-right: 40px">
+                                <input type="text" class="form-control" id="MobileSearch" placeholder="Search ...">
+                                <div class="input-group-text">
+                                    <i class="fa fa-fw fa-search"></i>
+                                </div>
                             </div>
-                        </div>
-                    </div>
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1 text-light" ></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
@@ -86,13 +79,10 @@
 
         </div>
     </nav>
-    <!-- Close Header -->
-
-    <!-- Modal -->
 
 
-    <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel" style="width: 100%;height: 50%;background-size: contain;background-repeat: no-repeat;background-position: center;">
+
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel" style="width: 100%;padding-top:  113px;height: 50%;background-size: contain;background-repeat: no-repeat;background-position: center;">
         <ol class="carousel-indicators">
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
@@ -154,11 +144,10 @@
             <i class="fas fa-chevron-right"></i>
         </a>
     </div>
-    <!-- End Banner Hero -->
 
 
-    <!-- Start Categories of The Month -->
-    <section class="container py-5">
+
+    <section class="container py-">
         <div class="row text-center pt-3">
             <div class="col-lg-6 m-auto">
                 <h1 class="h1">Categories of The Month</h1>
@@ -186,10 +175,7 @@
             </div>
         </div>
     </section>
-    <!-- End Categories of The Month -->
 
-
-    <!-- Start Featured Product -->
     <section class="bg-light">
         <div class="container py-5">
             <div class="row text-center py-3">
@@ -326,10 +312,6 @@
 
         </div>
     </section>
-    <!-- End Featured Product -->
-
-
-    <!-- Start Footer -->
     <footer th:fragment="footer" class="bg-dark" id="tempaltemo_footer" style="background: #1e2125; color: white;!important;" >
         <div class="container" style="background: #1e2125; color: white;!important;">
             <div class="row">
