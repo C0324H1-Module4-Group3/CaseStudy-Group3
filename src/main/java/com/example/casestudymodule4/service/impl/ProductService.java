@@ -47,4 +47,9 @@ public class ProductService implements IProductService {
     public List<Product> findProductByCategoryId(Integer categoryId) {
         return productRepository.findByCategoryId(categoryId);
     }
+
+    @Override
+    public Product findProductById(Integer productId) {
+        return productRepository.findById(productId).orElse(null);
+    }
 }
