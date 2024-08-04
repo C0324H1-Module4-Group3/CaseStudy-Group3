@@ -1,7 +1,9 @@
 package com.example.casestudymodule4.service.impl;
 
 import com.example.casestudymodule4.model.Product;
-import com.example.casestudymodule4.model.SkuProduct;
+
+
+
 import com.example.casestudymodule4.repository.IProductRepository;
 import com.example.casestudymodule4.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,8 @@ import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
-
+    @Autowired
+    private IProductRepository productRepository;
 
     @Override
     public List<Product> findAll() {
@@ -43,5 +46,15 @@ public class ProductService implements IProductService {
     @Override
     public void update(Product product) {
 
+    }
+
+    @Override
+    public List<Product> findProductByCategoryId(Integer categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
+
+    @Override
+    public Product findProductById(Integer productId) {
+        return productRepository.findById(productId).orElse(null);
     }
 }
