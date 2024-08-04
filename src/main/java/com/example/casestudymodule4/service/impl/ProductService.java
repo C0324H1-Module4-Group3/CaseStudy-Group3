@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.service.impl;
 
+import com.example.casestudymodule4.model.Product;
 import com.example.casestudymodule4.model.SkuProduct;
 import com.example.casestudymodule4.repository.IProductRepository;
 import com.example.casestudymodule4.service.IProductService;
@@ -12,41 +13,35 @@ import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
-    @Autowired
-    private IProductRepository productRepository;
+
 
     @Override
-    public List<SkuProduct> findAll() {
-        return productRepository.findAll();
-    }
-
-    @Override
-    public void save(SkuProduct product) {
-        productRepository.save(product);
-    }
-
-    @Override
-    public Page<SkuProduct> findAll(String name, Pageable pageable) {
+    public List<Product> findAll() {
         return null;
     }
 
     @Override
-    public Page<SkuProduct> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public void save(Product product) {
+
     }
 
     @Override
-    public SkuProduct findById(Long id) {
-        return productRepository.findById(id).orElse(null);
+    public Page<Product> findAll(String name, Pageable pageable) {
+        return null;
     }
 
     @Override
-    public void delete(SkuProduct product) {
-        productRepository.delete(product);
+    public Product findById(Long id) {
+        return null;
     }
 
     @Override
-    public void update(SkuProduct product) {
-        productRepository.save(product);
+    public void delete(Product product) {
+
+    }
+
+    @Override
+    public void update(Product product) {
+
     }
 }
