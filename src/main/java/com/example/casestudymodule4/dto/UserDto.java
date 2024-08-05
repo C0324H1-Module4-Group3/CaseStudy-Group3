@@ -18,7 +18,6 @@ public class UserDto implements Validator {
     private LocalDate dob;
 
     @NotBlank(message = "Name could not be blank")
-    @Pattern(regexp = "^[A-Za-z]{3,100}$", message = "Input is invalid")
     private String address;
 
     @NotBlank(message = "Phone could not be blank")
@@ -131,8 +130,13 @@ public class UserDto implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         UserDto user = (UserDto) target;
-        if(!user.getConfirmPassword().equals(confirmPassword)) {
+        if(!user.getConfirmPassword().equals(user.getPassword())) {
             errors.rejectValue("confirmPassword","","Confirm Password does not match");
+        }
+        if(user.address.length() < 10) {
+            errors.rejectValue("address", "", "Address must be at least 10 characters");
+        } else if (user.address.length() >255) {
+            errors.rejectValue("address", "", "Address is too long");
         }
         if(!user.getDob().isBefore(LocalDate.now()) | (LocalDate.of(1920,1,1)).isAfter(user.getDob())) {
             errors.rejectValue("dob","", "Date of Birth is invalid");
