@@ -11,5 +11,15 @@ public interface ICartService {
 
     void delete(Integer cartId);
 
-    int totalBill(List<Cart> carts);
+    int totalBill(Iterable<Cart> carts);
+
+    Iterable<Cart> findCartByUserId(int i);
+
+    Cart findCartById(Integer cartId);
+
+    void addQuantity(Integer cartId);
+
+    void minusQuantity(Integer cartId);
+
+    Iterable<Cart> findAll();
 }
