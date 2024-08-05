@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Entity
@@ -48,6 +49,9 @@ public class User {
    @Column(name="enable", columnDefinition = "boolean default false")
    private Boolean enable;
 
+    @OneToMany
+    @JoinColumn(name = "customer_id" )
+    private Set<Cart> carts;
 
     public User() {
     }

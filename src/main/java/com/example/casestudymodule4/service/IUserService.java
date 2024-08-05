@@ -1,7 +1,9 @@
 package com.example.casestudymodule4.service;
 
+
 import com.example.casestudymodule4.dto.UserDto;
 import com.example.casestudymodule4.model.User;
+
 import com.example.casestudymodule4.model.VerificationToken;
 
 public interface IUserService {
