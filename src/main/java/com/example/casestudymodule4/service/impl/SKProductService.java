@@ -35,6 +35,11 @@ public class SKProductService implements ISKProductService {
     }
 
     @Override
+    public void remove(Integer id) {
+        iskProductRepository.deleteById(Long.valueOf(id));
+    }
+
+    @Override
     public SkuProduct findById(Long id) {
         return iskProductRepository.findById(id).orElse(null);
     }

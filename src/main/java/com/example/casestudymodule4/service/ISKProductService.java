@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ISKProductService extends IGenerateService<SkuProduct>{
     Page<SkuProduct> findAll(Pageable pageable);
+
+    void remove(Integer id);
 }
