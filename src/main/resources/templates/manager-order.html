@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Order</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include custom CSS -->
+    <link rel="stylesheet" th:href="@{/admin/css/style.min.css}">
+    <style>
+        .navbar .nav-link {
+            color: white !important;
+            margin-right: 20px;
+            font-size: 16px;
+        }
+
+        .navbar .nav-link:hover {
+            color: #17a2b8 !important;
+        }
+
+        .input-group .form-control {
+            border-right: 0;
+        }
+
+        .input-group .input-group-text {
+            background: white;
+            border-left: 0;
+        }
+
+        .navbar .nav-icon {
+            margin-left: 20px;
+        }
+
+        .navbar .fa {
+            font-size: 1.2rem;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .table img {
+            width: 50px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<header class="topbar" data-navbarbg="skin6">
+    <nav class="navbar navbar-expand-lg navbar-light shadow" style="background: #1e2125; color: white">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="/admin">
+                <img src="/assets/images/logomu.png" style="height: 35px">
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#templatemo_main_nav" aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color: whitesmoke;"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/shop">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="input-group" style="width: 20%; padding-right: 40px;">
+                    <input type="text" class="form-control" id="MobileSearch" placeholder="Search ...">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-fw fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <i class="fa fa-fw fa-cart-arrow-down text-light"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <i class="fa fa-fw fa-user text-light"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container mt-4">
+<form method="get" th:action="@{order}" class="row g-3">
+    <div class="col-md-2">
+        <label for="startDate" class="form-label">Start date</label>
+        <input type="date" class="form-control" id="startDate" name="startDate"
+               th:value="${startDate}">
+    </div>
+
+    <div class="col-md-2">
+        <label for="endDate" class="form-label">End date</label>
+        <input type="date" class="form-control" id="endDate" name="endDate"
+               th:value="${endDate}">
+    </div>
+
+    <div class="col-md-2">
+        <label class="form-label">&nbsp;</label>
+        <button type="submit" class="btn btn-primary form-control">Check</button>
+    </div>
+</form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>
+                Total
+                <button class="btn btn-light btn-sm" id="sortTotalMoneyAsc">
+                    <i class="fas fa-sort-amount-down"></i>
+                </button>
+                <button class="btn btn-light btn-sm" id="sortTotalMoneyDesc">
+                    <i class="fas fa-sort-amount-up"></i>
+                </button>
+            </th>
+        </tr>
+        </thead>
+        <tbody id="orderTableBody">
+        <tr th:each="orderDetailDTO, iterStat: ${orderDetailDTOs}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${orderDetailDTO.customerName}"></td>
+            <td th:text="${orderDetailDTO.productName}"></td>
+            <td th:text="${orderDetailDTO.categoryName}"></td>
+            <td th:text="${orderDetailDTO.totalMoney}"></td>
+            <td>
+                <button class="btn btn-danger"
+                        th:onclick="'window.location.href = \'' + @{/home/order/{idOrder}(idOrder=${orderDetailDTO.idOrder})} + '\''">
+                    View
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <!-- Previous Page Link -->
+            <li class="page-item" th:if="${orderDetailDTOs.hasPrevious()}">
+                <a class="page-link" th:href="@{/admin/order(page=${orderDetailDTOs.number - 1}, startDate=${startDate}, endDate=${endDate})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- Page Numbers -->
+            <li class="page-item" th:each="i : ${#numbers.sequence(1, orderDetailDTOs.totalPages)}"
+                th:classappend="${orderDetailDTOs.number + 1 == i} ? 'active'"
+                th:if="${orderDetailDTOs.totalPages > 0}"> <!-- Ẩn số 0 nếu không có trang -->
+                <a class="page-link" th:text="${i}" th:href="@{/admin/order(page=${i - 1}, startDate=${startDate}, endDate=${endDate})}"></a>
+            </li>
+
+            <!-- Next Page Link -->
+            <!-- Chỉ hiển thị nút Next nếu có trang tiếp theo -->
+            <li class="page-item" th:if="${orderDetailDTOs.hasNext()}">
+                <a class="page-link" th:href="@{/admin/order(page=${orderDetailDTOs.number + 1}, startDate=${startDate}, endDate=${endDate})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tableBody = document.getElementById('orderTableBody');
+        const sortAscButton = document.getElementById('sortTotalMoneyAsc');
+        const sortDescButton = document.getElementById('sortTotalMoneyDesc');
+
+        const sortTable = (asc) => {
+            const rows = Array.from(tableBody.querySelectorAll('tr'));
+            rows.sort((rowA, rowB) => {
+                const totalA = parseFloat(rowA.children[4].textContent.replace(/[^0-9.-]+/g,""));
+                const totalB = parseFloat(rowB.children[4].textContent.replace(/[^0-9.-]+/g,""));
+                return asc ? totalA - totalB : totalB - totalA;
+            });
+
+            rows.forEach(row => tableBody.appendChild(row));
+        };
+
+        sortAscButton.addEventListener('click', () => sortTable(true));
+        sortDescButton.addEventListener('click', () => sortTable(false));
+    });
+</script>
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
