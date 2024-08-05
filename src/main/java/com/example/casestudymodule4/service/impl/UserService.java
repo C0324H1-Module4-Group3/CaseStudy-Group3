@@ -1,19 +1,45 @@
 package com.example.casestudymodule4.service.impl;
 
+
+import com.example.casestudymodule4.dto.UserDto;
 import com.example.casestudymodule4.model.User;
-import com.example.casestudymodule4.repository.UserRepo;
+import com.example.casestudymodule4.repository.IUserRepository;
 import com.example.casestudymodule4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService implements IUserService {
     @Autowired
-    private UserRepo userRepo;
+    private IUserRepository userRepository;
 
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public User findById(Integer id) {
-        return userRepo.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
+    }
+    @Override
+    public boolean save(UserDto userDto) {
+        List<User> userList = userRepository.findAll();
+        for(User appUser : userList) {
+            if(appUser.getUserName().equals(userDto.getUserName())) {
+                return false;
+            }
+        }
+        User user = new User();
+        user.setName(userDto.getName());
+        user.setAddress(userDto.getAddress());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setUserName(userDto.getUserName());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setEnable(false);
+//        user.setRole();
+        userRepository.save(user);
+        return true;
+
     }
 }
