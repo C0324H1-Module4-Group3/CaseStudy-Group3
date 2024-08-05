@@ -13,7 +13,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public User findById(Long id) {
+    public User findById(Integer id) {
         return userRepo.findById(id).orElse(null);
     }
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -47,4 +48,7 @@ public class User {
     @JoinColumn(name = "role_id")
     private UserRole role;
 
+    @OneToMany
+    @JoinColumn(name = "customer_id" )
+    private Set<Cart> carts;
 }

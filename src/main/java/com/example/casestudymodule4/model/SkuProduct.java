@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -48,4 +50,7 @@ public class SkuProduct {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @OneToMany
+    @JoinColumn(name = "sku_id" )
+    private Set<Cart> carts;
 }
