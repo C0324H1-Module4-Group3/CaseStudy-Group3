@@ -22,12 +22,10 @@ public class UserService implements IUserService {
 
     @Autowired
     private IVerificationTokenRepository verificationTokenRepository;
-
     @Override
     public User findById(Integer id) {
         return null;
     }
-
     @Override
     public boolean save(UserDto userDto) {
         List<User> userList = userRepository.findAll();
