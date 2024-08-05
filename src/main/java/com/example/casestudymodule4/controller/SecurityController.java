@@ -1,7 +1,10 @@
 package com.example.casestudymodule4.controller;
 
 import com.example.casestudymodule4.dto.UserDto;
+import com.example.casestudymodule4.model.User;
+import com.example.casestudymodule4.model.VerificationToken;
 import com.example.casestudymodule4.service.IUserService;
+import com.example.casestudymodule4.service.impl.EmailService;
 import com.example.casestudymodule4.service.impl.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,20 +16,23 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Controller
 public class SecurityController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private EmailService emailService;
+
     @GetMapping("/login")
-    public String showPageLogin(){
-//    public String showPageLogin(@CookieValue(value = "userName", defaultValue = "") String userName,
-//                                @CookieValue(value = "password", defaultValue = "") String password,
-//                                @RequestParam(value = "error", defaultValue = "") String error,
-//                                Model model) {
-//        model.addAttribute("userName", userName);
-//        model.addAttribute("password", password);
-//        model.addAttribute("error", error);
+    public String showPageLogin(Principal principal, Model model){
+        if (principal != null){
+            return "redirect:/home";
+        }
         return "security/login";
     }
     @GetMapping("/signup")
@@ -65,7 +71,19 @@ public class SecurityController {
             model.addAttribute("error","true");
             return "security/signup";
         }
-        redirect.addFlashAttribute("message", "Thêm mới thành công");
+        User newUser = userService.getUserByUserName(userDto.getUserName());
+        UUID uuid = UUID.randomUUID();
+        String tokenString = uuid.toString();
+        VerificationToken userToken = new VerificationToken(tokenString, newUser, LocalDateTime.now().plusHours(8));
+        userService.saveToken(userToken);
+        emailService.sendVerificationEmail(userToken);
+        redirect.addFlashAttribute("message", "Account created successfully.Please verify your email");
         return "redirect:/login";
+    }
+
+    @GetMapping(value = "/logoutSuccessful")
+    public String logoutSuccessfulPage(Model model) {
+        model.addAttribute("title", "Logout");
+        return "security/logoutSuccessfulPage";
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -31,6 +32,4 @@ public class CartController {
         cartService.delete(cartId);
         return "redirect:/cart?id=1";
     }
-
-
 }
