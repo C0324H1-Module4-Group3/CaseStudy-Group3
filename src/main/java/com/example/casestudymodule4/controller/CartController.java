@@ -18,10 +18,10 @@ public class Cart {
     private IUserService userService;
 
     @GetMapping("")
-    private String showCart() {
+    private String showCart(@RequestParam("id") Long id,Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user",user);
 
         return "/cart";
     }
 }
-//User user = userService.findById(id);
-//        model.addAttribute("user",user);
