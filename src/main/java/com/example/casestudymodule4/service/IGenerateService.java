@@ -12,7 +12,7 @@ public interface IGenerateService<T> {
 
     Page<T> findAll(String name, Pageable pageable);
 
-    T findById(Long id);
+    T findById(Integer id);
 
     void delete(T t);
 
