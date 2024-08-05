@@ -25,10 +25,10 @@ public class UserService implements IUserService {
     @Autowired
     private IVerificationTokenRepository verificationTokenRepository;
 
-    @Override
-    public User findById(Integer id) {
-        return userRepository.findById(id).orElse(null);
-    }
+//    @Override
+//    public User findById(Integer id) {
+//        return userRepository.findById(id).orElse(null);
+//    }
     @Override
     public boolean save(UserDto userDto) {
         List<User> userList = userRepository.findAll();

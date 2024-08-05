@@ -101,9 +101,10 @@
     <form action="/skuProduct" method="get" class="mt-3 mb-3">
         <div class="input-group">
             <input class="form-control" th:value="${nameProduct}" name="nameProduct" placeholder="Tên sản phẩm" style="width: 50%">
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-info">Tìm kiếm</button>
-            </div>
+            <form th:action="@{/admin/manager}" method="get" class="form-inline">
+                <input type="text" name="keyword" class="form-control mr-2" placeholder="Search..." th:value="${keyword}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
         </div>
     </form>
     <table class="table table-hover">
