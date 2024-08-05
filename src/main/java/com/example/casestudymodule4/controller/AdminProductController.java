@@ -58,7 +58,7 @@ public class AdminProductController {
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Integer id,Model model){
         List<Product> products = productService.findAll();
-        SkuProduct skuProduct = skproductService.findById(Long.valueOf(id));
+        SkuProduct skuProduct = skproductService.findById(id);
         model.addAttribute("products",products);
         model.addAttribute("skuProduct",skuProduct);
         return "admin/update";

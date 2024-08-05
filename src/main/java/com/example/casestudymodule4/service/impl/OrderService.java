@@ -46,7 +46,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public OrderDetailDTO findById(Long id) {
+    public OrderDetailDTO findById(Integer id) {
         return null;
     }
 

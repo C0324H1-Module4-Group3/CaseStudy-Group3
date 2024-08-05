@@ -34,7 +34,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product findById(Long id) {
+    public Product findById(Integer id) {
         return null;
     }
 

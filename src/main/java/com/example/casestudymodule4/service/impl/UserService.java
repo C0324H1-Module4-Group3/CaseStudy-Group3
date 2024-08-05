@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.service.impl;
 
+
 import com.example.casestudymodule4.dto.UserDto;
 import com.example.casestudymodule4.model.User;
 import com.example.casestudymodule4.repository.IUserRepository;
@@ -17,7 +18,10 @@ public class UserService implements IUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Override
+    public User findById(Integer id) {
+        return userRepository.findById(id).orElse(null);
+    }
     @Override
     public boolean save(UserDto userDto) {
         List<User> userList = userRepository.findAll();
@@ -36,5 +40,6 @@ public class UserService implements IUserService {
 //        user.setRole();
         userRepository.save(user);
         return true;
+
     }
 }
