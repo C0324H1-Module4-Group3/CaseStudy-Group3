@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -28,14 +29,10 @@ public class SecurityController {
     private EmailService emailService;
 
     @GetMapping("/login")
-    public String showPageLogin(){
-//    public String showPageLogin(@CookieValue(value = "userName", defaultValue = "") String userName,
-//                                @CookieValue(value = "password", defaultValue = "") String password,
-//                                @RequestParam(value = "error", defaultValue = "") String error,
-//                                Model model) {
-//        model.addAttribute("userName", userName);
-//        model.addAttribute("password", password);
-//        model.addAttribute("error", error);
+    public String showPageLogin(Principal principal, Model model){
+        if (principal != null){
+            return "redirect:/home";
+        }
         return "security/login";
     }
     @GetMapping("/signup")
@@ -82,5 +79,11 @@ public class SecurityController {
         emailService.sendVerificationEmail(userToken);
         redirect.addFlashAttribute("message", "Account created successfully.Please verify your email");
         return "redirect:/login";
+    }
+
+    @GetMapping(value = "/logoutSuccessful")
+    public String logoutSuccessfulPage(Model model) {
+        model.addAttribute("title", "Logout");
+        return "security/logoutSuccessfulPage";
     }
 }

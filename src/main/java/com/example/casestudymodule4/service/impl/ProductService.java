@@ -20,7 +20,7 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> findAll() {
-        return null;
+        return productRepository.findAll();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product findById(Long id) {
+    public Product findById(Integer id) {
         return null;
     }
 

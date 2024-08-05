@@ -7,11 +7,9 @@ import com.example.casestudymodule4.model.VerificationToken;
 public interface IUserService {
     boolean save(UserDto userDto);
 
-    boolean saveUser(User user);
-
-    boolean verifyUser(User user);
-
     VerificationToken getVerificationToken(String token);
+
+    void verifyUser(User user);
 
     User getUserByUserName(String userName);
 

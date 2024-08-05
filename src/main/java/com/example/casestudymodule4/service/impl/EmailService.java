@@ -14,7 +14,7 @@ public class EmailService {
     public void sendVerificationEmail(VerificationToken verificationToken) {
         String subject = "Email verification";
         String confirmationLink = "http://localhost:8080/verify?token=" + verificationToken.getToken();
-        String message = "Please click the link below to verify your account in ManUTD Shop: \n <a>"+confirmationLink +"</a>";
+        String message = "Please click the link below to verify your account in ManUTD Shop: \n "+confirmationLink;
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(verificationToken.getUser().getUserName());
         email.setSubject(subject);

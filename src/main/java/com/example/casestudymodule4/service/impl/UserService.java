@@ -36,29 +36,12 @@ public class UserService implements IUserService {
         user.setAddress(userDto.getAddress());
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setUserName(userDto.getUserName());
-        user.setDob(userDto.getDob());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEnable(false);
+//        user.setRole();
         userRepository.save(user);
         return true;
     }
-    public boolean saveUser(User user){
-        List<User> userList = userRepository.findAll();
-        for(User appUser : userList) {
-            if(appUser.getUserName().equals(user.getUserName())) {
-                return false;
-            }
-        }
-        userRepository.save(user);
-        return true;
-    }
-
-    @Override
-    public boolean verifyUser(User user) {
-        userRepository.save(user);
-        return true;
-    }
-
 
     @Override
     public VerificationToken getVerificationToken(String token) {
@@ -66,8 +49,13 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void verifyUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
     public User getUserByUserName(String userName) {
-       return userRepository.findByUserName(userName);
+        return userRepository.findByUserName(userName);
     }
 
     @Override

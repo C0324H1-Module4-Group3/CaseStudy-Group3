@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/index :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+</head>
+<body class="bg-body-tertiary">
+
+<nav th:replace="index :: navbar">
+</nav>
+
+
+<div class="container bg-body-white mb-5 shadow rounded" style="margin-top: 150px">
+    <div class="row">
+
+        <div class="col-sm-8 p-1">
+
+            <div class="card mb-1" th:each="c : ${cart}">
+                <div class="row g-0">
+
+                    <div class="col-lg-3 col-md-4">
+                        <img src="/img/aodau1.png" class="img-fluid rounded-start" alt="...">
+                    </div>
+
+                    <div class="col-md-8 col-lg-9">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+
+                                <h5 class="card-title m-0 align-content-around" th:text="${c.sku.product.name}"></h5>
+
+                                <a th:href="@{/cart/delete/{id}(id=${c.id})}"
+                                   class="btn btn-outline-danger mx-1 btn-sm " onclick="confirmDelete(event,this)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+
+                            </div>
+                            <p class="card-text">Mô tả : rúc trong hang.</p>
+                            <p class="card-text">
+                                <small class="text-body-secondary">Màu sắc :
+                                    <a href="#" style="text-decoration: none">
+                                        <img src="https://i0.wp.com/colourlex.com/wp-content/uploads/2021/02/naples-yellow-painted-swatch.jpg?ssl=1"
+                                             alt="Description of the image" class="rounded-circle"
+                                             style="width:20px;height:20px;">
+                                    </a>
+
+                                    <a href="#" style="text-decoration: none">
+                                        <img src="https://htmlcolorcodes.com/assets/images/colors/red-color-solid-background-1920x1080.png"
+                                             alt="Description of the image" class="rounded-circle"
+                                             style="width:20px;height:20px;">
+                                    </a>
+
+                                    <a href="#" style="text-decoration: none">
+                                        <img src="https://i0.wp.com/colourlex.com/wp-content/uploads/2021/02/naples-yellow-painted-swatch.jpg?ssl=1"
+                                             alt="Description of the image" class="rounded-circle"
+                                             style="width:20px;height:20px;">
+                                    </a>
+                                </small>
+                            </p>
+
+                            <ul class="list-inline">
+                                <li class="list-inline-item">Size :
+                                    <input type="hidden" name="product-size" id="product-size" value="S">
+                                </li>
+                                <li class="list-inline-item"><span class="btn btn-success btn-size">S</span>
+                                </li>
+                                <li class="list-inline-item"><span class="btn btn-success btn-size">M</span>
+                                </li>
+                                <li class="list-inline-item"><span class="btn btn-success btn-size">L</span>
+                                </li>
+                                <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span>
+                                </li>
+                            </ul>
+
+
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex">
+                                    <div>Số lượng còn lại :</div>
+                                    <div class="ms-1" th:text="${c.sku.quantity}"></div>
+                                </div>
+
+                                <div class="card-text text-end ">
+                                    <small class="text-body-secondary ">
+                                        <div class="text-end">
+                                            <ul class="list-inline pb-3">
+
+                                                <li class="list-inline-item"><span class="btn btn-success btn-minus">-</span></li>
+                                                <li class="list-inline-item"><span class="badge bg-secondary"
+                                                                                   id="var-value" th:text="${c.quantity}"></span></li>
+                                                <li class="list-inline-item"><span class="btn btn-success btn-plus">+</span></li>
+                                            </ul>
+                                        </div>
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-4 p-1 mb-2">
+            <div class="card mt-0 mb-5 " style="max-width: 540px;">
+                <div class="row g-0">
+
+                    <div>
+                        <div class="card-body border-bottom ">
+                            <h5 class="card-title">Thanh toán</h5>
+                            <div class="d-flex justify-content-between" th:each="bill : ${cart}">
+                                <p th:text="${bill.sku.product.name}"></p>
+                                <p>:</p>
+                                <div class="justify-content-end d-flex">
+                                    <p th:text="${bill.quantity*bill.sku.price}" class="text-end me-1"></p> (VND)
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 mt-3 ">
+                            <div class="ms-3">Tổng tiền</div>
+                            <div class="text-end  d-flex justify-content-end me-3">
+                                <div th:text="${total}" class="me-1 text-end me-1"></div>
+                                (VND)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="btn btn-danger">Thanh toán</div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<footer th:replace="/index::footer"></footer>
+</body>
+<!--<th:block th:replace="/index::filejs"></th:block>-->
+<script>
+    function confirmDelete(event, element) {
+        event.preventDefault();
+        var confirmation = confirm("Xóa hả chắc chưa")
+        if (confirmation) {
+            window.location.href = element.getAttribute('href');
+        }
+    }
+</script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/slick.min.js"></script>
+<script src="/js/cart.js"></script>
+
+
+</html>
+
+
+<!--dự phòng ổn áp-->
+<!--<div class="col-sm-8 p-1">-->
+
+<!--    <div class="card mb-1 ">-->
+<!--        <div class="row g-0">-->
+
+<!--            <div class="col-lg-3 col-md-4">-->
+<!--                <img src="/img/aodau1.png" class="img-fluid rounded-start" alt="...">-->
+<!--            </div>-->
+
+<!--            <div class="col-md-8 col-lg-9">-->
+<!--                <div class="card-body">-->
+<!--                    <div class="d-flex justify-content-between">-->
+
+<!--                        <h5 class="card-title m-0 align-content-around">Áo MU</h5>-->
+<!--                        <a data-id="${el.id}" class="btn btn-outline-danger mx-1 btn-sm delete">-->
+<!--                            <i class="fas fa-trash-alt"></i>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <p class="card-text">Mô tả : rúc trong hang.</p>-->
+<!--                    <p class="card-text">-->
+<!--                        <small class="text-body-secondary">Màu sắc :-->
+<!--                            <a href="#" style="text-decoration: none">-->
+<!--                                <img src="https://i0.wp.com/colourlex.com/wp-content/uploads/2021/02/naples-yellow-painted-swatch.jpg?ssl=1"-->
+<!--                                     alt="Description of the image" class="rounded-circle"-->
+<!--                                     style="width:20px;height:20px;">-->
+<!--                            </a>-->
+
+<!--                            <a href="#" style="text-decoration: none">-->
+<!--                                <img src="https://htmlcolorcodes.com/assets/images/colors/red-color-solid-background-1920x1080.png"-->
+<!--                                     alt="Description of the image" class="rounded-circle"-->
+<!--                                     style="width:20px;height:20px;">-->
+<!--                            </a>-->
+
+<!--                            <a href="#" style="text-decoration: none">-->
+<!--                                <img src="https://i0.wp.com/colourlex.com/wp-content/uploads/2021/02/naples-yellow-painted-swatch.jpg?ssl=1"-->
+<!--                                     alt="Description of the image" class="rounded-circle"-->
+<!--                                     style="width:20px;height:20px;">-->
+<!--                            </a>-->
+<!--                        </small>-->
+<!--                    </p>-->
+
+<!--                    <ul class="list-inline pb-3">-->
+<!--                        <li class="list-inline-item">Size :-->
+<!--                            <input type="hidden" name="product-size" id="product-size" value="S">-->
+<!--                        </li>-->
+<!--                        <li class="list-inline-item"><span class="btn btn-success btn-size">S</span>-->
+<!--                        </li>-->
+<!--                        <li class="list-inline-item"><span class="btn btn-success btn-size">M</span>-->
+<!--                        </li>-->
+<!--                        <li class="list-inline-item"><span class="btn btn-success btn-size">L</span>-->
+<!--                        </li>-->
+<!--                        <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+
+
+<!--                    <div class="d-flex justify-content-between">-->
+<!--                        <div class="d-flex">-->
+<!--                            <div>Số lượng còn lại : </div>-->
+<!--                            <div class="ms-1">000</div>-->
+<!--                        </div>-->
+
+<!--                        <div class="card-text text-end ">-->
+<!--                            <small class="text-body-secondary ">-->
+<!--                                <div class="text-end">-->
+<!--                                    <ul class="list-inline pb-3">-->
+
+<!--                                        <li class="list-inline-item"><span class="btn btn-success"-->
+<!--                                                                           id="btn-minus">-</span></li>-->
+<!--                                        <li class="list-inline-item"><span class="badge bg-secondary"-->
+<!--                                                                           id="var-value">1</span></li>-->
+<!--                                        <li class="list-inline-item"><span class="btn btn-success"-->
+<!--                                                                           id="btn-plus">+</span></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </small>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+

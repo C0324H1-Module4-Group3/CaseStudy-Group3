@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ISKProductRepository extends JpaRepository<SkuProduct,Long> {
+public interface ISKProductRepository extends JpaRepository<SkuProduct,Integer> {
 }
