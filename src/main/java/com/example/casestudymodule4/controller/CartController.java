@@ -31,6 +31,4 @@ public class CartController {
         cartService.delete(cartId);
         return "redirect:/cart?id=1";
     }
-
-
 }
