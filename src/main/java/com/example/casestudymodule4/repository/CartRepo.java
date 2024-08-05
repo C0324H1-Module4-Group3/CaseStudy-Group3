@@ -9,11 +9,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CartRepo extends JpaRepository<Cart,Integer> {
+public interface CartRepo extends JpaRepository<Cart, Integer>, CrudRepository<Cart, Integer> {
     @Query("SELECT c FROM Cart c " +
             "JOIN FETCH c.sku sp " +
             "JOIN FETCH sp.product p " +
             "JOIN FETCH c.customer u " +
             "WHERE u.id = :userId")
     List<Cart> findCartsByUserId(Integer userId);
+
+
 }

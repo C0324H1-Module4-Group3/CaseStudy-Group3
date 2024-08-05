@@ -25,7 +25,7 @@ public class OrderController {
 //        return "manager-order";
 //    }
 
-    @GetMapping("order")
+    @GetMapping("/order")
     public String listOrdersDate(Model model,
                                  @RequestParam(value = "startDate", defaultValue = "") String startDate,
                                  @RequestParam(value = "endDate", defaultValue = "") String endDate,

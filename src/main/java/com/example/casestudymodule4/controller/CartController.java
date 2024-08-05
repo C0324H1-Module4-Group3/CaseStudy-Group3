@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -20,7 +21,7 @@ public class CartController {
 
     @GetMapping("")
     private String showCart(@RequestParam("id") Integer UserId, Model model) {
-        List<Cart> carts = cartService.findCartsByUserId(UserId);
+        Iterable<Cart> carts = cartService.findCartsByUserId(UserId);
         model.addAttribute("cart", carts);
         int totalBill = cartService.totalBill(carts);
         model.addAttribute("total",totalBill);
