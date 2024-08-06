@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.controller;
 
+import com.example.casestudymodule4.dto.MonthlyRevenueDTO;
 import com.example.casestudymodule4.dto.OrderDetailDTO;
 import com.example.casestudymodule4.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,4 +38,14 @@ public class OrderController {
         model.addAttribute("endDate", endDate);
         return "manager-order";
     }
+
+    @GetMapping("admin")
+    public String showAdminPage(Model model) {
+        int currentYear = LocalDate.now().getYear();
+        List<MonthlyRevenueDTO> revenues = orderService.getMonthlyRevenueByYear(currentYear);
+        model.addAttribute("revenues", revenues);
+        return "admin/index";
+    }
+
+
 }
