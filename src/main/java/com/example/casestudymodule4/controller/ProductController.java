@@ -1,7 +1,9 @@
 package com.example.casestudymodule4.controller;
 
 import com.example.casestudymodule4.model.Product;
+import com.example.casestudymodule4.model.SkuProduct;
 import com.example.casestudymodule4.service.IProductService;
+import com.example.casestudymodule4.service.ISKProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,8 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private IProductService productService;
+    @Autowired
+    private ISKProductService iskProductService;
 
     @GetMapping
     public String home() {
@@ -57,16 +61,15 @@ public class ProductController {
 
         return "/shop";
     }
-//    @GetMapping("/shop-single")
+
+    //    @GetMapping("/shop-single")
 //    public String shopSingle() {
 //        return "/shop-single";
 //    }
-    @GetMapping("/shop-single")
-    public String productId(@RequestParam Integer productId, Model model) {
-        Product product = productService.findProductById(productId);
-        model.addAttribute("product", product);
-        System.out.println(product.toString());
+    @GetMapping("/shop-single/{id}")
+    public String getProductDetail(@PathVariable Integer id, Model model) {
+        SkuProduct skuProduct = iskProductService.findById(id);
+        model.addAttribute("product", skuProduct);
         return "/shop-single";
     }
-
 }
