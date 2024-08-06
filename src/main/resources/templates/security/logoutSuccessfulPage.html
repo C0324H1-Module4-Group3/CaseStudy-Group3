@@ -1,11 +1,14 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <title>Logout</title>
+    <script type="text/javascript">
+        function Redirect() {
+            window.location = "http://localhost:8080/home";
+        }
+        setTimeout('Redirect()', 3000);
+        window.onload(Redirect);
+    </script>
 </head>
-
 <body>
-<h1>Logout Successful!</h1>
+<h1>Logout Successfully</h1>
 </body>
-
 </html>

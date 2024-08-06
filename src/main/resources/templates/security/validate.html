@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        function Redirect() {
+            window.location = "http://localhost:8080/home";
+        }
+        setTimeout('Redirect()', 3000);
+        window.onload(Redirect);
+    </script>
+</head>
+<body class="bg-body-tertiary">
+<nav th:replace="index :: navbar">
+</nav>
+<p th:if="${message!=null}" th:>
+    <span class="message" th:text="${message}"></span>
+</p>
+<nav th:replace="index :: footer">
+</nav>
+</body>
+</html>
