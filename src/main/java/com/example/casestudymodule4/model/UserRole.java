@@ -47,4 +47,12 @@ public class UserRole {
     public void setAppRole(AppRole appRole) {
         this.appRole = appRole;
     }
+
+    public UserRole() {
+    }
+
+    public UserRole(User user, AppRole appRole) {
+        this.user = user;
+        this.appRole = appRole;
+    }
 }
