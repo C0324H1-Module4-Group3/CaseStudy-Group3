@@ -27,8 +27,8 @@ public class OrderController {
 
     @GetMapping("order")
     public String listOrdersDate(Model model,
-                                 @RequestParam(value = "startDate", defaultValue = "") String startDate,
-                                 @RequestParam(value = "endDate", defaultValue = "") String endDate,
+                                 @RequestParam(value = "startDate", defaultValue = "2024-01-01") String startDate,
+                                 @RequestParam(value = "endDate", defaultValue = "2024-01-01") String endDate,
                                  @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<OrderDetailDTO> orderDetailDTOs = orderService.findAllByDate(startDate, endDate, PageRequest.of(page, 5));
         model.addAttribute("orderDetailDTOs", orderDetailDTOs);

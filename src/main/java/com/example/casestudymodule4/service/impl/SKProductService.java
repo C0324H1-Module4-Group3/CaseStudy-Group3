@@ -40,6 +40,11 @@ public class SKProductService implements ISKProductService {
     }
 
     @Override
+    public List<SkuProduct> searchSkuProducts(String keyword) {
+        return iskProductRepository.findByProductContaining(keyword);
+    }
+
+    @Override
     public SkuProduct findById(Integer id) {
         return iskProductRepository.findById(id).orElse(null);
     }
