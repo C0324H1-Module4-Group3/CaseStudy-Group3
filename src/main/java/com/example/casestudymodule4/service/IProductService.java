@@ -13,5 +13,5 @@ public interface IProductService extends IGenerateService<Product>{
     Product findProductById(Integer productId);
 
 
-
+    List<Product> searchProducts(String keyword);
 }
