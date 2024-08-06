@@ -24,32 +24,110 @@
     <!-- Custom CSS -->
     <link href="/admin/css/style.min.css" rel="stylesheet">
     <style>
+        /* Navbar */
+        .navbar {
+            background-color: #1e2125;
+            padding: 10px 20px;
+        }
+
         .navbar .nav-link {
-            color: white !important; /* Force the color to be white */
-            margin-right: 20px; /* Add space between nav items */
-            font-size: 16px; /* Ensure text size is readable */
+            color: #ffffff !important;
+            margin-right: 20px;
+            font-size: 16px;
+            transition: color 0.3s;
         }
 
         .navbar .nav-link:hover {
-            color: #17a2b8 !important; /* Change color on hover for better UX */
+            color: #17a2b8 !important;
+        }
+
+        .input-group {
+            width: 250px;
         }
 
         .input-group .form-control {
-            border-right: 0;
+            border-radius: 0;
+            border: 1px solid #ced4da;
         }
 
         .input-group .input-group-text {
-            background: white;
+            border-radius: 0;
             border-left: 0;
+            background: #ffffff;
         }
 
+        /* Nav Icon */
         .navbar .nav-icon {
-            margin-left: 20px; /* Add space between icons */
+            margin-left: 20px;
         }
 
         .navbar .fa {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
         }
+
+        /* Sidebar */
+        .left-sidebar {
+            background-color: #2c2f36;
+        }
+
+        .sidebar-nav .sidebar-link {
+            color: #ffffff;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-nav .sidebar-link:hover {
+            background-color: #17a2b8;
+        }
+
+        /* Page Wrapper */
+        .page-wrapper {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1e2125;
+            color: #ffffff;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        /* Card */
+        .card {
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            padding: 20px; /
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+        }
+
+        .card-subtitle {
+            color: #6c757d;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: #e9ecef;
+            border-radius: 0.25rem;
+            padding: 10px;
+        }
+
+        .breadcrumb-item a {
+            color: #17a2b8;
+        }
+
+        .breadcrumb-item.active {
+            color: #6c757d;
+        }
+
     </style>
 </head>
 
@@ -115,29 +193,31 @@
         <div class="scroll-sidebar">
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="index.html" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
-                            class="hide-menu">Dashboard</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="/admin/order" aria-expanded="false">
-                        <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Order Manager</span></a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="http://localhost:8080/admin  " aria-expanded="false">
+                            <img src="img/logodashboard.png" alt="New Icon" class="me-2" width="24" height="24" />
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
                     </li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="table-basic.html" aria-expanded="false"><i class="mdi me-2 mdi-table"></i><span
-                            class="hide-menu">Table</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="admin/manager" aria-expanded="false"><i
-                            class="mdi me-2 mdi-emoticon"></i><span class="hide-menu">Manager</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="map-google.html" aria-expanded="false"><i class="mdi me-2 mdi-earth"></i><span
-                            class="hide-menu">Google Map</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="pages-blank.html" aria-expanded="false"><i
-                            class="mdi me-2 mdi-book-open-variant"></i><span class="hide-menu">Blank</span></a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/order" aria-expanded="false">
+                            <img src="img/logoorder.png" alt="Order Icon" class="me-2 sidebar-icon" width="24" height="24" />
+                            <span class="hide-menu">Order Manager</span>
+                        </a>
                     </li>
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="pages-error-404.html" aria-expanded="false"><i
-                            class="mdi me-2 mdi-help-circle"></i><span class="hide-menu">404</span></a></li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin/manager" aria-expanded="false">
+                            <img src="/img/logomanager.png" alt="Manager Icon" class="me-2" width="24" height="24" />
+                            <span class="hide-menu">Manager</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/login" aria-expanded="false">
+                            <img src="/img/logologin.png" alt="Login Icon" class="me-2 sidebar-icon" width="24" height="24" />
+                            <span class="hide-menu">Login</span>
+                        </a>
+                    </li>
+
                     <li class="text-center p-20 upgrade-btn">
                         <a href="https://www.wrappixel.com/templates/materialpro/"
                            class="btn d-grid btn-danger text-white" target="_blank">
@@ -218,8 +298,8 @@
         </div>
 
         <footer class="footer text-center">
-            All Rights Reserved by WrapPixel. Designed and Developed by <a
-                href="https://www.wrappixel.com">WrapPixel</a>.
+           HERE WE GO MANCHESTER UNITED <a
+                href="http://localhost:8080/home">MUTV</a>.
         </footer>
     </div>
 </div>
