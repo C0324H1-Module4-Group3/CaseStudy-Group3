@@ -14,4 +14,6 @@ public interface IProductService extends IGenerateService<Product>{
 
 
     List<Product> searchProducts(String keyword);
+
+    Page<Product> fetchProducts(Pageable pageable);
 }
