@@ -11,14 +11,14 @@
         <div class="row">
             <div class="col-lg-5 mt-5">
                 <div class="card mb-3">
-                    <img class="card-img img-fluid" th:src="@{${product.imagePath}}" alt="Product image">
+                    <img class="card-img img-fluid" th:src="@{${skuProduct.imagePath}}" alt="Product image">
                 </div>
             </div>
             <div class="col-lg-7 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="h2" th:text="${product.product.name}"></h1>
-                        <p class="h3 py-2" th:text="'$' + ${product.price}"></p>
+                        <h1 class="h2" th:text="${product.name}"></h1>
+                        <p class="h3 py-2" th:text="'$' + ${skuProduct.price}"></p>
                         <p class="py-2">
                             <i class="fa fa-star text-warning"></i>
                             <i class="fa fa-star text-warning"></i>
@@ -27,9 +27,21 @@
                             <i class="fa fa-star text-warning"></i>
                             <span class="list-inline-item text-dark">Rating 5.0 | 36 Comments</span>
                         </p>
+                        <ul class="list-unstyled">
+                            <li><strong>Size: </strong><span th:text="${skuProduct.size}"></span></li>
+                            <li><strong>Quantity: </strong>
+                                <div class="input-group mb-3">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-decrease">-</button>
+                                    <input type="number" class="form-control text-center" id="quantity" value="1" min="1">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-increase">+</button>
+                                </div>
+                            </li>
+                            <li><strong>Color: </strong><span th:text="${skuProduct.color}"></span></li>
+                            <li><strong>Status: </strong><span th:text="${skuProduct.status}"></span></li>
+                        </ul>
                         <div class="row pb-3">
                             <div class="col d-grid">
-                                <a th:href="@{/cart/add/{id}(id=${product.id})}" class="btn btn-success btn-lg">Add To Cart</a>
+                                <a th:href="@{/cart/add/{id}(id=${skuProduct.id})}" class="btn btn-success btn-lg">Add To Cart</a>
                             </div>
                         </div>
                     </div>
@@ -43,5 +55,24 @@
 <script src="/js/jquery-1.11.0.min.js"></script>
 <script src="/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="/js/slick.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const decreaseButton = document.getElementById('button-decrease');
+        const increaseButton = document.getElementById('button-increase');
+        const quantityInput = document.getElementById('quantity');
+
+        decreaseButton.addEventListener('click', () => {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity > 1) {
+                quantityInput.value = quantity - 1;
+            }
+        });
+
+        increaseButton.addEventListener('click', () => {
+            let quantity = parseInt(quantityInput.value);
+            quantityInput.value = quantity + 1;
+        });
+    });
+</script>
 </body>
 </html>
