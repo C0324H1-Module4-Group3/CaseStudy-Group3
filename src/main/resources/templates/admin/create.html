@@ -12,67 +12,54 @@
             background-color: #f8f9fa;
             color: #343a40;
         }
-
         .navbar {
             padding: 10px 20px;
             font-size: 14px;
             background: #1e2125;
             color: white;
         }
-
         .navbar .navbar-brand {
             font-size: 18px;
         }
-
         .navbar .nav-link {
             color: white !important;
             margin-right: 15px;
             font-size: 14px;
         }
-
         .navbar .nav-link:hover {
             color: #17a2b8 !important;
         }
-
         .navbar .input-group {
             width: 20%;
         }
-
         .navbar .input-group .form-control {
             border-radius: 0;
         }
-
         .navbar .input-group .input-group-text {
             border-radius: 0;
             background: #343a40;
             color: #fff;
         }
-
         .navbar .nav-icon {
             font-size: 1rem;
             margin-left: 15px;
         }
-
         .navbar .fa {
             font-size: 1rem;
         }
-
         .container {
             max-width: 960px;
             margin: 0 auto;
             padding: 20px;
         }
-
         .form-control {
             border-radius: 0.25rem;
             box-shadow: none;
         }
-
         .form-label {
             font-weight: 600;
             color: #495057;
         }
-
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
@@ -80,16 +67,13 @@
             border-radius: 0.25rem;
             font-size: 16px;
         }
-
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #004085;
         }
-
         .table th, .table td {
             vertical-align: middle;
         }
-
         .table img {
             width: 50px;
             height: auto;
@@ -142,36 +126,43 @@
     </div>
 </nav>
 <div class="container">
-    <form method="post" th:object="${skuProduct}">
+    <form method="post" th:object="${skuProduct}" th:action="@{/admin/create}">
         <div class="mb-3">
             <label for="product" class="form-label">Sản phẩm</label>
             <select class="form-control" id="product" th:field="*{product}">
                 <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
             </select>
+            <div th:if="${#fields.hasErrors('product')}" th:errors="*{product}" class="text-danger"></div>
         </div>
         <div class="mb-3">
             <label for="size" class="form-label">Kích thước</label>
             <input type="text" class="form-control" id="size" th:field="*{size}"/>
+            <div th:if="${#fields.hasErrors('size')}" th:errors="*{size}" class="text-danger"></div>
         </div>
         <div class="mb-3">
             <label for="color" class="form-label">Màu sắc</label>
             <input type="text" class="form-control" id="color" th:field="*{color}"/>
+            <div th:if="${#fields.hasErrors('color')}" th:errors="*{color}" class="text-danger"></div>
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Giá</label>
             <input type="number" class="form-control" id="price" th:field="*{price}"/>
+            <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></div>
         </div>
         <div class="mb-3">
             <label for="imagePath" class="form-label">Đường dẫn hình ảnh</label>
             <input type="text" class="form-control" id="imagePath" th:field="*{imagePath}"/>
+            <div th:if="${#fields.hasErrors('imagePath')}" th:errors="*{imagePath}" class="text-danger"></div>
         </div>
         <div class="mb-3">
             <label for="quantity" class="form-label">Số lượng</label>
             <input type="number" class="form-control" id="quantity" th:field="*{quantity}"/>
+            <div th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="text-danger"></div>
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Trạng thái</label>
             <input type="text" class="form-control" id="status" th:field="*{status}"/>
+            <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="text-danger"></div>
         </div>
         <button type="submit" class="btn btn-primary">Thêm mới</button>
     </form>

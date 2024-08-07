@@ -39,7 +39,7 @@ public class OrderController {
         return "manager-order";
     }
 
-    @GetMapping("admin")
+    @GetMapping("chart")
     public String showAdminPage(Model model) {
         int currentYear = LocalDate.now().getYear();
         List<MonthlyRevenueDTO> revenues = orderService.getMonthlyRevenueByYear(currentYear);
