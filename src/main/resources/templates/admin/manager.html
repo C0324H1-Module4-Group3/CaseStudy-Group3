@@ -143,7 +143,7 @@
             <td th:text="${skuProduct.product.name}"></td>
             <td th:text="${skuProduct.size}"></td>
             <td th:text="${skuProduct.color}"></td>
-            <td th:text="${skuProduct.price}"></td>
+            <td th:text="${#numbers.formatDecimal(skuProduct.price, 0, 'COMMA', 1, 'POINT')} + ' $'" class="price"></td>
             <td><img th:src="@{${skuProduct.imagePath}}" alt="Product Image"></td>
             <td th:text="${skuProduct.quantity}"></td>
             <td th:text="${skuProduct.status}"></td>
