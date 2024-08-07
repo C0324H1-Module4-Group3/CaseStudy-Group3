@@ -5,8 +5,6 @@ import com.example.casestudymodule4.model.SkuProduct;
 import com.example.casestudymodule4.service.IProductService;
 import com.example.casestudymodule4.service.ISKProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,18 +19,31 @@ public class AdminProductController {
     private ISKProductService skproductService;
     @Autowired
     private IProductService productService;
+
     @GetMapping()
-    public String adminPage(){
+    public String adminPage() {
         return "admin/index";
     }
+
     @GetMapping("/manager")
-    public String managerPage(Model model) {
-        List<Product> products = productService.findAll();
-        List<SkuProduct> skuProducts = skproductService.findAll();
+    public String managerPage(Model model, @RequestParam(required = false) String keyword) {
+        List<Product> products;
+        List<SkuProduct> skuProducts;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            products = productService.searchProducts(keyword);
+            skuProducts = skproductService.searchSkuProducts(keyword);
+        } else {
+            products = productService.findAll();
+            skuProducts = skproductService.findAll();
+        }
+
         model.addAttribute("skuProducts", skuProducts);
-        model.addAttribute("products",products);
+        model.addAttribute("products", products);
+        model.addAttribute("keyword", keyword);
         return "admin/manager";
     }
+
     @GetMapping("create")
     public String showCreateForm(Model model) {
         SkuProduct skuProduct = new SkuProduct();
@@ -41,6 +52,7 @@ public class AdminProductController {
         model.addAttribute("products", products);
         return "admin/create";
     }
+
     @PostMapping("/create")
     public String createProduct(@ModelAttribute("skuProduct") SkuProduct skuProduct) {
         Product product = productService.findProductById(skuProduct.getProduct().getId());
@@ -48,26 +60,27 @@ public class AdminProductController {
         skproductService.save(skuProduct);
         return "redirect:/admin/manager";
     }
+
     @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable Integer id,
-                                RedirectAttributes redirect){
+    public String deleteProduct(@PathVariable Integer id, RedirectAttributes redirect) {
         skproductService.remove(id);
-        redirect.addFlashAttribute("message", "Delete product successfully");
+        redirect.addFlashAttribute("message", "Xóa sản phẩm thành công");
         return "redirect:/admin/manager";
     }
+
     @GetMapping("/update/{id}")
-    public String updateForm(@PathVariable Integer id,Model model){
+    public String updateForm(@PathVariable Integer id, Model model) {
         List<Product> products = productService.findAll();
         SkuProduct skuProduct = skproductService.findById(id);
-        model.addAttribute("products",products);
-        model.addAttribute("skuProduct",skuProduct);
+        model.addAttribute("products", products);
+        model.addAttribute("skuProduct", skuProduct);
         return "admin/update";
     }
+
     @PostMapping("/update/{id}")
-    public String updateProduct(@ModelAttribute("skuproducts") SkuProduct skuProduct,
-                                RedirectAttributes redirect){
+    public String updateProduct(@ModelAttribute("skuProduct") SkuProduct skuProduct, RedirectAttributes redirect) {
         skproductService.save(skuProduct);
-        redirect.addFlashAttribute("message", "Update product successfully");
+        redirect.addFlashAttribute("message", "Cập nhật sản phẩm thành công");
         return "redirect:/admin/manager";
     }
 }
