@@ -35,6 +35,17 @@ public class OrderService implements IOrderService {
         return orderRepository.getMonthlyRevenue(year);
     }
 
+    @Override
+    public Order findByCode(String code) {
+        return orderRepository.findByCode(code);
+    }
+
+    @Override
+    public void updateOrderStatus(Order order, String status) {
+        order.setStatus(status);
+        orderRepository.save(order);
+    }
+
 
     @Override
     public List<OrderDetailDTO> findAll() {
@@ -65,4 +76,5 @@ public class OrderService implements IOrderService {
     public void update(OrderDetailDTO orderDTO) {
 
     }
+
 }

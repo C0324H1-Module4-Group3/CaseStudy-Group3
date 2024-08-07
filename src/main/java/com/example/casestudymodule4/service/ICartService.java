@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ICartService {
 
-
+    void deleteCart();
     Iterable<Cart> findCartsByUserId(Integer userId);
 
     void delete(Integer cartId);
