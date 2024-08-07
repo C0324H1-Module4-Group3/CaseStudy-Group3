@@ -1,15 +1,20 @@
 package com.example.casestudymodule4.controller;
 
+import com.example.casestudymodule4.dto.MonthlyRevenueDTO;
 import com.example.casestudymodule4.model.Product;
 import com.example.casestudymodule4.model.SkuProduct;
+import com.example.casestudymodule4.service.IOrderService;
 import com.example.casestudymodule4.service.IProductService;
 import com.example.casestudymodule4.service.ISKProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping("/admin")
@@ -19,9 +24,14 @@ public class AdminProductController {
     private ISKProductService skproductService;
     @Autowired
     private IProductService productService;
+    @Autowired
+    private IOrderService orderService;
 
     @GetMapping()
-    public String adminPage() {
+    public String adminPage(Model model) {
+        int currentYear = LocalDate.now().getYear();
+        List<MonthlyRevenueDTO> revenues = orderService.getMonthlyRevenueByYear(currentYear);
+        model.addAttribute("revenues", revenues);
         return "admin/index";
     }
 
@@ -54,7 +64,13 @@ public class AdminProductController {
     }
 
     @PostMapping("/create")
-    public String createProduct(@ModelAttribute("skuProduct") SkuProduct skuProduct) {
+    public String createProduct(@Validated @ModelAttribute("skuProduct") SkuProduct skuProduct,
+                                BindingResult result,Model model) {
+        if (result.hasErrors()){
+            List<Product> products = productService.findAll();
+            model.addAttribute("products", products);
+            return "admin/create";
+        }
         Product product = productService.findProductById(skuProduct.getProduct().getId());
         skuProduct.setProduct(product);
         skproductService.save(skuProduct);
