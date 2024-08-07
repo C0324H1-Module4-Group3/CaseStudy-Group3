@@ -29,6 +29,11 @@ public class CartService implements ICartService {
     private ISKProductRepository iskProductRepository;
 
 
+    @Override
+    public void deleteCart() {
+        cartRepo.deleteAll();
+    }
+
     public Iterable<Cart> findCartsByUserId(Integer userId) {
         return cartRepo.findCartsByUserId(userId);
     }
@@ -118,7 +123,7 @@ public class CartService implements ICartService {
         order.setPaymentMethod("vnPay");
         order.setTotalMoney(formPayment.getTotalMoney());
         order.setCode(formPayment.getCode());
-        order.setStatus("chưa thanh toán");
+        order.setStatus("unpaid");
         User user = userRepository.findById(formPayment.getUserId()).orElse(null);
         order.setCustomer(user);
         orderRepository.save(order);

@@ -23,7 +23,7 @@ public class Order {
 
     private String code;
 
-    private String status = "chưa thanh toán";
+    private String status = "unpaid";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")

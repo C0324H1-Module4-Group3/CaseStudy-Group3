@@ -12,7 +12,9 @@ public interface ISKProductService extends IGenerateService<SkuProduct>{
     void remove(Integer id);
 
 
+
     SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id,String size);
+
 
 
     List<SkuProduct> searchSkuProducts(String keyword);

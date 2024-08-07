@@ -16,4 +16,5 @@ public interface IUserService {
     User getUserByUserName(String userName);
 
     void saveToken(VerificationToken userToken);
+
 }

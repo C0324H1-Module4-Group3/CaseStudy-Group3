@@ -15,7 +15,7 @@
 <div class="container bg-body-white mb-5 shadow rounded" style="margin-top: 150px">
     <div class="row">
 
-        <div class="col-sm-8 p-1">
+        <div class="col-sm-8 p-0">
 
             <div class="card mb-1" th:each="c : ${cart}">
                 <div class="row g-0">
@@ -163,7 +163,9 @@
 <div class="modal" tabindex="-1" id="exampleModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="/cart/create" method="post" th:object="${payment}">
+
+            <form th:action="@{/payment/submitOrder}" method="post" th:object="${payment}">
+
                 <div class="modal-header">
                     <h2 class="modal-title">Thông tin thanh toán </h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -193,8 +195,11 @@
                     <div class="form-group">
                         <label for="Code">Code :</label>
 
-                        <p class="form-control" id="Code" th:text="${code}"></p>
-                        <input type="hidden" th:value="${code}" name="code">
+
+                        <p  class="form-control" id="Code" th:text="${code}" ></p>
+                        <input type="hidden"  th:value="${code}" name="code">
+                        <input type="hidden"  th:value="${user.userName}" name="userName">
+
 
                     </div>
 
