@@ -65,9 +65,15 @@ public class CartController {
         return "redirect:/cart?id=1";
     }
 
+
     @PostMapping("/create")
     private String save(@ModelAttribute("payment") FormPayment formPayment) {
         cartService.save(formPayment);
         return "redirect:/cart?id=1";
     }
+
+//    @PostMapping("/add/{skuId")
+//    private String addToCart(@PathVariable("skuId") Integer skuId,
+//                             @RequestParam())
+
 }

@@ -3,6 +3,12 @@
 
 <head th:replace="/index :: head">
 </head>
+<style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+</style>
 <body>
    <nav th:replace="index :: navbar"></nav>
 
@@ -71,19 +77,22 @@
                 </div>
                 <div class="row">
 
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src="/img/aodau1.png">
+                    <div class="col-md-4"  th:each="products : ${products}">
+                        <div class="card mb-4 product-wap rounded-0" >
+                            <div class="card rounded-0" >
+                                <img class="card-img rounded-0 img-fluid" th:src="@{'/img/' + ${products.imagePath}}">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <a class="btn btn-success text-white mt-2" th:href="@{/home/shop-single/{id}(id=${products.id})}">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+<!--                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>-->
                                         <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
+                                <a href="shop-single.html" class="h3 text-decoration-none" th:text="${products.name}"></a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li>M/L/X/XL</li>
                                     <li class="pt-2">
@@ -108,19 +117,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
-                        </li>
+                <th:block th:if="${totalPages > 0}">
+                    <div class="pagination d-flex justify-content-center mt-5">
                         <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
+                            <a th:class="${currentPage == 1} ? 'disabled page-link' : 'page-link'"
+                               th:href="@{/home/shop(page=${currentPage - 1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
                         </li>
+                        <th:block th:each="i, status : ${#numbers.sequence(1, totalPages)}">
+                            <li class="page-item">
+                                <a th:class="${i == currentPage} ? 'active page-link' : 'page-link'"
+                                   th:href="@{/home/shop(page=${i})}">
+                                    <span th:text="${i}">1</span>
+                                </a>
+                            </li>
+                        </th:block>
                         <li class="page-item">
-                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
+                            <a th:class="${currentPage == totalPages} ? 'disabled page-link' : 'page-link'"
+                               th:href="@{/home/shop(page=${currentPage + 1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
                         </li>
-                    </ul>
-                </div>
+                    </div>
+                </th:block>
+
             </div>
 
         </div>
