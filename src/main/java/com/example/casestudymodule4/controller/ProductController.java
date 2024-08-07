@@ -67,9 +67,15 @@ public class ProductController {
 //        return "/shop-single";
 //    }
     @GetMapping("/shop-single/{id}")
-    public String getProductDetail(@PathVariable Integer id, Model model) {
+    public String getProduct(@PathVariable("id") Integer id, Model model) {
         SkuProduct skuProduct = iskProductService.findById(id);
-        model.addAttribute("product", skuProduct);
-        return "/shop-single";
+        if (skuProduct != null) {
+            model.addAttribute("skuProduct", skuProduct);
+            model.addAttribute("product", skuProduct.getProduct());
+        } else {
+            // Handle the case where skuProduct is not found
+            return "error";
+        }
+        return "shop-single";
     }
 }
