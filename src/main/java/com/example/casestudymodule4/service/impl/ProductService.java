@@ -57,4 +57,14 @@ public class ProductService implements IProductService {
     public Product findProductById(Integer productId) {
         return productRepository.findById(productId).orElse(null);
     }
+
+    @Override
+    public List<Product> searchProducts(String keyword) {
+        return productRepository.findByNameContaining(keyword);
+    }
+
+    @Override
+    public Page<Product> fetchProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
 }

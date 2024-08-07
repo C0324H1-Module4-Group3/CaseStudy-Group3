@@ -13,5 +13,7 @@ public interface IProductService extends IGenerateService<Product>{
     Product findProductById(Integer productId);
 
 
+    List<Product> searchProducts(String keyword);
 
+    Page<Product> fetchProducts(Pageable pageable);
 }

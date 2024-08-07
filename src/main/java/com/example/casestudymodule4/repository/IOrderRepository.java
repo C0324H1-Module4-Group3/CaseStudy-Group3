@@ -1,11 +1,15 @@
 package com.example.casestudymodule4.repository;
 
+import com.example.casestudymodule4.dto.MonthlyRevenueDTO;
 import com.example.casestudymodule4.dto.OrderDetailDTO;
 import com.example.casestudymodule4.model.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface IOrderRepository extends JpaRepository<Order, Integer> {
 
@@ -59,6 +63,18 @@ public interface IOrderRepository extends JpaRepository<Order, Integer> {
             "GROUP BY\n" +
             "    o.id, u.name, p.name, c.name;")
     Page<OrderDetailDTO> findAllByDate(String startDate, String endDate, Pageable pageable);
+
+    @Query(nativeQuery = true, value = "WITH monthly_revenue AS (" +
+            "SELECT DATE_FORMAT(o.booking_date, '%Y-%m') AS month_year, " +
+            "SUM(od.quantity * sp.price) AS total_revenue " +
+            "FROM orders o " +
+            "JOIN order_details od ON o.id = od.order_id " +
+            "JOIN sku_products sp ON od.sku_id = sp.id " +
+            "WHERE YEAR(o.booking_date) = :year " +
+            "GROUP BY month_year " +
+            "ORDER BY month_year) " +
+            "SELECT * FROM monthly_revenue")
+    List<MonthlyRevenueDTO> getMonthlyRevenue(@Param("year") int year);
 }
 
 

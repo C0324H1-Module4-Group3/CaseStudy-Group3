@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class SKProductService implements ISKProductService {
     @Autowired
@@ -40,8 +41,12 @@ public class SKProductService implements ISKProductService {
     }
 
     @Override
-    public SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id,String size) {
-        return iskProductRepository.findSkuProductByIdEqualsAndSizeEquals(id ,size);
+    public SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id, String size) {
+        return iskProductRepository.findSkuProductByIdEqualsAndSizeEquals(id, size);
+    }
+
+    public List<SkuProduct> searchSkuProducts(String keyword) {
+        return iskProductRepository.findByProductContaining(keyword);
     }
 
     @Override
@@ -59,3 +64,4 @@ public class SKProductService implements ISKProductService {
         iskProductRepository.save(product);
     }
 }
+

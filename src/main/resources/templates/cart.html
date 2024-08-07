@@ -101,9 +101,13 @@
 
                                                 <li class="list-inline-item"><span class="btn btn-success btn-minus "
                                                                                    th:data-id="${c.id}">-</span></li>
-                                                <li class="list-inline-item"><span class="badge bg-secondary"
-                                                                                   id="var-value"
-                                                                                   th:text="${c.quantity}"></span></li>
+                                                <li class="list-inline-item">
+                                                    <span class="badge bg-secondary" id="var-value"
+                                                          th:data-quantity="${c.sku.quantity}"
+                                                          th:data-current="${c.quantity}"
+                                                          th:text="${c.quantity}">
+                                                    </span>
+                                                </li>
                                                 <li class="list-inline-item"><span class="btn btn-success btn-plus "
                                                                                    th:data-id="${c.id}">+</span></li>
                                             </ul>
@@ -127,9 +131,10 @@
                 <div class="row g-0">
 
                     <div>
-                        <div class="card-body border-bottom ">
+
+                        <div class="card-body border-bottom elementBill">
                             <h5 class="card-title">Thanh toán</h5>
-                            <div class="d-flex justify-content-between elementBill" th:each="c : ${cart}">
+                            <div class="d-flex justify-content-between " th:each="c : ${cart}">
                                 <p th:text="${c.sku.product.name}"></p>
                                 <p>:</p>
                                 <div class="justify-content-end d-flex">
@@ -158,36 +163,38 @@
 <div class="modal" tabindex="-1" id="exampleModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="/cart/create"  method="post" th:object="${payment}">
+            <form action="/cart/create" method="post" th:object="${payment}">
                 <div class="modal-header">
                     <h2 class="modal-title">Thông tin thanh toán </h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img src="https://s-vnba-cdn.aicms.vn/vnba-media/23/8/16/vnpay-logo_64dc3da9d7a11.jpg" alt="" style="width: 200px">
+                    <img src="https://s-vnba-cdn.aicms.vn/vnba-media/23/8/16/vnpay-logo_64dc3da9d7a11.jpg" alt=""
+                         style="width: 200px">
 
                     <div class="form-group">
                         <label for="userId">Your Email :</label>
-                        <p class="form-control" id="userId" th:text="${user.name}" ></p>
-                            <input type="hidden" th:value="${userId}" name="userId">
+                        <p class="form-control" id="userId" th:text="${user.name}"></p>
+                        <input type="hidden" th:value="${userId}" name="userId">
                     </div>
 
                     <div class="form-group">
                         <label for="totalMoney">TotalMoney :</label>
-                        <p class="form-control" id="totalMoney"  th:text="${total}" ></p>
+                        <p class="form-control" id="totalMoney" th:text="${total}"></p>
                         <input type="hidden" th:value="${total}" name="totalMoney">
                     </div>
 
                     <div class="form-group">
                         <label for="delivery_address">Delivery address :</label>
-                        <input type="text" class="form-control" id="delivery_address" name="delivery_address" th:field="*{delivery_address}">
+                        <input type="text" class="form-control" id="delivery_address" name="delivery_address"
+                               th:field="*{delivery_address}">
                     </div>
 
                     <div class="form-group">
                         <label for="Code">Code :</label>
 
-                        <p  class="form-control" id="Code" th:text="${code}" ></p>
-                        <input type="hidden"  th:value="${code}" name="code">
+                        <p class="form-control" id="Code" th:text="${code}"></p>
+                        <input type="hidden" th:value="${code}" name="code">
 
                     </div>
 
@@ -207,9 +214,11 @@
 <script>
     function confirmDelete(event, element) {
         event.preventDefault();
-        var confirmation = confirm("Xóa hả chắc chưa")
+        let confirmation = confirm("Xóa hả chắc chưa")
         if (confirmation) {
-            window.location.href = element.getAttribute('href');
+            setTimeout(() => {
+                window.location.href = element.getAttribute('href')
+            }, 3000);
             showAlert("Xóa thành công", "message")
 
         }

@@ -33,8 +33,8 @@ public class CartController {
         String code = cartService.getRandomCode();
         User user = userService.findById(userid);
 
-        model.addAttribute("user",user );
-        model.addAttribute("code",code);
+        model.addAttribute("user", user);
+        model.addAttribute("code", code);
         model.addAttribute("cart", carts);
         model.addAttribute("payment", new FormPayment());
         model.addAttribute("total", totalBill);
@@ -65,9 +65,11 @@ public class CartController {
         return "redirect:/cart?id=1";
     }
 
+
     @PostMapping("/create")
     private String save(@ModelAttribute("payment") FormPayment formPayment) {
         cartService.save(formPayment);
         return "redirect:/cart?id=1";
     }
+
 }

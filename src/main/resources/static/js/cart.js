@@ -9,32 +9,36 @@ $('.btn-minus').click(function () {
         url: "http://localhost:8080/api/carts/minusQuantity/" + cartID,
         success: function () {
             moneyTotal()
-            elementBill()
+            elementBilll()
         }
     })
 
-    alert("nhu cc")
+
 });
 
 $('.btn-plus').click(function () {
-    var cartID = $(this).data('id');
-    var val = $(this).closest(".list-inline").find("#var-value").html();
+    let cartID = $(this).data('id');
 
-    // var val = $("#var-value").html();
-    val++;
-    $(this).closest(".list-inline").find("#var-value").html(val);
-    // $("#var-value").html(val);
-    $.ajax({
-        type: "post",
-        url: "http://localhost:8080/api/carts/addQuantity/" + cartID,
-        success: function () {
-            moneyTotal()
-            elementBill()
-        }
+    let val = $(this).closest(".list-inline").find("#var-value").html();
+    let quantityCart = Number(val)
 
-    })
-    alert("nhu lol")
+    let quantitySku = $(this).closest(".list-inline").find("#var-value").data('quantity');
+
+    if (quantitySku >= quantityCart + 1) {
+        quantityCart ++;
+        $(this).closest(".list-inline").find("#var-value").html(quantityCart);
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/api/carts/addQuantity/" + cartID,
+            success: function () {
+                moneyTotal()
+                elementBilll()
+            }
+        })
+    }
 });
+
+
 
 function moneyTotal() {
     $.ajax({
@@ -67,24 +71,24 @@ $('.btn-size').click(function () {
 
     })
 });
-function elementBill(){
+
+function elementBilll() {
     $.ajax({
         type: "get",
-        url: "http://localhost:8080/api/carts/1",
+        url: "http://localhost:8080/api/carts/cart/1",
         success: function (data) {
             console.log(data)
             let html = ``;
-            $.each(data.content,function (index,el){
-                console.log(el)
-        html+= (`
-            <div class="d-flex justify-content-between elementBill">
-                    <p>a6s5d65as4d65</p>
+            $.each(data, function (index, el) {
+                html += (`
+            <div class="d-flex justify-content-between ">
+                    <p>${el.name}</p>
                     <p>:</p>
                     <div class="justify-content-end d-flex">
-                    <p  class="zz text-end me-1">3a2sd321a3s21</p> ($)
+                    <p  class="zz text-end me-1">${el.price*el.quantity}</p> ($)
                     </div>
                 </div>
-`)
+                `)
             })
             $(".elementBill").html(html);
         }

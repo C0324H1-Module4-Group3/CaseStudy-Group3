@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.service.impl;
 
+import com.example.casestudymodule4.dto.MonthlyRevenueDTO;
 import com.example.casestudymodule4.dto.OrderDetailDTO;
 import com.example.casestudymodule4.model.Order;
 import com.example.casestudymodule4.repository.IOrderRepository;
@@ -27,6 +28,11 @@ public class OrderService implements IOrderService {
     @Override
     public Iterable<OrderDetailDTO> getAll() {
         return orderRepository.getOrderDetailDTO();
+    }
+
+    @Override
+    public List<MonthlyRevenueDTO> getMonthlyRevenueByYear(int year) {
+        return orderRepository.getMonthlyRevenue(year);
     }
 
 
