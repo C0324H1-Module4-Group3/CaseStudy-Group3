@@ -27,13 +27,15 @@ public class AdminProductController {
     @Autowired
     private IOrderService orderService;
 
-    @GetMapping()
-    public String adminPage(Model model) {
-        int currentYear = LocalDate.now().getYear();
-        List<MonthlyRevenueDTO> revenues = orderService.getMonthlyRevenueByYear(currentYear);
+    @GetMapping("")
+    public String adminPage(Model model,
+                            @RequestParam(value = "year", defaultValue = "2024") int year) {
+        List<MonthlyRevenueDTO> revenues = orderService.getMonthlyRevenueByYear(year);
         model.addAttribute("revenues", revenues);
+        model.addAttribute("year", year);
         return "admin/index";
     }
+
 
     @GetMapping("/manager")
     public String managerPage(Model model, @RequestParam(required = false) String keyword) {
