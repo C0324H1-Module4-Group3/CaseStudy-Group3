@@ -39,13 +39,13 @@ public class OrderController {
         return "manager-order";
     }
 
-    @GetMapping("chart")
-    public String showAdminPage(Model model) {
-        int currentYear = LocalDate.now().getYear();
-        List<MonthlyRevenueDTO> revenues = orderService.getMonthlyRevenueByYear(currentYear);
-        model.addAttribute("revenues", revenues);
-        return "admin/index";
-    }
+//    @GetMapping("chart")
+//    public String showAdminPage(Model model) {
+//        int currentYear = LocalDate.now().getYear();
+//        List<MonthlyRevenueDTO> revenues = orderService.getMonthlyRevenueByYear(currentYear);
+//        model.addAttribute("revenues", revenues);
+//        return "admin/index";
+//    }
 
 
 }
