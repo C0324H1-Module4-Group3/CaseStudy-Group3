@@ -32,4 +32,7 @@ public class CartController {
         cartService.delete(cartId);
         return "redirect:/cart?id=1";
     }
+//    @PostMapping("/add/{skuId")
+//    private String addToCart(@PathVariable("skuId") Integer skuId,
+//                             @RequestParam())
 }
