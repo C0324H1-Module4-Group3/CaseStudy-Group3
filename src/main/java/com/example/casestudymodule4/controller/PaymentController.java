@@ -2,24 +2,37 @@ package com.example.casestudymodule4.controller;
 
 
 import com.example.casestudymodule4.configure.payment.VNPayService;
+import com.example.casestudymodule4.dto.FormPayment;
+import com.example.casestudymodule4.model.Order;
+import com.example.casestudymodule4.service.ICartService;
+import com.example.casestudymodule4.service.IOrderService;
+import com.example.casestudymodule4.service.IUserService;
+import com.example.casestudymodule4.service.impl.UserService;
 import com.example.casestudymodule4.service.payment.MailService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 
 @Controller
+@RequestMapping("/payment")
 public class PaymentController {
+    @Autowired
+    private IOrderService orderService;
+    @Autowired
+    private ICartService cartService;
     @Autowired
     private VNPayService vnPayService;
     @Autowired
     MailService mailService;
+    @Autowired
+    private IUserService userService;
 
 
 
@@ -30,29 +43,46 @@ public class PaymentController {
 
 
     @PostMapping("/submitOrder")
-    public String submidOrder(@RequestParam("amount") int orderTotal,
-                            @RequestParam("orderInfo") String orderInfo,
+    public String submidOrder(@ModelAttribute("payment") FormPayment formPayment
+            ,@RequestParam("totalMoney") int orderTotal,
+                            @RequestParam("userName") String userName,
+                            @RequestParam("code") String orderInfo,
+            HttpSession session,
                             HttpServletRequest request) throws UnsupportedEncodingException {
+        session.setAttribute("userName", userName);
+        cartService.save(formPayment);
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
         return "redirect:" + vnpayUrl;
     }
 
     @GetMapping("/vnpay-payment")
-    public ModelAndView GetMapping(HttpServletRequest request){
+    public ModelAndView GetMapping(HttpSession session, HttpServletRequest request){
         int paymentStatus =vnPayService.orderReturn(request);
-
-        String orderInfo = request.getParameter("vnp_OrderInfo");
+        String userName = (String) session.getAttribute("userName");
+            String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
-        String totalPrice = request.getParameter("vnp_Amount");
+        Double totalPrice = Double.valueOf(request.getParameter("vnp_Amount"));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("orderId", orderInfo);
         modelAndView.addObject("totalPrice", totalPrice);
         modelAndView.addObject("paymentTime", paymentTime);
         modelAndView.addObject("transactionId", transactionId);
-        modelAndView.setViewName("payment/ordersuccess");
-        String emailStatus =mailService.sendMail(orderInfo,paymentTime,transactionId,totalPrice);
+        modelAndView.setViewName("payments/ordersuccess");
+        if(paymentStatus == 1){
+            cartService.deleteCart();
+            Order order = orderService.findByCode(orderInfo);
+            if(order != null){
+                orderService.updateOrderStatus(order,"Payment success");
+            }
+        }else if (paymentStatus==0){
+            Order order = orderService.findByCode(orderInfo);
+            if(order != null){
+                orderService.updateOrderStatus(order,"Payment failed");
+            }
+        }
+        String emailStatus =mailService.sendMail(orderInfo,paymentTime,transactionId,totalPrice,userName);
         modelAndView.addObject("emailStatus", emailStatus);
         return  modelAndView;
     }

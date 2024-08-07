@@ -1,6 +1,7 @@
 package com.example.casestudymodule4.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,11 +12,18 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "orders", schema = "module4_shop")
-public class    Order {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+
+    @Min(value = 0)
+    private Float totalMoney;
+
+    private String code;
+
+    private String status = "unpaid";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")

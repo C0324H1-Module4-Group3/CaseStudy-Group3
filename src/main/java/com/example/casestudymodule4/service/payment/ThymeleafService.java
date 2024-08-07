@@ -15,7 +15,7 @@ public class ThymeleafService {
     private static final String MAIL_TEMPLATE_SUFFIX = ".html";
     private static final String UTF_8 = "UTF-8";
 
-    private static final String TEMPLATE_NAME = "ordersuccess";
+    private static final String TEMPLATE_NAME = "payment/ordersuccess";
 
     private static TemplateEngine templateEngine;
 
@@ -45,27 +45,7 @@ public class ThymeleafService {
         templateResolver.setCacheable(false);
         return templateResolver;
     }
-
-//    public String getContent() {
-//        final Context context = new Context();
-//
-//        context.setVariable("name", "Messi");
-//        context.setVariable("project_name", "spring-email-with-thymeleaf Demo");
-//
-//        return templateEngine.process(TEMPLATE_NAME, context);
-//    }
-//    public String getContent(String orderInfo, String paymentTime, String transactionId, String totalPrice) {
-//        // Sử dụng các tham số để tạo nội dung email
-//        String content = "<html><body>";
-//        content += "<h1>Order Information</h1>";
-//        content += "<p>Order ID: " + orderInfo + "</p>";
-//        content += "<p>Payment Time: " + paymentTime + "</p>";
-//        content += "<p>Transaction ID: " + transactionId + "</p>";
-//        content += "<p>Total Price: " + totalPrice + "</p>";
-//        content += "</body></html>";
-//        return content;
-//    }
-public String getContent(String orderInfo, String paymentTime, String transactionId, String totalPrice) {
+public String getContent(String orderInfo, String paymentTime, String transactionId, Double totalPrice) {
     // Sử dụng các tham số để tạo nội dung email
     String content = "<!DOCTYPE html>"
             + "<html xmlns:th=\"http://www.thymeleaf.org\">"
@@ -102,7 +82,7 @@ public String getContent(String orderInfo, String paymentTime, String transactio
             + "<table class=\"order-table\">"
             + "<tbody>"
             + "<tr><td>Thông tin đơn hàng:</td><td>" + orderInfo + "</td></tr>"
-            + "<tr><td>Tổng tiền:</td><td>" + totalPrice + "</td></tr>"
+            + "<tr><td>Tổng tiền:</td><td>" + totalPrice/100+"$" + "</td></tr>"
             + "<tr><td>Thời gian thanh toán:</td><td>" + paymentTime + "</td></tr>"
             + "<tr><td>Mã giao dịch:</td><td>" + transactionId + "</td></tr>"
             + "</tbody>"

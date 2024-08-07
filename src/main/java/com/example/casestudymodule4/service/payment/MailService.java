@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.service.payment;
 
+import com.example.casestudymodule4.service.IUserService;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Properties;
 
 @Service
@@ -21,11 +23,12 @@ public class MailService {
     private String email;
     @Value("vdtkhmqeouxlfzlc")
     private String password;
-
+    @Autowired
+    private IUserService userService;
     @Autowired
     ThymeleafService thymeleafService;
 
-    public String sendMail(String oderInfo,String paymentTime,String transactionId,String totalPrice) {
+    public String sendMail(String oderInfo,String paymentTime,String transactionId,Double totalPrice,String userName) {
         Properties props = new Properties();
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.starttls.enable", "true");
@@ -41,7 +44,8 @@ public class MailService {
                 });
         Message message = new MimeMessage(session);
         try {
-            message.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress("phongton219@gmail.com")});
+
+            message.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress(userName)});
 
             message.setFrom(new InternetAddress(email));
             message.setSubject("Spring-email-with-thymeleaf subject");

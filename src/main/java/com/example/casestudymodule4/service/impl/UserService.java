@@ -24,7 +24,7 @@ public class UserService implements IUserService {
     private IVerificationTokenRepository verificationTokenRepository;
     @Override
     public User findById(Integer id) {
-        return null;
+        return userRepository.findById(id).orElse(null);
     }
     @Override
     public boolean save(UserDto userDto) {
