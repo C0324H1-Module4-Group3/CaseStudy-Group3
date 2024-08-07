@@ -1,8 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ManchesterUnited</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logomu.svg">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/templatemo.css">
+    <link rel="stylesheet" href="/css/custom.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .carousel-item{
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+
+    </style>
     <script type="text/javascript">
         function Redirect() {
             window.location = "http://localhost:8080/home";
@@ -12,12 +37,13 @@
     </script>
 </head>
 <body class="bg-body-tertiary">
+
 <nav th:replace="index :: navbar">
 </nav>
-<p th:if="${message!=null}" th:>
+
+<div class="container-fluid" style="padding-top: 160px; color: darkgoldenrod; font-style: italic; font-weight: bolder" th:if="${message} != null">
     <span class="message" th:text="${message}"></span>
-</p>
-<nav th:replace="index :: footer">
-</nav>
+</div>
+
 </body>
 </html>
