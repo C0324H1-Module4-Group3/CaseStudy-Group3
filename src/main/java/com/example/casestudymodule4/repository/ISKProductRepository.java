@@ -9,6 +9,11 @@ import java.util.List;
 
 @Repository
 public interface ISKProductRepository extends JpaRepository<SkuProduct,Integer> {
+
+    SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id,String size);
+    SkuProduct findSkuProductByProductIdAndSize(Integer productId,String size);
+
     @Query("SELECT s FROM SkuProduct s JOIN s.product p WHERE p.name LIKE %:keyword%")
     List<SkuProduct> findByProductContaining(String keyword);
+
 }

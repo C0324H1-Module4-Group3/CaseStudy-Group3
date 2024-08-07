@@ -81,8 +81,7 @@ public class ProductController {
             model.addAttribute("skuProduct", skuProduct);
             model.addAttribute("product", skuProduct.getProduct());
         } else {
-            // Handle the case where skuProduct is not found
-            return "error";
+            return "/error/error";
         }
         return "shop-single";
     }

@@ -317,50 +317,24 @@
     <input type="number" id="yearInput" name="year" th:value="${currentYear}" min="2000" max="2100">
     <button type="submit">Cập nhật biểu đồ</button>
 </form>
-<!--<script>-->
-<!--    document.addEventListener("DOMContentLoaded", function() {-->
-<!--        console.log(`[[${a}]]`)-->
-<!--        let label1 = [];-->
-<!--        let series1=[];-->
-<!--        for (let i = 0; i < `[[${revenues.size()}]]`; i++) {-->
-<!--            label1.push(revenues[i].monthYear);-->
-<!--            series1.push(revenues[i].totalRevenue);-->
-<!--        }-->
-<!--        var data = {-->
-<!--            labels: label1,-->
-<!--            series: series1-->
-<!--        };-->
-<!--        var options = {-->
-<!--            height: "360px",-->
-<!--            plugins: [-->
-<!--                Chartist.plugins.tooltip()-->
-<!--            ]-->
-<!--        };-->
-
-<!--        new Chartist.Bar('.amp-pxl', data, options);-->
-<!--    });-->
-<!--</script>-->
-<script>
+<script th:inline="javascript">
+    let a1 = [[${revenues}]];
+    console.log(a1);
+    let label1 = [];
+    let series1=[];
+    for (let i = 0; i < a1.length; i++) {
+        label1.push(a1[i].month_year);
+        series1.push(a1[i].total_revenue);
+    }
     document.addEventListener("DOMContentLoaded", function() {
-        // Chuyển đổi dữ liệu thành JSON
-        let revenues = /*[[${revenues}]]*/ [];
 
-        // Chuyển đổi dữ liệu thành định dạng JSON
-        let revenuesJson = JSON.parse(/*[[${revenues}]]*/ '[]');
-
-        let label1 = [];
-        let series1 = [];
-        for (let i = 0; i < revenuesJson.length; i++) {
-            label1.push(revenuesJson[i].month_year);
-            series1.push(revenuesJson[i].total_revenue);
-        }
-
-        var data = {
+        let data = {
             labels: label1,
-            series: series1
+            series: [series1,]
         };
+        console.log(data)
 
-        var options = {
+        let options = {
             height: "360px",
             plugins: [
                 Chartist.plugins.tooltip()
