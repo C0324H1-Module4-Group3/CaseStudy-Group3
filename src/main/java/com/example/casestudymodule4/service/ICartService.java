@@ -1,5 +1,7 @@
 package com.example.casestudymodule4.service;
 
+import com.example.casestudymodule4.dto.CartDto;
+import com.example.casestudymodule4.dto.FormPayment;
 import com.example.casestudymodule4.model.Cart;
 
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 public interface ICartService {
 
 
-    List<Cart> findCartsByUserId(Integer userId);
+    Iterable<Cart> findCartsByUserId(Integer userId);
 
     void delete(Integer cartId);
 
@@ -22,4 +24,16 @@ public interface ICartService {
     void minusQuantity(Integer cartId);
 
     Iterable<Cart> findAll();
+
+    void updateCart(Integer cartId, String size);
+
+    Integer elementBill(Iterable<Cart> list);
+
+    Iterable<CartDto> findA(Integer id);
+
+    String getRandomCode();
+
+    void save(FormPayment formPayment);
+
+
 }

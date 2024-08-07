@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ISKProductRepository extends JpaRepository<SkuProduct,Integer> {
+    SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id,String size);
+    SkuProduct findSkuProductByProductIdAndSize(Integer productId,String size);
 }

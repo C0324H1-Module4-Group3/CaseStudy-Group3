@@ -40,6 +40,11 @@ public class SKProductService implements ISKProductService {
     }
 
     @Override
+    public SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id,String size) {
+        return iskProductRepository.findSkuProductByIdEqualsAndSizeEquals(id ,size);
+    }
+
+    @Override
     public SkuProduct findById(Integer id) {
         return iskProductRepository.findById(id).orElse(null);
     }

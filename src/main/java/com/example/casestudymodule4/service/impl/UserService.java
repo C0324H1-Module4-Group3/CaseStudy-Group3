@@ -25,7 +25,7 @@ public class UserService implements IUserService {
 
     @Override
     public User findById(Integer id) {
-        return null;
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override

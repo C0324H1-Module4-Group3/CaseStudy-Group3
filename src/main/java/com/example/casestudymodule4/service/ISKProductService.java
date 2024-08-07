@@ -8,4 +8,8 @@ public interface ISKProductService extends IGenerateService<SkuProduct>{
     Page<SkuProduct> findAll(Pageable pageable);
 
     void remove(Integer id);
+
+    SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id,String size);
+
+
 }
