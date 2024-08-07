@@ -3,6 +3,12 @@
 
 <head th:replace="/index :: head">
 </head>
+<style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+</style>
 <body>
    <nav th:replace="index :: navbar"></nav>
 
@@ -108,31 +114,33 @@
                         </div>
                     </div>
                 </div>
-                <div th:if="${totalPages > 0}" class="pagination d-flex justify-content-center mt-5">
-                    <li class="page-item disabled">
-                        <a th:class="${currentPage == 1} ? 'disabled page-link' : 'page-link'"
-                           th:href="@{/home/shop(page=${currentPage - 1})}"
-                           aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
+                <th:block th:if="${totalPages > 0}">
+                    <div class="pagination d-flex justify-content-center mt-5">
+                        <li class="page-item">
+                            <a th:class="${currentPage == 1} ? 'disabled page-link' : 'page-link'"
+                               th:href="@{/home/shop(page=${currentPage - 1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <th:block th:each="i, status : ${#numbers.sequence(1, totalPages)}">
+                            <li class="page-item">
+                                <a th:class="${i == currentPage} ? 'active page-link' : 'page-link'"
+                                   th:href="@{/home/shop(page=${i})}">
+                                    <span th:text="${i}">1</span>
+                                </a>
+                            </li>
+                        </th:block>
+                        <li class="page-item">
+                            <a th:class="${currentPage == totalPages} ? 'disabled page-link' : 'page-link'"
+                               th:href="@{/home/shop(page=${currentPage + 1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </div>
+                </th:block>
 
-                    <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                        th:class="${i == currentPage} ? 'page-item active' : 'page-item'">
-                        <a th:class="'page-link'"
-                           th:href="@{/home/shop(page=${i})}"
-                           th:text="${i}">
-                        </a>
-                    </li>
-
-                    <li class="page-item">
-                        <a th:class="${currentPage == totalPages} ? 'disabled page-link' : 'page-link'"
-                           th:href="@{/home/shop(page=${currentPage + 1})}"
-                           aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </div>
             </div>
 
         </div>
