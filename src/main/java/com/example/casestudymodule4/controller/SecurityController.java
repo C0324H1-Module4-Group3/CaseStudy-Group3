@@ -33,6 +33,7 @@ public class SecurityController {
         if (principal != null){
             return "redirect:/home";
         }
+        model.addAttribute("message", "Account is invalid");
         return "security/login";
     }
     @GetMapping("/signup")
@@ -40,24 +41,6 @@ public class SecurityController {
         model.addAttribute("error", error);
         model.addAttribute("userDto", new UserDto());
         return "security/signup";
-    }
-    @PostMapping("/login")
-    public  String login(@RequestParam String username
-                            , @RequestParam String password
-                            , @RequestParam(value = "rememberMe", defaultValue = "false") boolean rememberMe
-                            , HttpServletResponse response
-                            , Model model){
-        if (rememberMe){
-            Cookie cookieUserName = new Cookie("username", username);
-            cookieUserName.setHttpOnly(true);
-            cookieUserName.setMaxAge(3600);
-            response.addCookie(cookieUserName);
-            Cookie cookiePassword = new Cookie("password", password);
-            cookiePassword.setHttpOnly(true);
-            cookiePassword.setMaxAge(3600);
-            response.addCookie(cookiePassword);
-        }
-        return "redirect:/home";
     }
 
     @PostMapping(value="/signup")

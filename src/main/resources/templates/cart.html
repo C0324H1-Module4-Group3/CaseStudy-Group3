@@ -30,7 +30,7 @@
 
                                 <h5 class="card-title m-0 align-content-around" th:text="${c.sku.product.name}"></h5>
 
-                                <a th:href="@{/cart/delete/{id}(id=${c.id})}"
+                                <a th:href="@{/cart/delete/{cardId}(cardId=${c.id})}"
                                    class="btn btn-outline-danger mx-1 btn-sm " onclick="confirmDelete(event,this)">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
@@ -174,7 +174,7 @@
             <form th:action="@{/payment/submitOrder}" method="post" th:object="${payment}">
 
                 <div class="modal-header">
-                    <h2 class="modal-title">Thông tin thanh toán </h2>
+                    <h2 class="modal-title">Payment Information </h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -183,7 +183,7 @@
 
                     <div class="form-group">
                         <label for="userId">Your Email :</label>
-                        <p class="form-control" id="userId" th:text="${user.name}"></p>
+                        <p class="form-control" id="userId" th:text="${user.userName}"></p>
                         <input type="hidden" th:value="${userId}" name="userId">
                     </div>
 
@@ -202,18 +202,16 @@
                     <div class="form-group">
                         <label for="Code">Code :</label>
 
-
                         <p  class="form-control" id="Code" th:text="${code}" ></p>
                         <input type="hidden"  th:value="${code}" name="code">
                         <input type="hidden"  th:value="${user.userName}" name="userName">
-
 
                     </div>
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Thanh toán</button>
+                    <button type="submit" class="btn btn-primary">Buy</button>
                 </div>
             </form>
         </div>

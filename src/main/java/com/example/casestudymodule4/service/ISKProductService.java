@@ -19,4 +19,5 @@ public interface ISKProductService extends IGenerateService<SkuProduct>{
 
     List<SkuProduct> searchSkuProducts(String keyword);
 
+
 }

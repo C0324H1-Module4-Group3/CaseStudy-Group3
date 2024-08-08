@@ -42,7 +42,7 @@ $('.btn-plus').click(function () {
 function moneyTotal() {
     $.ajax({
         type: "get",
-        url: "http://localhost:8080/api/carts/moneyTotal/1",
+        url: "http://localhost:8080/api/carts/moneyTotal",
         success: function (data) {
             let html = (`
                     ${data}
@@ -76,7 +76,7 @@ $('.btn-size').click(function () {
 function elementBilll() {
     $.ajax({
         type: "get",
-        url: "http://localhost:8080/api/carts/cart/1",
+        url: "http://localhost:8080/api/carts/cart",
         success: function (data) {
             console.log(data)
             let html = ``;

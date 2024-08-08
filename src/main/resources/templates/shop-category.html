@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="/index :: head">
+</head>
+
+<body>
+<nav th:replace="index :: navbar"></nav>
+
+<div class="row" style="padding-top: 160px">
+    <div class="col-lg-2">
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action text-white bg-danger" aria-current="true">
+                <i class="fa fa-list"></i> Categories
+            </a>
+            <a th:each="category : ${categories}"
+               th:href="@{/home/shop/{id}(id = ${category.id})}"
+               th:text="${category.name}"
+               class="list-group-item list-group-item-action">
+            </a>
+        </div>
+        <!--        <div class="container mt-4">-->
+        <!--            <h1>Category List</h1>-->
+        <!--            <div class="list-group">-->
+        <!--                -->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <h1 class="h2 pb-4">Categories</h1>-->
+        <!--        <ul class="list-unstyled templatemo-accordion">-->
+        <!--            <li class="pb-3">-->
+        <!--                <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">-->
+        <!--                    Gender-->
+        <!--                    <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>-->
+        <!--                </a>-->
+        <!--                <ul class="collapse show list-unstyled pl-3">-->
+        <!--                    <li><a class="text-decoration-none" href="#">Men</a></li>-->
+        <!--                    <li><a class="text-decoration-none" href="#">Women</a></li>-->
+        <!--                </ul>-->
+        <!--            </li>-->
+        <!--            <li class="pb-3">-->
+        <!--                <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">-->
+        <!--                    Sale-->
+        <!--                    <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>-->
+        <!--                </a>-->
+        <!--                <ul id="collapseTwo" class="collapse list-unstyled pl-3">-->
+        <!--                    <li><a class="text-decoration-none" href="#">Sport</a></li>-->
+        <!--                    <li><a class="text-decoration-none" href="#">Luxury</a></li>-->
+        <!--                </ul>-->
+        <!--            </li>-->
+        <!--            <li class="pb-3">-->
+        <!--                <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">-->
+        <!--                    Product-->
+        <!--                    <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>-->
+        <!--                </a>-->
+        <!--                <ul id="collapseThree" class="collapse list-unstyled pl-3">-->
+        <!--                    <li><a class="text-decoration-none" href="#">Bag</a></li>-->
+        <!--                    <li><a class="text-decoration-none" href="#">Sweather</a></li>-->
+        <!--                    <li><a class="text-decoration-none" href="#">Sunglass</a></li>-->
+        <!--                </ul>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+    </div>
+    <div class="col-lg-10">
+        <!--                <div class="row">-->
+        <!--                    <div class="col-md-6">-->
+        <!--                        <ul class="list-inline shop-top-menu pb-3 pt-1">-->
+        <!--                            <li class="list-inline-item">-->
+        <!--                                <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>-->
+        <!--                            </li>-->
+        <!--                            <li class="list-inline-item">-->
+        <!--                                <a class="h3 text-dark text-decoration-none mr-3" href="#">Men's</a>-->
+        <!--                            </li>-->
+        <!--                            <li class="list-inline-item">-->
+        <!--                                <a class="h3 text-dark text-decoration-none" href="#">Women's</a>-->
+        <!--                            </li>-->
+        <!--                        </ul>-->
+        <!--                    </div>-->
+        <!--                    <div class="col-md-6 pb-4">-->
+        <!--                        <div class="d-flex" style="width: 40%;float: right;margin-right: 50px">-->
+        <!--                            <select class="form-control">-->
+        <!--                                <option>Featured</option>-->
+        <!--                                <option>A to Z</option>-->
+        <!--                                <option>Item</option>-->
+        <!--                            </select>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <div class="row">
+            <div class="col-md-3" th:each="products : ${products}">
+                <div class="card mb-4 product-wap rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" th:src="@{'/img/' + ${products.imagePath}}">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            <ul class="list-unstyled">
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
+                                        class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
+                                        class="fas fa-cart-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="shop-single.html" class="h3 text-decoration-none" th:text="${products.name}"></a>
+                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                            <li>M/L/X/XL</li>
+                            <li class="pt-2">
+                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <p class="text-center mb-0">$250.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pagination d-flex justify-content-center mt-5 mb-5" th:object="${category}">
+            <li class="page-item">
+                <a th:if="${currentPage > 0}"
+                   th:href="@{/home/shop/{id}(id = ${category.id}, page=${currentPage - 1})}"
+                   class="page-link"
+                   th:text="'<'"></a>
+            </li>
+
+            <li class="page-item">
+                <a th:if="${currentPage > 2}"
+                   th:href="@{/home/shop/{id}(id = ${category.id}, page=0)}"
+                   class="page-link">1</a>
+            </li>
+
+            <li class="page-item">
+                <span th:if="${startPage > 1}" class="pagi-btn">...</span>
+            </li>
+
+            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <li class="page-item">
+                    <a th:href="@{/home/shop/{id}(id = ${category.id}, page=${page})}"
+                       class="page-link"
+                       th:text="${page + 1}"
+                       th:classappend="${page == currentPage} ? 'active' : ''"></a>
+                </li>
+            </th:block>
+
+            <li class="page-item">
+                <span th:if="${endPage < totalPages - 2}" class="page-link">...</span>
+            </li>
+
+            <li class="page-item">
+                <a th:if="${currentPage < totalPages - 3}"
+                   th:href="@{/home/shop/{id}(id = ${category.id}, page=${totalPages - 1})}"
+                   class="page-link" th:text="${totalPages}"></a>
+            </li>
+
+            <li class="page-item">
+                <a th:if="${currentPage < totalPages - 1}"
+                   th:href="@{/home/shop/{id}(id = ${category.id}, page=${currentPage + 1})}"
+                   class="page-link"
+                   th:text="'>'"></a>
+            </li>
+        </div>
+    </div>
+</div>
+<section class="bg-light py-5">
+    <div class="container my-4">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Our Brands</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    Lorem ipsum dolor sit amet.
+                </p>
+            </div>
+            <div class="col-lg-9 m-auto tempaltemo-carousel">
+                <div class="row d-flex flex-row">
+                    <div class="col-1 align-self-center">
+                        <a class="h1" href="#multi-item-example" role="button" data-bs-slide="prev">
+                            <i class="text-light fas fa-chevron-left"></i>
+                        </a>
+                    </div>
+                    >
+                    <div class="col">
+                        <div class="carousel slide carousel-multi-item pt-2 pt-md-0" id="multi-item-example"
+                             data-bs-ride="carousel">
+                            <div class="carousel-inner product-links-wap" role="listbox">
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img"
+                                                             src="assets/f2a3a75c-19e3-423a-b19f-d066de578f9a__1600X752.webp"
+                                                             alt="Brand Logo">
+                                            </a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png"
+                                                             alt="Brand Logo"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1 align-self-center">
+                        <a class="h1" href="#multi-item-example" role="button" data-bs-slide="next">
+                            <i class="text-light fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="/index::footer"></footer>
+
+<th:block th:replace="/index::filejs">
+
+</th:block>
+</body>
+</html>

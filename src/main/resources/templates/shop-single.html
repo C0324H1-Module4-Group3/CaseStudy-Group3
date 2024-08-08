@@ -41,7 +41,11 @@
                         </ul>
                         <div class="row pb-3">
                             <div class="col d-grid">
-                                <a th:href="@{/cart/add/{id}(id=${skuProduct.id})}" class="btn btn-success btn-lg">Add To Cart</a>
+                                <form id="addToCartForm" action="/cart/add" method="post">
+                                    <input type="hidden" name="skuProductId" th:value="${skuProduct.id}">
+                                    <input type="hidden" name="quantity" id="hiddenQuantity">
+                                    <button type="submit" class="btn btn-success btn-lg" onclick="submitAddToCartForm()">Add To Cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -73,6 +77,12 @@
             quantityInput.value = quantity + 1;
         });
     });
+
+    function submitAddToCartForm() {
+        const quantityInput = document.getElementById('quantity');
+        const hiddenQuantityInput = document.getElementById('hiddenQuantity');
+        hiddenQuantityInput.value = quantityInput.value;
+    }
 </script>
 </body>
 </html>

@@ -29,6 +29,8 @@ public class CartService implements ICartService {
     private ISKProductRepository iskProductRepository;
 
 
+
+
     @Override
     public void deleteCart() {
         cartRepo.deleteAll();
@@ -81,6 +83,19 @@ public class CartService implements ICartService {
     public Iterable<Cart> findAll() {
         return cartRepo.findAll();
     }
+    @Override
+    public void addToCart(User user, Integer skuProductId, Integer quantity) {
+        SkuProduct skuProduct = iskProductRepository.findById(skuProductId).orElse(null);
+        if (skuProduct != null && skuProduct.getQuantity() >= quantity) {
+            Cart cart = new Cart();
+            cart.setCustomer(user);
+            cart.setSku(skuProduct);
+            cart.setQuantity(quantity);
+            cartRepo.save(cart);
+        } else {
+            // Xử lý trường hợp sản phẩm không hợp lệ hoặc số lượng không đủ
+        }
+        }
 
 
 

@@ -3,9 +3,11 @@ package com.example.casestudymodule4.controller;
 import com.example.casestudymodule4.dto.CartDto;
 import com.example.casestudymodule4.model.Cart;
 import com.example.casestudymodule4.model.SkuProduct;
+import com.example.casestudymodule4.model.User;
 import com.example.casestudymodule4.service.ICartService;
 import com.example.casestudymodule4.service.ISKProductService;
 import com.example.casestudymodule4.service.impl.CartService;
+import com.example.casestudymodule4.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -13,12 +15,15 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/carts")
 @CrossOrigin("*")
 public class RestCartController {
+    @Autowired
+    private UserService userService;
     @Autowired
     private ICartService cartService;
     @Autowired
@@ -37,10 +42,17 @@ public class RestCartController {
     }
 
 
-    @GetMapping("/cart/{userId}")
-    public ResponseEntity<?> Carts(@PathVariable Integer userId) {
-        Iterable<CartDto> list = cartService.findA(userId);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+    @GetMapping("/cart")
+    public ResponseEntity<?> Carts(Principal principal) {
+        Iterable<CartDto> list;
+        if(principal!=null){
+            User user = userService.getUserByUserName(principal.getName());
+            Integer userId = user.getId();
+           list = cartService.findA(userId);
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 
 
@@ -56,18 +68,31 @@ public class RestCartController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/moneyTotal/{userId}")
-    public ResponseEntity<?> moneyTotal(@PathVariable("userId") Integer userId) {
-        Iterable<Cart> list = cartService.findCartsByUserId(userId);
-        Integer totalBill = cartService.totalBill(list);
-        return new ResponseEntity<>(totalBill, HttpStatus.OK);
+    @GetMapping("/moneyTotal")
+    public ResponseEntity<?> moneyTotal(Principal principal) {
+        int totalBill=0;
+        if(principal!=null){
+            User user = userService.getUserByUserName(principal.getName());
+            Integer userId = user.getId();
+
+            Iterable<Cart> list = cartService.findCartsByUserId(userId);
+            totalBill = cartService.totalBill(list);
+            return new ResponseEntity<>(totalBill, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(totalBill,HttpStatus.OK);
     }
 
-    @GetMapping("/moneyElement/{userId}")
-    public ResponseEntity<?> moneyElement(@PathVariable("userId") Integer userId) {
-        Iterable<Cart> list = cartService.findCartsByUserId(userId);
-        Integer elementBill = cartService.elementBill(list);
-        return new ResponseEntity<>(elementBill, HttpStatus.OK);
+    @GetMapping("/moneyElement/")
+    public ResponseEntity<?> moneyElement(Principal principal) {
+        Integer elementBill=0;
+        if (principal != null) {
+            User user = userService.getUserByUserName(principal.getName());
+            Integer userId = user.getId();
+            Iterable<Cart> list = cartService.findCartsByUserId(userId);
+             elementBill = cartService.elementBill(list);
+            return new ResponseEntity<>(elementBill, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(elementBill,HttpStatus.OK);
     }
 
     @GetMapping("/quantity/{size}/{cartId}")
