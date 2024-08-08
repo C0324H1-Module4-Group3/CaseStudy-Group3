@@ -34,6 +34,7 @@ public class ProductController {
     private final ICategoryService categoryService;
     private final IUserService userService;
 
+
     @ModelAttribute("categories")
     public List<Category> listCategories() {
         return categoryService.findAll();
