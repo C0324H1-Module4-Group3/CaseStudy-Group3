@@ -3,6 +3,7 @@ package com.example.casestudymodule4.service;
 import com.example.casestudymodule4.dto.CartDto;
 import com.example.casestudymodule4.dto.FormPayment;
 import com.example.casestudymodule4.model.Cart;
+import com.example.casestudymodule4.model.SkuProduct;
 import com.example.casestudymodule4.model.User;
 
 import java.util.List;
@@ -36,5 +37,10 @@ public interface ICartService {
 
     void save(FormPayment formPayment);
 
+
+
+    SkuProduct findSkuProductByProductIdAndSize(Integer cartId, String size);
+
     void addToCart(User user, Integer skuProductId, Integer quantity);
+
 }

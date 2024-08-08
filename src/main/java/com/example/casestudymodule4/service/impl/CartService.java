@@ -53,6 +53,7 @@ public class CartService implements ICartService {
         }
         return totalBills;
     }
+
     @Override
     public Integer elementBill(Iterable<Cart> list) {
 
@@ -96,22 +97,13 @@ public class CartService implements ICartService {
         }
         }
 
-    @Override
-    public void updateCart(Integer cartId, String size) {
-        Cart cart = findCartById(cartId);
-        Integer productId = cart.getSku().getProduct().getId();
-        SkuProduct skuProduct = iskProductRepository.findSkuProductByProductIdAndSize(productId,size);
-        cart.setSku(skuProduct);
-        cart.setQuantity(cart.getQuantity());
-        cart.setCustomer(cart.getCustomer());
-        cart.setId(cart.getId());
-        cartRepo.save(cart);
-    }
+
 
     @Override
     public Iterable<Cart> findCartByUserId(int id) {
         return cartRepo.findCartsByUserId(id);
     }
+
     public Iterable<CartDto> findA(Integer id) {
         return cartRepo.findAllByCustomerId(id);
     }
@@ -138,12 +130,31 @@ public class CartService implements ICartService {
         order.setPaymentMethod("vnPay");
         order.setTotalMoney(formPayment.getTotalMoney());
         order.setCode(formPayment.getCode());
-        order.setStatus("unpaid");
+        order.setStatus("processing");
         User user = userRepository.findById(formPayment.getUserId()).orElse(null);
         order.setCustomer(user);
         orderRepository.save(order);
 
     }
 
+    @Override
+    public SkuProduct findSkuProductByProductIdAndSize(Integer cartId, String size) {
+        Cart cart = findCartById(cartId);
+        Integer productId = cart.getSku().getProduct().getId();
+
+        return iskProductRepository.findSkuProductByProductIdAndSize(productId, size);
+
+    }
+    @Override
+    public void updateCart(Integer cartId, String size) {
+        Cart cart = findCartById(cartId);
+        Integer productId = cart.getSku().getProduct().getId();
+        SkuProduct skuProduct = iskProductRepository.findSkuProductByProductIdAndSize(productId, size);
+        cart.setSku(skuProduct);
+        cart.setQuantity(cart.getQuantity());
+        cart.setCustomer(cart.getCustomer());
+        cart.setId(cart.getId());
+        cartRepo.save(cart);
+    }
 
 }

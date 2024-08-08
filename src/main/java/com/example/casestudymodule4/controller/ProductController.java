@@ -37,6 +37,7 @@ public class ProductController {
     private final IUserService userService;
 
 
+  
     @ModelAttribute("categories")
     public List<Category> listCategories() {
         return categoryService.findAll();
@@ -66,9 +67,10 @@ public class ProductController {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-
+  
         return "/shop";
     }
+
 
     @GetMapping("/shop/{id}")
     public String getProductByCategory(Model model,
@@ -102,13 +104,14 @@ public class ProductController {
         int startPage = Math.max(0, currentPage - 2);
         int endPage = Math.min(totalPages - 1, currentPage + 2);
 
-        model.addAttribute("products", products);
+        model.addAttribute("skuProducts", skuProducts);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         return "shop";
     }
+
 
 
     @GetMapping("/shop-single/{id}")
@@ -122,4 +125,9 @@ public class ProductController {
         }
         return "shop-single";
     }
+    @GetMapping("/contact")
+    public String viewContact(){
+        return "contact";
+    }
 }
+
