@@ -31,6 +31,7 @@ public class EmailService {
         email.setSubject(subject);
         email.setText(message);
         emailSender.send(email);
+        System.out.println(email.getText());
     }
     public void sendOrderConfirmationEmail(Order order) {
         String subject = "Order confirmation";
