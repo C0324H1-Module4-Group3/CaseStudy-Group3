@@ -54,6 +54,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Page<Product> findProductByCategory(Integer categoryId, Pageable pageable) {
+        return productRepository.findByCategory(categoryId, pageable);
+    }
+
+    @Override
     public Product findProductById(Integer productId) {
         return productRepository.findById(productId).orElse(null);
     }
@@ -66,5 +71,10 @@ public class ProductService implements IProductService {
     @Override
     public Page<Product> fetchProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Product> searchProducts(String searchName, Pageable pageable) {
+        return productRepository.searchProduct(searchName, pageable);
     }
 }
