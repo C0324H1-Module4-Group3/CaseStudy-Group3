@@ -42,7 +42,7 @@ public class SecurityConfig {
 //                Config các đường dẫn bắt buộc cần đăng nhập
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/logout").authenticated())
+                                .requestMatchers("/logout","/admin/**").authenticated())
 //                Config các đường dẫn không cần đăng nhập
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
