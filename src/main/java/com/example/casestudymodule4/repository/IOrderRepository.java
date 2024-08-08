@@ -3,6 +3,7 @@ package com.example.casestudymodule4.repository;
 import com.example.casestudymodule4.dto.MonthlyRevenueDTO;
 import com.example.casestudymodule4.dto.OrderDetailDTO;
 import com.example.casestudymodule4.model.Order;
+import com.example.casestudymodule4.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -77,6 +78,10 @@ public interface IOrderRepository extends JpaRepository<Order, Integer> {
     List<MonthlyRevenueDTO> getMonthlyRevenue(@Param("year") int year);
 
     Order findByCode(String code);
+    void deleteByCode(String code);
+
+
+    Order findOrderByCustomerAndStatus(User customer, String status);
     
 }
 

@@ -3,6 +3,7 @@ package com.example.casestudymodule4.service.impl;
 import com.example.casestudymodule4.dto.MonthlyRevenueDTO;
 import com.example.casestudymodule4.dto.OrderDetailDTO;
 import com.example.casestudymodule4.model.Order;
+import com.example.casestudymodule4.model.User;
 import com.example.casestudymodule4.repository.IOrderRepository;
 import com.example.casestudymodule4.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,26 @@ public class OrderService implements IOrderService {
     public void updateOrderStatus(Order order, String status) {
         order.setStatus(status);
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> getAllOrder() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public void deleteOrder(String code) {
+        orderRepository.deleteByCode(code);
+    }
+
+    @Override
+    public Order findOrderByCustomerAndStatus(User customer, String status) {
+        return orderRepository.findOrderByCustomerAndStatus(customer,status);
+    }
+
+    @Override
+    public String findStatusByOrderId(Integer orderId) {
+        return null;
     }
 
 

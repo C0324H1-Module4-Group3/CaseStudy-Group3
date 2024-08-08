@@ -123,7 +123,7 @@ public class CartService implements ICartService {
         order.setPaymentMethod("vnPay");
         order.setTotalMoney(formPayment.getTotalMoney());
         order.setCode(formPayment.getCode());
-        order.setStatus("unpaid");
+        order.setStatus("processing");
         User user = userRepository.findById(formPayment.getUserId()).orElse(null);
         order.setCustomer(user);
         orderRepository.save(order);
