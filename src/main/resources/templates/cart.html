@@ -35,42 +35,43 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
 
+
                             </div>
 
-                            <p class="card-text">
-                                <small class="text-body-secondary">Color :
+<!--                            <p class="card-text">-->
+<!--                                <small class="text-body-secondary">Color :-->
 <!--                                    <a href="#" style="text-decoration: none">-->
 <!--                                        <img src="https://i0.wp.com/colourlex.com/wp-content/uploads/2021/02/naples-yellow-painted-swatch.jpg?ssl=1"-->
 <!--                                             alt="Description of the image" class="rounded-circle"-->
 <!--                                             style="width:20px;height:20px;">-->
 <!--                                    </a>-->
 
-                                    <a href="#" style="text-decoration: none">
-                                        <img src="https://htmlcolorcodes.com/assets/images/colors/red-color-solid-background-1920x1080.png"
-                                             alt="Description of the image" class="rounded-circle"
-                                             style="width:20px;height:20px;">
-                                    </a>
+<!--                                    <a href="#" style="text-decoration: none">-->
+<!--                                        <img src="https://htmlcolorcodes.com/assets/images/colors/red-color-solid-background-1920x1080.png"-->
+<!--                                             alt="Description of the image" class="rounded-circle"-->
+<!--                                             style="width:20px;height:20px;">-->
+<!--                                    </a>-->
 
 <!--                                    <a href="#" style="text-decoration: none">-->
 <!--                                        <img src="https://nguyenlieulammyphamvn.com/wp-content/uploads/2020/12/mau-xanh-duong-tan-nuoc.jpg"-->
 <!--                                             alt="Description of the image" class="rounded-circle"-->
 <!--                                             style="width:20px;height:20px;">-->
 <!--                                    </a>-->
-                                </small>
-                            </p>
+<!--                                </small>-->
+<!--                            </p>-->
 
                             <div class="d-flex">
                                 <p class="card-text">Cost per unit :</p>
                                 <div class="ms-1 me-1" th:text="${c.sku.price}"></div> ($)
                             </div>
 
-                            <div class="d-flex">
+                            <div class="d-flex ">
                                 <p class="card-text">The remaining amount :</p>
-                                <div class="ms-1 quantity" th:text="${c.sku.quantity}"></div>
+                                <div class="ms-1 quantitySku" th:text="${c.sku.quantity}"></div>
                             </div>
 
                             <p class="card-text">Description : cotton, regular fit.</p>
-                            <div class="d-flex justify-content-between mt-2">
+                            <div class="d-flex justify-content-between mt-2 cc">
 
                                 <div class="list-inline skuId" th:data-id="${c.id}">
                                     <div class="list-inline-item">
@@ -207,8 +208,6 @@
                         <input type="hidden"  th:value="${user.userName}" name="userName">
 
                     </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Buy</button>
@@ -217,6 +216,23 @@
         </div>
     </div>
 </div>
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content" action="/action_page.php">
+        <div class="container">
+            <h1>Delete Account</h1>
+            <p>Are you sure you want to delete your account?</p>
+
+            <div class="clearfix">
+                <button type="button" class="cancelbtn">Cancel</button>
+                <button type="button" class="deletebtn">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
 
 <footer th:replace="/index::footer"></footer>
 </body>

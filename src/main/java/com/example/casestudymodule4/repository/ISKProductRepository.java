@@ -20,4 +20,5 @@ public interface ISKProductRepository extends JpaRepository<SkuProduct,Integer> 
     Page<SkuProduct> findByProductCategoryId(Integer categoryId, Pageable pageable);
     Page<SkuProduct> findByProductNameContainingIgnoreCase(String searchName, Pageable pageable);
 
+
 }

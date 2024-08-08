@@ -101,6 +101,18 @@ public class RestCartController {
         Integer quantity = skuProduct.getQuantity();
         return new ResponseEntity<>(quantity, HttpStatus.OK);
     }
+    @GetMapping("/quantity/{cartId}")
+    public ResponseEntity<?> getQuantitySku(@PathVariable("cartId") Integer cartId) {
+        Cart cart = cartService.findCartById(cartId);
+        Integer quantitySku = 0;
+        if(cart.getId()==null){
+            return new ResponseEntity<>(quantitySku ,HttpStatus.NO_CONTENT);
+        }
+        Integer skuId = cart.getSku().getId();
+        SkuProduct skuProduct = iskProductService.findById(skuId);
+         quantitySku = skuProduct.getQuantity();
+        return new ResponseEntity<>(quantitySku, HttpStatus.OK);
+    }
 
 
 
