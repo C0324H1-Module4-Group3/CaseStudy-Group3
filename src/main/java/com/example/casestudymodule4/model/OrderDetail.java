@@ -1,12 +1,16 @@
 package com.example.casestudymodule4.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "order_details", schema = "module4_shop")
 public class OrderDetail {
     @Id

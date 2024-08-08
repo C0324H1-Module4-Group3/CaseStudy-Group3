@@ -157,5 +157,9 @@ public String searchProducts(Model model,
         }
         return "shop-single";
     }
+    @GetMapping("/contact")
+    public String viewContact(){
+        return "contact";
+    }
 }
 
