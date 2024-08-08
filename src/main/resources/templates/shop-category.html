@@ -89,7 +89,7 @@
             <div class="col-md-3" th:each="products : ${products}">
                 <div class="card mb-4 product-wap rounded-0">
                     <div class="card rounded-0">
-                        <img class="card-img rounded-0 img-fluid" th:src="@{'/img/' + ${products.imagePath}}">
+                        <img class="card-img rounded-0 img-fluid" th:src="@{${products.imagePath}}">
                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                             <ul class="list-unstyled">
                                 <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i

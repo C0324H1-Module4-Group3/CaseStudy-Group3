@@ -49,6 +49,7 @@ $(document).ready(function () {
                             console.error("Không tìm thấy danh mục trong dữ liệu trả về.");
                             $('#featured-products h1').text('Default Category Name');
                         }
+
                         var isActive = index === 0 ? 'active' : '';
                         var carouselItem = `
                             <div class="carousel-item ${isActive}">
@@ -58,7 +59,7 @@ $(document).ready(function () {
                                             <img class="card-img rounded-0 img-fluid" src="${product.imagePath}" alt="${product.name}">
                                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                                 <ul class="list-unstyled">
-                                                    <li><a class="btn btn-success text-white mt-2" data-href="/home/shop-single?productId=${product.id}"><i class="far fa-eye"></i></a></li>
+                                                    <li><a class="btn btn-success text-white mt-2" data-href="/home/shop-single/${product.id}"><i class="far fa-eye"></i></a></li>
                                                  
                                                 </ul>
                                             </div>

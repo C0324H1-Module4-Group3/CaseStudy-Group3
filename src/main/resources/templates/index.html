@@ -62,7 +62,7 @@
                             <a class="nav-link fs-4" th:href="@{/home/shop}">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-4" href="contact.html">Contact</a>
+                            <a class="nav-link fs-4" th:href="@{/home/contact}">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -78,15 +78,13 @@
                             </button>
                         </div>
                     </form>
+                    <a class="nav-icon position-relative text-decoration-none align-self-center" href="/cart">
+                        <i class="fa fa-fw fa-cart-arrow-down text-white mr-1 text-light"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-white"></span>
+                    </a>
                 </div>
-                <a class="nav-icon position-relative text-decoration-none" href="/cart">
-                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1 text-light"></i>
-                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                </a>
-                <a class="nav-icon position-relative text-decoration-none" href="#">
-                    <i class="fa fa-fw fa-user text-dark mr-3 text-light"></i>
-                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
-                </a>
+
+
 
 
             </div>
@@ -189,30 +187,42 @@
         </div>
     </div>
     <div class="row">
+
         <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#" class="go-carousel" data-category-id="1"><img src="/img/aodau1.png"
+            <form th:action="@{/home/shop/1}">
+            <a href="#" class="go-carousel" data-category-id="1"><img src="/img/home/aodau1.png"
                                                                       class="rounded-circle img-fluid border"></a>
             <h5 class="text-center mt-3 mb-3">Home Shirt</h5>
             <p class="text-center">
-                <button type="button" class="btn btn-outline-danger">Go Shop</button>
+                <button type="submit" class="btn btn-outline-danger">Go Shop</button>
             </p>
+            </form>
         </div>
+
+
         <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#" class="go-carousel" data-category-id="2"><img src="/img/aokhoac%20được%20xóa%20nền.png"
+            <form th:action="@{/home/shop/2}">
+            <a href="#" class="go-carousel" data-category-id="2"><img src="/img/away/away-2.png"
                                                                       class="rounded-circle img-fluid border"></a>
             <h2 class="h5 text-center mt-3 mb-3">Away Shirt</h2>
             <p class="text-center">
-                <button type="button" class="btn btn-outline-danger">Go Shop</button>
+                <button type="submit" class="btn btn-outline-danger">Go Shop</button>
             </p>
+            </form>
         </div>
+
+
         <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#" class="go-carousel" data-category-id="3"><img src="/img/mu%20được%20xóa%20nền.png"
+            <form th:action="@{/home/shop/3}">
+            <a href="#" class="go-carousel" data-category-id="3"><img src="/img/sweather/sweather2.png"
                                                                       class="rounded-circle img-fluid border"></a>
-            <h2 class="h5 text-center mt-3 mb-3">Jacket</h2>
+            <h2 class="h5 text-center mt-3 mb-3">Sweater</h2>
             <p class="text-center">
-                <button type="button" class="btn btn-outline-danger">Go Shop</button>
+                <button type="submit" class="btn btn-outline-danger">Go Shop</button>
             </p>
+            </form>
         </div>
+
     </div>
 </section>
 
@@ -248,8 +258,8 @@
     </div>
 </section>
 <footer th:fragment="footer" class="bg-dark" id="tempaltemo_footer"
-        style="background: #1e2125; color: white;!important;">
-    <div class="container" style="background: #1e2125; color: white;!important;">
+        style="background: #212529; color: white;!important;">
+    <div class="container" style="background: #212529; color: white;!important;">
         <div class="row">
 
             <div class="col-md-4 pt-5">
