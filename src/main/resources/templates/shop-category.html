@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="/index :: head">
+<head th:replace="~{/index :: head}">
 </head>
 
 <body>
-<nav th:replace="index :: navbar"></nav>
+<div th:replace="~{index :: navbar}"></div>
 
 <div class="row" style="padding-top: 160px">
     <div class="col-lg-2">
@@ -94,8 +94,8 @@
                             <ul class="list-unstyled">
                                 <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
                                         class="far fa-eye"></i></a></li>
-                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
-                                        class="fas fa-cart-plus"></i></a></li>
+<!--                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i-->
+<!--                                        class="fas fa-cart-plus"></i></a></li>-->
                             </ul>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                                 <i class="text-muted fa fa-star"></i>
                             </li>
                         </ul>
-                        <p class="text-center mb-0">$250.00</p>
+                        <p class="text-center mb-0" th:text="'$' + ${products.price}"></p>
                     </div>
                 </div>
             </div>
@@ -270,9 +270,9 @@
     </div>
 </section>
 
-<footer th:replace="/index::footer"></footer>
+<div th:replace="~{/index::footer}"></div>
 
-<th:block th:replace="/index::filejs">
+<div th:replace="~{/index::filejs}"></div>
 
 </th:block>
 </body>

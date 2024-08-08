@@ -87,22 +87,40 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @PostMapping("/add")
-    public String addToCart(@RequestParam("skuProductId") Integer skuProductId,
-                            @RequestParam("quantity") Integer quantity,
-                            HttpServletRequest request) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated() || !(authentication.getPrincipal() instanceof UserDetails)) {
-            return "redirect:/login?redirectTo=/cart/add";
-        }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userService.getUserByUserName(userDetails.getUsername());
-
-        cartService.addToCart(user, skuProductId, quantity);
-
-        return "redirect:/cart";
+//    @PostMapping("/add")
+//    public String addToCart(@RequestParam("skuProductId") Integer skuProductId,
+//                            @RequestParam("quantity") Integer quantity,
+//                            HttpServletRequest request) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || !authentication.isAuthenticated() || !(authentication.getPrincipal() instanceof UserDetails)) {
+//            return "redirect:/login?redirectTo=/cart/add";
+//        }
+//
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//        User user = userService.getUserByUserName(userDetails.getUsername());
+//
+//        cartService.addToCart(user, skuProductId, quantity);
+//
+//        return "redirect:/cart";
+//    }
+@PostMapping("/add")
+public String addToCart(@RequestParam("skuProductId") Integer skuProductId,
+                        @RequestParam("quantity") Integer quantity,
+                        HttpServletRequest request) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication == null || !authentication.isAuthenticated() || !(authentication.getPrincipal() instanceof UserDetails)) {
+        HttpSession session = request.getSession();
+        session.setAttribute("redirectAfterLogin", "/cart"); // Store the desired redirect URL
+        return "redirect:/login";
     }
+
+    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    User user = userService.getUserByUserName(userDetails.getUsername());
+
+    cartService.addToCart(user, skuProductId, quantity);
+
+    return "redirect:/cart";
+}
 
 
 

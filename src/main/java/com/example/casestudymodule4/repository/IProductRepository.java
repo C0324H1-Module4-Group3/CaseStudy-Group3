@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.repository;
 
+import com.example.casestudymodule4.dto.ProductResponse;
 import com.example.casestudymodule4.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +20,21 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByNameContaining(String keyword);
 
+    @Query("select p from Product p " +
+            "inner join SkuProduct sku on sku.product.id = p.id " +
+            "and sku.id = (select MIN(sp.id) from SkuProduct sp where sp.product.id = p.id)")
     Page<Product> findAll(Pageable pageable);
 
-    @Query("select p from Product p where p.name like %:nameSearch%")
+    @Query("select p from Product p " +
+            "inner join SkuProduct sku on sku.product.id = p.id " +
+            "where p.name like %:nameSearch% " +
+            "and sku.id = (select MIN(sp.id) from SkuProduct sp where sp.product.id = p.id)")
     Page<Product> searchProduct(@Param("nameSearch") String nameSearch, Pageable pageable);
 
+    @Query("select p from Product p " +
+            "inner join SkuProduct sku on sku.product.id = p.id " +
+            "inner join Category c on c.id = p.category.id " +
+            "where c.id = :categoryId " +
+            "and sku.id = (select MIN(sp.id) from SkuProduct sp where sp.product.id = p.id)")
+    Page<Product> findByIdCategory(@Param("categoryId") Integer categoryId, Pageable pageable);
 }
