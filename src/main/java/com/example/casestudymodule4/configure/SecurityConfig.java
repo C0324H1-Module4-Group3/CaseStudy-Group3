@@ -21,6 +21,8 @@ public class SecurityConfig {
 
     @Autowired
     private UserInforDetailService userDetailsService;
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -58,7 +60,7 @@ public class SecurityConfig {
                                 .loginPage("/login")
                                 .failureUrl("/login?error=true")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/home"))
+                                .successHandler(customAuthenticationSuccessHandler))
                 .logout((logout) ->
                         logout.deleteCookies("JSESSIONID")
                                 .invalidateHttpSession(false)
