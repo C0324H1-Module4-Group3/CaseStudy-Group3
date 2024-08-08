@@ -3,8 +3,13 @@
 <head>
     <title>Access Denied</title>
 </head>
-<body>
-<h1>403 - Access Denied</h1>
-<p>You do not have permission to access this page.</p>
+<body style="background-image: url('https://cdn.tgdd.vn/hoi-dap/1370605/loi-http-error-403-forbidden-la-gi-nguyen-nhan-cach-sua.009-800x400.jpg'); background-repeat: no-repeat; background-size: 100%">
+<script>
+    $(document).ready(Redirect);
+    function Redirect() {
+        window.location = "https://http://localhost:8080/home";
+    }
+    setTimeout('Redirect()', 3000);
+</script>
 </body>
 </html>

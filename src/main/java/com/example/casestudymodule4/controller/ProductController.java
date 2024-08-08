@@ -6,6 +6,7 @@ import com.example.casestudymodule4.model.SkuProduct;
 import com.example.casestudymodule4.service.ICategoryService;
 import com.example.casestudymodule4.service.IProductService;
 import com.example.casestudymodule4.service.ISKProductService;
+import com.example.casestudymodule4.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +39,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public String home() {
+    public String home(Principal principal, Model model) {
+        if (principal != null) {
+            String userName = userService.getUserByUserName(principal.getName()).getName();
+            model.addAttribute("userName", userName);
+        }
         return "/index";
     }
 
@@ -108,8 +114,7 @@ public class ProductController {
             model.addAttribute("skuProduct", skuProduct);
             model.addAttribute("product", skuProduct.getProduct());
         } else {
-            // Handle the case where skuProduct is not found
-            return "error";
+            return "/error/error";
         }
         return "shop-single";
     }

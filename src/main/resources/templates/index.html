@@ -77,7 +77,8 @@
                                 <i class="fa fa-fw fa-search"></i>
                             </button>
                         </div>
-                    </form>
+
+<!--                     </form>
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1 text-light"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
@@ -85,7 +86,22 @@
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <i class="fa fa-fw fa-user text-dark mr-3 text-light"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
-                    </a>
+                    </a> -->
+                      
+                    </div>
+                    <div class="text-decoration-none d-flex">
+                        <div class="text-light d-flex">
+                        <div class="d-flex" th:if="${userName==null}">
+                            <i class="fa fa-fw fa-user text-light m-auto"></i>
+                            <div><a class=" text-decoration-none" th:href="@{/login}">Login</a></div>
+                        </div>
+                            <div  class="d-flex" th:if="${userName!=null}">
+                            <div th:text="${userName}"></div>
+                                <a th:href="@{/logout}"><i class="fa fa-fw fa-sign-out-alt text-light m-auto"></i></a>
+                        </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

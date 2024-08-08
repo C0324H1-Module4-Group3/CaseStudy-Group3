@@ -12,7 +12,7 @@
           content="Material Pro Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Manchester United</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
+    <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/"/>
     <!-- Favicon icon -->
     <link rel="shortcut icon" type="image/x-icon" href="/img/logomu.svg">
     <!-- Chartist CSS -->
@@ -102,7 +102,8 @@
         }
 
         .card-body {
-            padding: 20px; /
+            padding: 20px;
+        /
         }
 
         .card-title {
@@ -143,15 +144,19 @@
      data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
 
     <header class="topbar" data-navbarbg="skin6">
-        <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light shadow" style="background: #1e2125; color: white">
+        <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light shadow"
+             style="background: #1e2125; color: white">
             <div class="container d-flex justify-content-between align-items-center">
                 <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
                     <img src="/assets/images/logomu.png" style="height: 35px">
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#templatemo_main_nav" aria-controls="templatemo_main_nav" aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon" style="color: whitesmoke;"></span>
                 </button>
-                <div class="collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between"
+                     id="templatemo_main_nav">
                     <div class="flex-fill">
                         <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                             <li class="nav-item">
@@ -194,27 +199,33 @@
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="http://localhost:8080/admin  " aria-expanded="false">
-                            <img src="img/logodashboard.png" alt="New Icon" class="me-2" width="24" height="24" />
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                           href="http://localhost:8080/admin  " aria-expanded="false">
+                            <img src="img/logodashboard.png" alt="New Icon" class="me-2" width="24" height="24"/>
                             <span class="hide-menu">Dashboard</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/order" aria-expanded="false">
-                            <img src="img/logoorder.png" alt="Order Icon" class="me-2 sidebar-icon" width="24" height="24" />
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/order"
+                           aria-expanded="false">
+                            <img src="img/logoorder.png" alt="Order Icon" class="me-2 sidebar-icon" width="24"
+                                 height="24"/>
                             <span class="hide-menu">Order Manager</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin/manager" aria-expanded="false">
-                            <img src="/img/logomanager.png" alt="Manager Icon" class="me-2" width="24" height="24" />
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin/manager"
+                           aria-expanded="false">
+                            <img src="/img/logomanager.png" alt="Manager Icon" class="me-2" width="24" height="24"/>
                             <span class="hide-menu">Manager</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/login" aria-expanded="false">
-                            <img src="/img/logologin.png" alt="Login Icon" class="me-2 sidebar-icon" width="24" height="24" />
-                            <span class="hide-menu">Login</span>
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/logout"
+                           aria-expanded="false">
+                            <img src="/img/logologin.png" alt="Login Icon" class="me-2 sidebar-icon" width="24"
+                                 height="24"/>
+                            <span class="hide-menu">LogOut</span>
                         </a>
                     </li>
 
@@ -261,12 +272,15 @@
                                     <h5 class="card-subtitle">Overview of Latest Month</h5>
                                 </div>
                                 <div class="ms-auto">
-                                    <select class="form-select">
-                                        <option selected>2024</option>
-                                        <option value="1">2023</option>
-                                        <option value="2">2022</option>
-                                        <option value="3">2021</option>
-                                    </select>
+                                    <form th:action="@{/admin}" method="get">
+                                        <select class="form-select" name="year" id="yearSelect" onchange="this.form.submit()">
+                                            <option value="2024" th:selected="${year == 2024}">2024</option>
+                                            <option value="2023" th:selected="${year == 2023}">2023</option>
+                                            <option value="2022" th:selected="${year == 2022}">2022</option>
+                                            <option value="2021" th:selected="${year == 2021}">2021</option>
+                                        </select>
+                                    </form>
+
                                 </div>
                             </div>
                             <div class="amp-pxl" style="height: 360px;"></div>
@@ -285,10 +299,12 @@
                         <div class="card-body text-center ">
                             <ul class="list-inline d-flex justify-content-center align-items-center mb-0">
                                 <li class="me-4">
-                                    <h6 class="text-muted"><i class="fa fa-circle" style="color: #00acc1;"></i> Site A</h6>
+                                    <h6 class="text-muted"><i class="fa fa-circle" style="color: #00acc1;"></i> Site A
+                                    </h6>
                                 </li>
                                 <li class="me-4">
-                                    <h6 class="text-muted"><i class="fa fa-circle" style="color: #ef5350;"></i> Site B</h6>
+                                    <h6 class="text-muted"><i class="fa fa-circle" style="color: #ef5350;"></i> Site B
+                                    </h6>
                                 </li>
                             </ul>
                         </div>
@@ -298,7 +314,7 @@
         </div>
 
         <footer class="footer text-center">
-           HERE WE GO MANCHESTER UNITED <a
+            HERE WE GO MANCHESTER UNITED <a
                 href="http://localhost:8080/home">MUTV</a>.
         </footer>
     </div>
@@ -312,64 +328,44 @@
 <script src="/assets/plugins/c3-master/c3.min.js"></script>
 <!-- Custom JS -->
 <script src="/admin/js/custom.min.js"></script>
-<form id="yearForm" th:action="@{/admin}" method="get">
-    <label for="yearInput">Nhập năm:</label>
-    <input type="number" id="yearInput" name="year" th:value="${currentYear}" min="2000" max="2100">
-    <button type="submit">Cập nhật biểu đồ</button>
-</form>
-<!--<script>-->
-<!--    document.addEventListener("DOMContentLoaded", function() {-->
-<!--        console.log(`[[${a}]]`)-->
-<!--        let label1 = [];-->
-<!--        let series1=[];-->
-<!--        for (let i = 0; i < `[[${revenues.size()}]]`; i++) {-->
-<!--            label1.push(revenues[i].monthYear);-->
-<!--            series1.push(revenues[i].totalRevenue);-->
-<!--        }-->
-<!--        var data = {-->
-<!--            labels: label1,-->
-<!--            series: series1-->
-<!--        };-->
-<!--        var options = {-->
-<!--            height: "360px",-->
-<!--            plugins: [-->
-<!--                Chartist.plugins.tooltip()-->
-<!--            ]-->
-<!--        };-->
+<script th:inline="javascript">
+    let a1 = [[${revenues}]];
+    console.log(a1);
+    let label1 = [];
+    let series1 = [];
+    for (let i = 0; i < a1.length; i++) {
+        label1.push(a1[i].month_year);
+        series1.push(a1[i].total_revenue);
+    }
+    document.addEventListener("DOMContentLoaded", function () {
 
-<!--        new Chartist.Bar('.amp-pxl', data, options);-->
-<!--    });-->
-<!--</script>-->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Chuyển đổi dữ liệu thành JSON
-        let revenues = /*[[${revenues}]]*/ [];
-
-        // Chuyển đổi dữ liệu thành định dạng JSON
-        let revenuesJson = JSON.parse(/*[[${revenues}]]*/ '[]');
-
-        let label1 = [];
-        let series1 = [];
-        for (let i = 0; i < revenuesJson.length; i++) {
-            label1.push(revenuesJson[i].month_year);
-            series1.push(revenuesJson[i].total_revenue);
-        }
-
-        var data = {
+        let data = {
             labels: label1,
-            series: series1
+            series: [series1,]
         };
+        console.log(data)
 
-        var options = {
+        let options = {
             height: "360px",
             plugins: [
-                Chartist.plugins.tooltip()
-            ]
+                Chartist.plugins.tooltip({
+                    // Định dạng tooltip với đơn vị $
+                    tooltipFnc: function(meta, value) {
+                        return value + "$";
+                    }
+                })
+            ],
+            axisY: {
+                labelInterpolationFnc: function(value) {
+                    return value + "$";
+                }
+            }
         };
 
         new Chartist.Bar('.amp-pxl', data, options);
     });
 </script>
+
 
 </body>
 

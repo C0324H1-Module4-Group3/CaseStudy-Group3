@@ -15,7 +15,7 @@
 <div class="container bg-body-white mb-5 shadow rounded" style="margin-top: 150px">
     <div class="row">
 
-        <div class="col-sm-8 p-1">
+        <div class="col-sm-8 p-0">
 
             <div class="card mb-1" th:each="c : ${cart}">
                 <div class="row g-0">
@@ -59,22 +59,36 @@
                                 </small>
                             </p>
 
-                            <ul class="list-inline">
-                                <li class="list-inline-item">Size :
-                                    <input type="hidden" name="product-size" id="product-size" value="S">
-                                </li>
-                                <li class="list-inline-item"><span class="btn btn-success btn-size">S</span>
-                                </li>
-                                <li class="list-inline-item"><span class="btn btn-success btn-size">M</span>
-                                </li>
-                                <li class="list-inline-item"><span class="btn btn-success btn-size">L</span>
-                                </li>
-                                <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span>
-                                </li>
-                            </ul>
+                            <div class="list-inline skuId" th:data-id="${c.id}">
+                                <div class="list-inline-item">
+                                    Size :
+                                </div>
+
+                                <div class="list-inline-item">
+                                    <button th:classappend="${c.sku.size=='s'?'btn btn-secondary':'btn btn-success '}"
+                                            class="btn-size">S
+                                    </button>
+                                </div>
+                                <div class="list-inline-item">
+                                    <button th:classappend="${c.sku.size=='m'?'btn btn-secondary':'btn btn-success '}"
+                                            class="btn-size">M
+                                    </button>
+                                </div>
+                                <div class="list-inline-item">
+                                    <button th:classappend="${c.sku.size=='l'?'btn btn-secondary':'btn btn-success '}"
+                                            class="btn-size">L
+                                    </button>
+                                </div>
+                                <div class="list-inline-item">
+                                    <button th:classappend="${c.sku.size=='xl'?'btn btn-secondary':'btn btn-success '}"
+                                            class="btn-size">XL
+                                    </button>
+                                </div>
+
+                            </div>
 
 
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between mt-2">
                                 <div class="d-flex">
                                     <div>Số lượng còn lại :</div>
                                     <div class="ms-1" th:text="${c.sku.quantity}"></div>
@@ -85,10 +99,17 @@
                                         <div class="text-end">
                                             <ul class="list-inline pb-3">
 
-                                                <li class="list-inline-item"><span class="btn btn-success btn-minus " th:data-id="${c.id}">-</span></li>
-                                                <li class="list-inline-item"><span class="badge bg-secondary"
-                                                                                   id="var-value" th:text="${c.quantity}"></span></li>
-                                                <li class="list-inline-item"><span class="btn btn-success btn-plus " th:data-id="${c.id}" >+</span></li>
+                                                <li class="list-inline-item"><span class="btn btn-success btn-minus "
+                                                                                   th:data-id="${c.id}">-</span></li>
+                                                <li class="list-inline-item">
+                                                    <span class="badge bg-secondary" id="var-value"
+                                                          th:data-quantity="${c.sku.quantity}"
+                                                          th:data-current="${c.quantity}"
+                                                          th:text="${c.quantity}">
+                                                    </span>
+                                                </li>
+                                                <li class="list-inline-item"><span class="btn btn-success btn-plus "
+                                                                                   th:data-id="${c.id}">+</span></li>
                                             </ul>
                                         </div>
                                     </small>
@@ -110,32 +131,85 @@
                 <div class="row g-0">
 
                     <div>
-                        <div class="card-body border-bottom ">
+
+                        <div class="card-body border-bottom elementBill">
                             <h5 class="card-title">Thanh toán</h5>
-                            <div class="d-flex justify-content-between" th:each="bill : ${cart}">
-                                <p th:text="${bill.sku.product.name}"></p>
+                            <div class="d-flex justify-content-between " th:each="c : ${cart}">
+                                <p th:text="${c.sku.product.name}"></p>
                                 <p>:</p>
                                 <div class="justify-content-end d-flex">
-                                    <p th:text="${bill.quantity*bill.sku.price}" class="text-end me-1"></p> (VND)
+                                    <p th:text="${c.quantity*c.sku.price}" class="zz text-end me-1"></p> ($)
                                 </div>
                             </div>
-
                         </div>
                         <div class="d-flex justify-content-between mb-3 mt-3 ">
                             <div class="ms-3">Tổng tiền</div>
                             <div class="text-end  d-flex justify-content-end me-3">
-                                <div th:text="${total}" class="me-1 text-end me-1"></div>
-                                (VND)
+                                <div th:text="${total}" class="me-1 text-end me-1 moneyTotal"></div>
+                                ($)
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <div class="btn btn-danger">Thanh toán</div>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">Thanh
+                    toán
+                </button>
             </div>
-
         </div>
+    </div>
+</div>
 
+<div class="modal" tabindex="-1" id="exampleModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form th:action="@{/payment/submitOrder}" method="post" th:object="${payment}">
+
+                <div class="modal-header">
+                    <h2 class="modal-title">Thông tin thanh toán </h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://s-vnba-cdn.aicms.vn/vnba-media/23/8/16/vnpay-logo_64dc3da9d7a11.jpg" alt=""
+                         style="width: 200px">
+
+                    <div class="form-group">
+                        <label for="userId">Your Email :</label>
+                        <p class="form-control" id="userId" th:text="${user.name}"></p>
+                        <input type="hidden" th:value="${userId}" name="userId">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="totalMoney">TotalMoney :</label>
+                        <p class="form-control" id="totalMoney" th:text="${total}"></p>
+                        <input type="hidden" th:value="${total}" name="totalMoney">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delivery_address">Delivery address :</label>
+                        <input type="text" class="form-control" id="delivery_address" name="delivery_address"
+                               th:field="*{delivery_address}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Code">Code :</label>
+
+
+                        <p  class="form-control" id="Code" th:text="${code}" ></p>
+                        <input type="hidden"  th:value="${code}" name="code">
+                        <input type="hidden"  th:value="${user.userName}" name="userName">
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Thanh toán</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -145,10 +219,23 @@
 <script>
     function confirmDelete(event, element) {
         event.preventDefault();
-        var confirmation = confirm("Xóa hả chắc chưa")
+        let confirmation = confirm("Xóa hả chắc chưa")
         if (confirmation) {
-            window.location.href = element.getAttribute('href');
+            setTimeout(() => {
+                window.location.href = element.getAttribute('href')
+            }, 3000);
+            showAlert("Xóa thành công", "message")
+
         }
+
+    }
+
+    const showAlert = (message, type, text) => {
+        Swal.fire({
+            icon: type,
+            title: message,
+            text: text
+        });
     }
 </script>
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -156,7 +243,7 @@
 <script src="/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="/js/slick.min.js"></script>
 <script src="/js/cart.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </html>
 

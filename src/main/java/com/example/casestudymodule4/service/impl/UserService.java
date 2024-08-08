@@ -24,7 +24,7 @@ public class UserService implements IUserService {
     private IVerificationTokenRepository verificationTokenRepository;
     @Override
     public User findById(Integer id) {
-        return null;
+        return userRepository.findById(id).orElse(null);
     }
     @Override
     public boolean save(UserDto userDto) {
@@ -37,6 +37,7 @@ public class UserService implements IUserService {
         User user = new User();
         user.setName(userDto.getName());
         user.setAddress(userDto.getAddress());
+        user.setDob(userDto.getDob());
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setUserName(userDto.getUserName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));

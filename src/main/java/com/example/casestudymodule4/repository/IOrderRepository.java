@@ -75,6 +75,9 @@ public interface IOrderRepository extends JpaRepository<Order, Integer> {
             "ORDER BY month_year) " +
             "SELECT * FROM monthly_revenue")
     List<MonthlyRevenueDTO> getMonthlyRevenue(@Param("year") int year);
+
+    Order findByCode(String code);
+    
 }
 
 
