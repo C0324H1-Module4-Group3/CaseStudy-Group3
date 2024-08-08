@@ -18,6 +18,8 @@ public interface ISKProductService extends IGenerateService<SkuProduct>{
 
 
     List<SkuProduct> searchSkuProducts(String keyword);
-
+    Page<SkuProduct> fetchSkuProducts(Pageable pageable);
+    Page<SkuProduct> findSkuProductByCategory(Integer categoryId, Pageable pageable);
+    Page<SkuProduct> searchSkuProducts(String searchName, Pageable pageable);
 
 }

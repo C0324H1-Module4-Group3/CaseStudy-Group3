@@ -64,5 +64,20 @@ public class SKProductService implements ISKProductService {
     public void update(SkuProduct product) {
         iskProductRepository.save(product);
     }
+    @Override
+    public Page<SkuProduct> fetchSkuProducts(Pageable pageable) {
+        return iskProductRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<SkuProduct> findSkuProductByCategory(Integer categoryId, Pageable pageable) {
+        return iskProductRepository.findByProductCategoryId(categoryId, pageable);
+    }
+
+    @Override
+    public Page<SkuProduct> searchSkuProducts(String searchName, Pageable pageable) {
+        // Assuming search by product name. Modify if needed.
+        return iskProductRepository.findByProductNameContainingIgnoreCase(searchName, pageable);
+    }
 }
 
