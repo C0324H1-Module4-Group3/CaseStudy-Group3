@@ -320,11 +320,11 @@
                                         <i class="far fa-eye"></i>
                                     </a>
                                 </li>
-                                <!--                                <li>-->
-                                <!--                                    <a class="btn btn-success text-white mt-2" th:href="@{/cart/add/{id}(id=${skuProduct.id})}">-->
-                                <!--                                        <i class="fas fa-cart-plus"></i>-->
-                                <!--                                    </a>-->
-                                <!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a class="btn btn-success text-white mt-2" th:href="@{/cart/add/{id}(id=${skuProduct.id})}">-->
+<!--                                        <i class="fas fa-cart-plus"></i>-->
+<!--                                    </a>-->
+<!--                                </li>-->
                             </ul>
                         </div>
                     </div>
@@ -355,17 +355,17 @@
                 </div>
             </div>
         </div>
-        <div class="pagination d-flex justify-content-center mt-5 mb-5">
+        <div class="pagination d-flex justify-content-center mt-5 mb-5" th:object="${name}">
             <li class="page-item">
                 <a th:if="${currentPage > 0}"
-                   th:href="@{/home/shop(page=${currentPage - 1})}"
+                   th:href="@{/home/search(searchName = ${name}, page=${currentPage - 1})}"
                    class="page-link"
                    th:text="'<'"></a>
             </li>
 
             <li class="page-item">
                 <a th:if="${currentPage > 2}"
-                   th:href="@{/home/shop(page=0)}"
+                   th:href="@{/home/search(searchName = ${name}, page=0)}"
                    class="page-link">1</a>
             </li>
 
@@ -375,7 +375,7 @@
 
             <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
                 <li class="page-item">
-                    <a th:href="@{/home/shop(page=${page})}"
+                    <a th:href="@{/home/search(searchName = ${name}, page=${page})}"
                        class="page-link"
                        th:text="${page + 1}"
                        th:classappend="${page == currentPage} ? 'active' : ''"></a>
@@ -388,13 +388,13 @@
 
             <li class="page-item">
                 <a th:if="${currentPage < totalPages - 3}"
-                   th:href="@{/home/shop(page=${totalPages - 1})}"
+                   th:href="@{/home/search(searchName = ${name}, page=${totalPages - 1})}"
                    class="page-link" th:text="${totalPages}"></a>
             </li>
 
             <li class="page-item">
                 <a th:if="${currentPage < totalPages - 1}"
-                   th:href="@{/home/shop(page=${currentPage + 1})}"
+                   th:href="@{/home/search(searchName = ${name}, page=${currentPage + 1})}"
                    class="page-link"
                    th:text="'>'"></a>
             </li>
