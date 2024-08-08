@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.controller;
 
+import com.example.casestudymodule4.dto.ProductResponse;
 import com.example.casestudymodule4.model.Category;
 import com.example.casestudymodule4.model.Product;
 import com.example.casestudymodule4.model.SkuProduct;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,9 +53,9 @@ public class ProductController {
 
     @GetMapping("/shop")
     public String shop(Model model,
-                       @PageableDefault(sort = "id", size = 8, direction = Sort.Direction.DESC) Pageable pageable) {
+                       @PageableDefault(sort = "id", size = 15, direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Page<Product> products = productService.fetchProducts(pageable);
+        Page<ProductResponse> products = productService.fetchProducts(pageable);
         int totalPages = products.getTotalPages();
         int currentPage = products.getNumber();
         int startPage = Math.max(0, currentPage - 2);
@@ -71,10 +73,10 @@ public class ProductController {
     @GetMapping("/shop/{id}")
     public String getProductByCategory(Model model,
                                        @PathVariable Integer id,
-                                       @PageableDefault(sort = "id", size = 4, direction = Sort.Direction.DESC) Pageable pageable) {
+                                       @PageableDefault(sort = "id", size = 15, direction = Sort.Direction.DESC) Pageable pageable) {
         Category category = categoryService.findById(id.longValue());
 
-        Page<Product> products = productService.findProductByCategory(id, pageable);
+        Page<ProductResponse> products = productService.findProductByIdCategory(id, pageable);
         int totalPages = products.getTotalPages();
         int currentPage = products.getNumber();
         int startPage = Math.max(0, currentPage - 2);
@@ -93,8 +95,8 @@ public class ProductController {
     @GetMapping("/search")
     public String searchProducts(Model model,
                                  @RequestParam("searchName") String searchName,
-                                 @PageableDefault(sort = "id", size = 4, direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Product> products = productService.searchProducts(searchName, pageable);
+                                 @PageableDefault(sort = "id", size = 15, direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<ProductResponse> products = productService.searchProducts(searchName, pageable);
         int totalPages = products.getTotalPages();
         int currentPage = products.getNumber();
         int startPage = Math.max(0, currentPage - 2);

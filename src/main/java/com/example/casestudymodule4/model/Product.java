@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -29,4 +32,8 @@ public class Product {
     @NotNull
     @Column(name = "image_path", nullable = false)
     private String imagePath;
+
+    @OneToMany(mappedBy = "product")
+    private Set<SkuProduct> skuProducts = new HashSet<>();
+
 }
