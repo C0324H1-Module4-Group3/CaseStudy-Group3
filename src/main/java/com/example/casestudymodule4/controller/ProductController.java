@@ -32,6 +32,8 @@ public class ProductController {
     private final IProductService productService;
     private final ISKProductService iskProductService;
     private final ICategoryService categoryService;
+    @Autowired
+    private IUserService userService;
 
     @ModelAttribute("categories")
     public List<Category> listCategories() {
