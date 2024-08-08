@@ -83,7 +83,7 @@
                                 <img class="card-img rounded-0 img-fluid" th:src="@{'/img/' + ${products.imagePath}}">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <a class="btn btn-success text-white mt-2" th:href="@{/home/shop-single/{id}(id=${products.id})}">
+                                        <a class="btn btn-success text-white mt-2" th:href="@{/home/shop-single/{id}(id=${products.skuProductId})}">
                                             <i class="far fa-eye"></i>
                                         </a>
 <!--                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>-->

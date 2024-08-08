@@ -20,13 +20,6 @@ public class OrderController {
     @Autowired
     private IOrderService orderService;
 
-//    @GetMapping("/order")
-//    public String index(Model model) {
-//        Iterable<OrderDetailDTO> orderDetailDTOs = orderService.getAll();
-//        model.addAttribute("orderDetailDTOs", orderDetailDTOs);
-//        return "manager-order";
-//    }
-
     @GetMapping("/order")
     public String listOrdersDate(Model model,
                                  @RequestParam(value = "startDate", defaultValue = "2024-20-08") String startDate,
@@ -38,14 +31,5 @@ public class OrderController {
         model.addAttribute("endDate", endDate);
         return "manager-order";
     }
-
-//    @GetMapping("chart")
-//    public String showAdminPage(Model model) {
-//        int currentYear = LocalDate.now().getYear();
-//        List<MonthlyRevenueDTO> revenues = orderService.getMonthlyRevenueByYear(currentYear);
-//        model.addAttribute("revenues", revenues);
-//        return "admin/index";
-//    }
-
 
 }
