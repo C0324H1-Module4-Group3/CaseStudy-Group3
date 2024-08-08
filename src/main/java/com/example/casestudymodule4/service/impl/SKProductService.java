@@ -46,8 +46,9 @@ public class SKProductService implements ISKProductService {
         return iskProductRepository.findSkuProductByIdEqualsAndSizeEquals(id, size);
     }
 
-    public List<SkuProduct> searchSkuProducts(String keyword) {
-        return iskProductRepository.findByProductContaining(keyword);
+    @Override
+    public Page<SkuProduct> searchSkuProducts(String keyword, Pageable pageable) {
+        return iskProductRepository.findByProductContaining(keyword,pageable);
     }
 
     @Override
@@ -63,6 +64,21 @@ public class SKProductService implements ISKProductService {
     @Override
     public void update(SkuProduct product) {
         iskProductRepository.save(product);
+    }
+    @Override
+    public Page<SkuProduct> fetchSkuProducts(Pageable pageable) {
+        return iskProductRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<SkuProduct> findSkuProductByCategory(Integer categoryId, Pageable pageable) {
+        return iskProductRepository.findByProductCategoryId(categoryId, pageable);
+    }
+
+    @Override
+    public Page<SkuProduct> searchSkuProducts(String searchName, Pageable pageable) {
+        // Assuming search by product name. Modify if needed.
+        return iskProductRepository.findByProductNameContainingIgnoreCase(searchName, pageable);
     }
 }
 
