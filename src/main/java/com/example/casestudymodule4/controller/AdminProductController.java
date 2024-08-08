@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @RequestMapping("/admin")
 @Controller
 public class AdminProductController {
@@ -38,7 +39,6 @@ public class AdminProductController {
         model.addAttribute("year", year);
         return "admin/index";
     }
-
 
     @GetMapping("/manager")
     public String managerPage(Model model, @RequestParam(required = false) String keyword,
@@ -61,7 +61,6 @@ public class AdminProductController {
         model.addAttribute("keyword", keyword);
         return "admin/manager";
     }
-
 
     @GetMapping("create")
     public String showCreateForm(Model model) {
