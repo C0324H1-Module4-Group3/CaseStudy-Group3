@@ -33,56 +33,61 @@ public class CartController {
     private ISKProductService skProductService;
 
 
+//    @GetMapping("")
+//    private String showCart(@RequestParam("id") Integer userid, Model model) {
+//
+//        Iterable<Cart> carts = cartService.findCartsByUserId(userid);
+////
+//        int totalBill = cartService.totalBill(carts);
+//        String code = cartService.getRandomCode();
+//        User user = userService.findById(userid);
+//
+//        model.addAttribute("user", user);
+//        model.addAttribute("code", code);
+//        model.addAttribute("cart", carts);
+//        model.addAttribute("payment", new FormPayment());
+//        model.addAttribute("total", totalBill);
+//        model.addAttribute("userId", userid);
+//        return "/cart";
+//    }
+
     @GetMapping("")
-    private String showCart(@RequestParam("id") Integer userid, Model model) {
+    private String showCart(Model model, Principal principal) {
 
-        Iterable<Cart> carts = cartService.findCartsByUserId(userid);
+        User user = userService.getUserByUserName(principal.getName());
+        Integer userId = user.getId();
+        String userName = user.getName();
 
+        Iterable<Cart> carts = cartService.findCartsByUserId(userId);
         int totalBill = cartService.totalBill(carts);
         String code = cartService.getRandomCode();
-        User user = userService.findById(userid);
+
 
         model.addAttribute("user", user);
         model.addAttribute("code", code);
         model.addAttribute("cart", carts);
         model.addAttribute("payment", new FormPayment());
         model.addAttribute("total", totalBill);
-        model.addAttribute("userId", userid);
+        model.addAttribute("userId", userId);
+        model.addAttribute("userName", userName);
         return "/cart";
+
     }
 
-//    @GetMapping("")
-//    private String showCart( Model model, Principal principal) {
-//
-//            Integer userId = userService.getUserByUserName(principal.getName()).getId();
-//            String name = userService.getUserByUserName(principal.getName()).getName();
-//            model.addAttribute("userId", userId);
-//            model.addAttribute("userName", name);
-//
-//            Iterable<Cart> carts = cartService.findCartsByUserId(userId);
-//            model.addAttribute("cart", carts);
-//            int totalBill = cartService.totalBill(carts);
-//            model.addAttribute("total", totalBill);
-//            model.addAttribute("payment",new FormPayment());
-//            return "/cart";
-//
-//    }
-
-    @GetMapping("/delete/{id}")
-    private String deleteCart(@PathVariable("id") Integer cartId) {
+    @GetMapping("/delete/{cardId}")
+    private String deleteCart(@PathVariable("cardId") Integer cartId) {
         cartService.delete(cartId);
-        return "redirect:/cart?id=1";
+        return "redirect:/cart";
     }
-
 
 
     @PostMapping("/create")
     private String save(@ModelAttribute("payment") FormPayment formPayment) {
         cartService.save(formPayment);
-        return "redirect:/cart?id=1";
+        return "redirect:/cart";
     }
-    @PostMapping("/add")
 
+    @PostMapping("/add")
     public String addToCart(@RequestParam("skuProductId") Integer skuProductId,
                             @RequestParam("quantity") Integer quantity,
                             HttpServletRequest request) {
@@ -101,16 +106,6 @@ public class CartController {
 
 
 
-
-//    @PostMapping("/create")
-//    private String save(@ModelAttribute("payment") FormPayment formPayment) {
-//        cartService.save(formPayment);
-//        return "redirect:/payment/submitOrder";
-//    }
-
-//    @PostMapping("/add/{skuId")
-//    private String addToCart(@PathVariable("skuId") Integer skuId,
-//                             @RequestParam())
 }
 
 
