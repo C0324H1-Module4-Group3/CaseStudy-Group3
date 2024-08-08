@@ -35,6 +35,7 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
 
+
                             </div>
 
 <!--                            <p class="card-text">-->
@@ -64,13 +65,13 @@
                                 <div class="ms-1 me-1" th:text="${c.sku.price}"></div> ($)
                             </div>
 
-                            <div class="d-flex">
+                            <div class="d-flex ">
                                 <p class="card-text">The remaining amount :</p>
-                                <div class="ms-1 quantity" th:text="${c.sku.quantity}"></div>
+                                <div class="ms-1 quantitySku" th:text="${c.sku.quantity}"></div>
                             </div>
 
                             <p class="card-text">Description : cotton, regular fit.</p>
-                            <div class="d-flex justify-content-between mt-2">
+                            <div class="d-flex justify-content-between mt-2 cc">
 
                                 <div class="list-inline skuId" th:data-id="${c.id}">
                                     <div class="list-inline-item">
@@ -215,6 +216,23 @@
         </div>
     </div>
 </div>
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content" action="/action_page.php">
+        <div class="container">
+            <h1>Delete Account</h1>
+            <p>Are you sure you want to delete your account?</p>
+
+            <div class="clearfix">
+                <button type="button" class="cancelbtn">Cancel</button>
+                <button type="button" class="deletebtn">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
 
 <footer th:replace="/index::footer"></footer>
 </body>

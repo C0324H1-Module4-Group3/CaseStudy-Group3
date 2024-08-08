@@ -57,21 +57,34 @@ $('.btn-size').click(function () {
     let size = $(this).html();
     let cartId = $(this).closest(".skuId").data('id');
     let _$this = $(this);
-
     $.ajax({
         type: "put",
         url: "http://localhost:8080/api/carts/update/" + cartId + "?size=" + size,
         success: function (data) {
-            if(data===0){
+            if (data === 0) {
                 showAlert("This size is out of stock ", "message")
-            }else {
+            } else {
+
                 _$this.closest(".skuId").find(".btn-size").removeClass('btn-secondary').addClass('btn-success');
                 _$this.removeClass('btn-success').addClass('btn-secondary')
+
+                $.ajax({
+                    type: "get",
+                    url: "http://localhost:8080/api/carts/quantity/" + cartId,
+                    success: function (data) {
+                        let html = (`
+                          ${data}
+                            `)
+                        _$this.closest(".card-body").find(".quantitySku").html(html);
+                    }
+                })
             }
         }
 
     })
 });
+
+
 
 function elementBilll() {
     $.ajax({
@@ -98,7 +111,6 @@ function elementBilll() {
 }
 
 
-
 function confirmDelete(event, element) {
     event.preventDefault();
     let confirmation = confirm("Xóa hả chắc chưa")
@@ -119,6 +131,8 @@ const showAlert = (message, type, text) => {
         text: text
     });
 }
+
+
 
 
 
