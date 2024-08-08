@@ -29,15 +29,14 @@
                         </p>
                         <ul class="list-unstyled">
                             <li><strong>Size: </strong><span th:text="${skuProduct.size}"></span></li>
-                            <li><strong>Quantity: </strong>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary" type="button" id="button-decrease">-</button>
-                                    <input type="number" class="form-control text-center" id="quantity" value="1" min="1">
-                                    <button class="btn btn-outline-secondary" type="button" id="button-increase">+</button>
-                                </div>
-                            </li>
+                            <div class="input-group mb-3" style="max-width: 150px;">
+                                <button class="btn btn-outline-secondary btn-sm" type="button" id="button-decrease">-</button>
+                                <input type="number" class="form-control text-center" id="quantity" value="1" min="1" style="width: 60px;">
+                                <button class="btn btn-outline-secondary btn-sm" type="button" id="button-increase">+</button>
+                            </div>
                             <li><strong>Color: </strong><span th:text="${skuProduct.color}"></span></li>
                             <li><strong>Status: </strong><span th:text="${skuProduct.status}"></span></li>
+                            <li><strong>Price: </strong><span th:text="${skuProduct.price}"></span></li>
                         </ul>
                         <div class="row pb-3">
                             <div class="col d-grid">
