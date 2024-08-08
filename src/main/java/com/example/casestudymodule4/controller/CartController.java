@@ -2,12 +2,18 @@ package com.example.casestudymodule4.controller;
 
 import com.example.casestudymodule4.dto.FormPayment;
 import com.example.casestudymodule4.model.Cart;
+import com.example.casestudymodule4.model.SkuProduct;
 import com.example.casestudymodule4.model.User;
+import com.example.casestudymodule4.service.ISKProductService;
 import com.example.casestudymodule4.service.IUserService;
 import com.example.casestudymodule4.service.impl.CartService;
 import com.example.casestudymodule4.service.impl.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +29,9 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+    @Autowired
+    private ISKProductService skProductService;
+
 
     @GetMapping("")
     private String showCart(@RequestParam("id") Integer userid, Model model) {
@@ -72,6 +81,24 @@ public class CartController {
         cartService.save(formPayment);
         return "redirect:/cart?id=1";
     }
+    @PostMapping("/add")
+
+    public String addToCart(@RequestParam("skuProductId") Integer skuProductId,
+                            @RequestParam("quantity") Integer quantity,
+                            HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || !(authentication.getPrincipal() instanceof UserDetails)) {
+            return "redirect:/login?redirectTo=/cart/add";
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = userService.getUserByUserName(userDetails.getUsername());
+
+        cartService.addToCart(user, skuProductId, quantity);
+
+        return "redirect:/cart";
+    }
+
 
 
 
@@ -84,6 +111,6 @@ public class CartController {
 //    @PostMapping("/add/{skuId")
 //    private String addToCart(@PathVariable("skuId") Integer skuId,
 //                             @RequestParam())
-
-
 }
+
+

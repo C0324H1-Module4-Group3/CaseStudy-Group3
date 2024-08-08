@@ -47,6 +47,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
                                 .requestMatchers("/home","/index","/login","/signup","/**").permitAll())
+                .authorizeHttpRequests((authorizeHttpRequests) ->
+                        authorizeHttpRequests
+                                .requestMatchers("/cart/add").authenticated() )// yêu cầu đăng nhập cho /cart/add
 //               Cấu hình lại form login
                 .formLogin((formLogin) ->
                         formLogin

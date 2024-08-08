@@ -24,6 +24,7 @@ public interface CartRepo extends JpaRepository<Cart, Integer>, CrudRepository<C
             "join  c.customer customer " +
             "where  customer.id = :customerId")
     Iterable<CartDto> findAllByCustomerId(Integer customerId);
+    Iterable<Cart> findByCustomerId(Integer userId);
 
 }
 
