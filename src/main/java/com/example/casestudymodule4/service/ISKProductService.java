@@ -8,16 +8,10 @@ import java.util.List;
 
 public interface ISKProductService extends IGenerateService<SkuProduct>{
     Page<SkuProduct> findAll(Pageable pageable);
-
     void remove(Integer id);
-
-
-
     SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id,String size);
-
-
-
-    List<SkuProduct> searchSkuProducts(String keyword);
-
-
+    Page<SkuProduct> fetchSkuProducts(Pageable pageable);
+    Page<SkuProduct> findSkuProductByCategory(Integer categoryId, Pageable pageable);
+    Page<SkuProduct> searchSkuProducts(String searchName, Pageable pageable);
+    Page<SkuProduct> searchSkuProduct(String searchName, Pageable pageable);
 }

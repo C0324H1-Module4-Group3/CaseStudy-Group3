@@ -7,6 +7,10 @@ import com.example.casestudymodule4.service.IOrderService;
 import com.example.casestudymodule4.service.IProductService;
 import com.example.casestudymodule4.service.ISKProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @RequestMapping("/admin")
 @Controller
 public class AdminProductController {
@@ -36,22 +40,24 @@ public class AdminProductController {
         return "admin/index";
     }
 
-
     @GetMapping("/manager")
-    public String managerPage(Model model, @RequestParam(required = false) String keyword) {
-        List<Product> products;
-        List<SkuProduct> skuProducts;
+    public String managerPage(Model model, @RequestParam(required = false) String keyword,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "10") int size) {
+        Page<Product> productPage;
+        Page<SkuProduct> skuProductPage;
+        Pageable pageable = PageRequest.of(page, size);
 
         if (keyword != null && !keyword.isEmpty()) {
-            products = productService.searchProducts(keyword);
-            skuProducts = skproductService.searchSkuProducts(keyword);
+            productPage = productService.searchProducts(keyword, pageable);
+            skuProductPage = skproductService.searchSkuProducts(keyword, pageable);
         } else {
-            products = productService.findAll();
-            skuProducts = skproductService.findAll();
+            productPage = productService.findAll(pageable);
+            skuProductPage = skproductService.findAll(pageable);
         }
 
-        model.addAttribute("skuProducts", skuProducts);
-        model.addAttribute("products", products);
+        model.addAttribute("skuProducts", skuProductPage);
+        model.addAttribute("products", productPage);
         model.addAttribute("keyword", keyword);
         return "admin/manager";
     }
