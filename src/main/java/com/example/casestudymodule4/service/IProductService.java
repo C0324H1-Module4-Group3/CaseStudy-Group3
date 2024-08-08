@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.service;
 
+import com.example.casestudymodule4.dto.ProductResponse;
 import com.example.casestudymodule4.model.Product;
 import com.example.casestudymodule4.model.SkuProduct;
 import org.springframework.data.domain.Page;
@@ -21,4 +22,10 @@ public interface IProductService extends IGenerateService<Product>{
     Page<Product> fetchProducts(Pageable pageable);
 
     Page<Product> searchProducts(String searchName, Pageable pageable);
+
+    Page<ProductResponse> fetchProductResponse(Pageable pageable);
+
+    Page<ProductResponse> findProductByName(String searchName, Pageable pageable);
+
+    Page<ProductResponse> findProductByIdCategory(Integer categoryId, Pageable pageable);
 }
