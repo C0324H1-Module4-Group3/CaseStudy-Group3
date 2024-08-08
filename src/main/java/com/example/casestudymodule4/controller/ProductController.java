@@ -4,6 +4,7 @@ import com.example.casestudymodule4.model.Product;
 import com.example.casestudymodule4.model.SkuProduct;
 import com.example.casestudymodule4.service.IProductService;
 import com.example.casestudymodule4.service.ISKProductService;
+import com.example.casestudymodule4.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,9 +29,15 @@ public class ProductController {
     private IProductService productService;
     @Autowired
     private ISKProductService iskProductService;
+    @Autowired
+    private IUserService userService;
 
     @GetMapping
-    public String home() {
+    public String home(Principal principal, Model model) {
+        if (principal != null) {
+            String userName = userService.getUserByUserName(principal.getName()).getName();
+            model.addAttribute("userName", userName);
+        }
         return "/index";
     }
 
