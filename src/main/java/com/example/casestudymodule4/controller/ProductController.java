@@ -158,3 +158,4 @@ public String searchProducts(Model model,
         return "shop-single";
     }
 }
+

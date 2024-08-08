@@ -46,8 +46,9 @@ public class SKProductService implements ISKProductService {
         return iskProductRepository.findSkuProductByIdEqualsAndSizeEquals(id, size);
     }
 
-    public List<SkuProduct> searchSkuProducts(String keyword) {
-        return iskProductRepository.findByProductContaining(keyword);
+    @Override
+    public Page<SkuProduct> searchSkuProducts(String keyword, Pageable pageable) {
+        return iskProductRepository.findByProductContaining(keyword,pageable);
     }
 
     @Override
