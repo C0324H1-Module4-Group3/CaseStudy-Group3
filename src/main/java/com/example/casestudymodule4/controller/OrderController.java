@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,8 +23,8 @@ public class OrderController {
 
     @GetMapping("/order")
     public String listOrdersDate(Model model,
-                                 @RequestParam(value = "startDate", defaultValue = "2024-20-08") String startDate,
-                                 @RequestParam(value = "endDate", defaultValue = "2024-10-08") String endDate,
+                                 @RequestParam(value = "startDate", defaultValue = "LocalDate.now") String startDate,
+                                 @RequestParam(value = "endDate", defaultValue = "LocalDate.now") String endDate,
                                  @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<OrderDetailDTO> orderDetailDTOs = orderService.findAllByDate(startDate, endDate, PageRequest.of(page, 5));
         model.addAttribute("orderDetailDTOs", orderDetailDTOs);

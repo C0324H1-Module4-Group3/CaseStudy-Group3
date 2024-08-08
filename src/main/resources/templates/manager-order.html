@@ -139,12 +139,12 @@
             <td th:text="${orderDetailDTO.productName}"></td>
             <td th:text="${orderDetailDTO.categoryName}"></td>
             <td th:text="${orderDetailDTO.totalMoney} + '$'"></td>
-            <td>
-                <button class="btn btn-danger"
-                        th:onclick="'window.location.href = \'' + @{/home/order/{idOrder}(idOrder=${orderDetailDTO.idOrder})} + '\''">
-                    View
-                </button>
-            </td>
+<!--            <td>-->
+<!--                <button class="btn btn-danger"-->
+<!--                        th:onclick="'window.location.href = \'' + @{/admin/order/{idOrder}(idOrder=${orderDetailDTO.idOrder})} + '\''">-->
+<!--                    View-->
+<!--                </button>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>
