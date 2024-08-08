@@ -52,6 +52,11 @@ public class SKProductService implements ISKProductService {
     }
 
     @Override
+    public Page<SkuProduct> searchSkuProduct(String searchName, Pageable pageable) {
+        return iskProductRepository.findByProductNameContainingIgnoreCase(searchName, pageable);
+    }
+
+    @Override
     public SkuProduct findById(Integer id) {
         return iskProductRepository.findById(id).orElse(null);
     }
@@ -65,5 +70,16 @@ public class SKProductService implements ISKProductService {
     public void update(SkuProduct product) {
         iskProductRepository.save(product);
     }
+    @Override
+    public Page<SkuProduct> fetchSkuProducts(Pageable pageable) {
+        return iskProductRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<SkuProduct> findSkuProductByCategory(Integer categoryId, Pageable pageable) {
+        return iskProductRepository.findByProductCategoryId(categoryId, pageable);
+    }
+
+
 }
 

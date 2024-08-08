@@ -34,7 +34,6 @@ public class ProductController {
     private final ICategoryService categoryService;
     @Autowired
     private IUserService userService;
-
     @ModelAttribute("categories")
     public List<Category> listCategories() {
         return categoryService.findAll();
@@ -49,24 +48,43 @@ public class ProductController {
         return "/index";
     }
 
-    @GetMapping("/shop")
-    public String shop(Model model,
-                       @PageableDefault(sort = "id", size = 8, direction = Sort.Direction.DESC) Pageable pageable) {
+//    @GetMapping("/shop")
+//    public String shop(Model model,
+//                       @PageableDefault(sort = "id", size = 8, direction = Sort.Direction.DESC) Pageable pageable) {
+//
+//        Page<Product> products = productService.fetchProducts(pageable);
+//        int totalPages = products.getTotalPages();
+//        int currentPage = products.getNumber();
+//        int startPage = Math.max(0, currentPage - 2);
+//        int endPage = Math.min(totalPages - 1, currentPage + 2);
+//
+//        model.addAttribute("products", products);
+//        model.addAttribute("currentPage", currentPage);
+//        model.addAttribute("totalPages", totalPages);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("endPage", endPage);
+//
+//        return "/shop";
+//    }
+@GetMapping("/shop")
+public String shop(Model model,
+                   @PageableDefault(sort = "id", size = 8, direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Page<Product> products = productService.fetchProducts(pageable);
-        int totalPages = products.getTotalPages();
-        int currentPage = products.getNumber();
-        int startPage = Math.max(0, currentPage - 2);
-        int endPage = Math.min(totalPages - 1, currentPage + 2);
+    Page<SkuProduct> skuProducts = iskProductService.fetchSkuProducts(pageable);
+    int totalPages = skuProducts.getTotalPages();
+    int currentPage = skuProducts.getNumber();
+    int startPage = Math.max(0, currentPage - 2);
+    int endPage = Math.min(totalPages - 1, currentPage + 2);
 
-        model.addAttribute("products", products);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
+    model.addAttribute("skuProducts", skuProducts);
+    model.addAttribute("currentPage", currentPage);
+    model.addAttribute("totalPages", totalPages);
+    model.addAttribute("startPage", startPage);
+    model.addAttribute("endPage", endPage);
 
-        return "/shop";
-    }
+    return "/shop";
+}
+
 
     @GetMapping("/shop/{id}")
     public String getProductByCategory(Model model,
@@ -90,23 +108,42 @@ public class ProductController {
         return "/shop-category";
     }
 
-    @GetMapping("/search")
-    public String searchProducts(Model model,
-                                 @RequestParam("searchName") String searchName,
-                                 @PageableDefault(sort = "id", size = 4, direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Product> products = productService.searchProducts(searchName, pageable);
-        int totalPages = products.getTotalPages();
-        int currentPage = products.getNumber();
-        int startPage = Math.max(0, currentPage - 2);
-        int endPage = Math.min(totalPages - 1, currentPage + 2);
 
-        model.addAttribute("products", products);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        return "shop";
-    }
+//    @GetMapping("/search")
+//    public String searchProducts(Model model,
+//                                 @RequestParam("searchName") String searchName,
+//                                 @PageableDefault(sort = "id", size = 4, direction = Sort.Direction.DESC) Pageable pageable) {
+//        Page<Product> products = productService.searchProducts(searchName, pageable);
+//        int totalPages = products.getTotalPages();
+//        int currentPage = products.getNumber();
+//        int startPage = Math.max(0, currentPage - 2);
+//        int endPage = Math.min(totalPages - 1, currentPage + 2);
+//
+//        model.addAttribute("products", products);
+//        model.addAttribute("currentPage", currentPage);
+//        model.addAttribute("totalPages", totalPages);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("endPage", endPage);
+//        return "shop";
+//    }
+@GetMapping("/search")
+public String searchProducts(Model model,
+                             @RequestParam("searchName") String searchName,
+                             @PageableDefault(sort = "id", size = 4, direction = Sort.Direction.DESC) Pageable pageable) {
+    Page<SkuProduct> skuProducts = iskProductService.searchSkuProducts(searchName, pageable);
+    int totalPages = skuProducts.getTotalPages();
+    int currentPage = skuProducts.getNumber();
+    int startPage = Math.max(0, currentPage - 2);
+    int endPage = Math.min(totalPages - 1, currentPage + 2);
+
+    model.addAttribute("skuProducts", skuProducts);
+    model.addAttribute("currentPage", currentPage);
+    model.addAttribute("totalPages", totalPages);
+    model.addAttribute("startPage", startPage);
+    model.addAttribute("endPage", endPage);
+    return "shop";
+}
+
 
 
     @GetMapping("/shop-single/{id}")
@@ -120,4 +157,9 @@ public class ProductController {
         }
         return "shop-single";
     }
+    @GetMapping("/contact")
+    public String viewContact(){
+        return "contact";
+    }
 }
+

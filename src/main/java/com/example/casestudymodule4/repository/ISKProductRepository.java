@@ -16,6 +16,8 @@ public interface ISKProductRepository extends JpaRepository<SkuProduct,Integer> 
     SkuProduct findSkuProductByProductIdAndSize(Integer productId,String size);
 
     @Query("SELECT s FROM SkuProduct s JOIN s.product p WHERE p.name LIKE %:keyword%")
-    Page<SkuProduct> findByProductContaining(String keyword, Pageable pageable);
+    Page<SkuProduct> findByProductContaining(String keyword,Pageable pageable);
+    Page<SkuProduct> findByProductCategoryId(Integer categoryId, Pageable pageable);
+    Page<SkuProduct> findByProductNameContainingIgnoreCase(String searchName, Pageable pageable);
 
 }
