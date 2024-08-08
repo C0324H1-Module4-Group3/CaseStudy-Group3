@@ -65,6 +65,10 @@
             display: flex;
             justify-content: flex-end;
         }
+        .product-image {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
     </style>
 </head>
 <body>
@@ -137,14 +141,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="skuProduct, iterStat : ${skuProducts}">
+        <tr th:each="skuProduct, iterStat : ${skuProducts.content}">
             <td th:text="${iterStat.count}"></td>
             <td th:text="${skuProduct.id}"></td>
             <td th:text="${skuProduct.product.name}"></td>
             <td th:text="${skuProduct.size}"></td>
             <td th:text="${skuProduct.color}"></td>
             <td th:text="${#numbers.formatDecimal(skuProduct.price, 0, 'COMMA', 1, 'POINT')} + ' $'" class="price"></td>
-            <td><img th:src="@{${skuProduct.imagePath}}" alt="Product Image"></td>
+            <td><img th:src="@{${skuProduct.imagePath}}" alt="Product Image" class="product-image"></td>
             <td th:text="${skuProduct.quantity}"></td>
             <td th:text="${skuProduct.status}"></td>
             <td>
@@ -154,23 +158,23 @@
         </tr>
         </tbody>
     </table>
-    <!--    <nav aria-label="Page navigation example">-->
-    <!--        <ul class="pagination">-->
-    <!--            <li class="page-item" th:if="${skuProducts.hasPrevious()}">-->
-    <!--                <a class="page-link" th:href="@{/skuProduct(page=${skuProducts.number - 1}, nameProduct=${nameProduct})}" aria-label="Previous">-->
-    <!--                    <span aria-hidden="true">&laquo;</span>-->
-    <!--                </a>-->
-    <!--            </li>-->
-    <!--            <li class="page-item" th:each="i : ${#numbers.sequence(1, skuProducts.totalPages)}">-->
-    <!--                <a class="page-link" th:text="${i}" th:href="@{/skuProduct(page=${i - 1}, nameProduct=${nameProduct})}"></a>-->
-    <!--            </li>-->
-    <!--            <li class="page-item" th:if="${skuProducts.hasNext()}">-->
-    <!--                <a class="page-link" th:href="@{/skuProduct(page=${skuProducts.number + 1}, nameProduct=${nameProduct})}" aria-label="Next">-->
-    <!--                    <span aria-hidden="true">&raquo;</span>-->
-    <!--                </a>-->
-    <!--            </li>-->
-    <!--        </ul>-->
-    <!--    </nav>-->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${skuProducts.hasPrevious()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/admin/manager(keyword=${keyword}, page=${skuProducts.number - 1}, size=${skuProducts.size})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(1, skuProducts.totalPages)}" th:classappend="${i == skuProducts.number + 1} ? 'active'">
+                <a class="page-link" th:text="${i}" th:href="@{/admin/manager(keyword=${keyword}, page=${i - 1}, size=${skuProducts.size})}"></a>
+            </li>
+            <li class="page-item" th:classappend="${skuProducts.hasNext()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/admin/manager(keyword=${keyword}, page=${skuProducts.number + 1}, size=${skuProducts.size})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 <!-- Include Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

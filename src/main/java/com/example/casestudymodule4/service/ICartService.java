@@ -37,6 +37,10 @@ public interface ICartService {
 
     void save(FormPayment formPayment);
 
+
+
+    SkuProduct findSkuProductByProductIdAndSize(Integer cartId, String size);
+
     void addToCart(User user, Integer skuProductId, Integer quantity);
 
 }
