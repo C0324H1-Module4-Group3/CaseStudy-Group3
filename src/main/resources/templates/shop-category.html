@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="~{/index :: head}">
+<head th:replace="/index :: head">
 </head>
 
 <body>
-<div th:replace="~{index :: navbar}"></div>
+<nav th:replace="index :: navbar"></nav>
 
 <div class="row" style="padding-top: 160px">
     <div class="col-lg-2">
@@ -120,7 +120,7 @@
                                 <i class="text-muted fa fa-star"></i>
                             </li>
                         </ul>
-                        <p class="text-center mb-0" th:text="'$' + ${products.price}"></p>
+                        <p class="text-center mb-0">$250.00</p>
                     </div>
                 </div>
             </div>
@@ -270,9 +270,9 @@
     </div>
 </section>
 
-<div th:replace="~{/index::footer}"></div>
+<footer th:replace="/index::footer"></footer>
 
-<div th:replace="~{/index::filejs}"></div>
+<th:block th:replace="/index::filejs">
 
 </th:block>
 </body>

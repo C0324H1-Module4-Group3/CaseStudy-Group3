@@ -1,20 +1,16 @@
 package com.example.casestudymodule4.service.impl;
 
-import com.example.casestudymodule4.dto.ProductResponse;
-import com.example.casestudymodule4.dto.SkuProductResponse;
 import com.example.casestudymodule4.model.Product;
 
 
-import com.example.casestudymodule4.model.SkuProduct;
+
 import com.example.casestudymodule4.repository.IProductRepository;
 import com.example.casestudymodule4.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -73,83 +69,17 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Page<ProductResponse> fetchProducts(Pageable pageable) {
-        Page<Product> productPage = productRepository.findAll(pageable);
-        List<ProductResponse> productResponses = new ArrayList<>();
-
-        for(Product product : productPage){
-            List<SkuProductResponse> skuProducts = product.getSkuProducts().stream().map(skuProduct ->
-                    SkuProductResponse.builder()
-                            .id(skuProduct.getId())
-                            .productId(skuProduct.getProduct().getId())
-                            .color(skuProduct.getColor())
-                            .size(skuProduct.getSize())
-                            .price(skuProduct.getPrice())
-                            .build()).toList();
-            SkuProductResponse firstSkuProduct = skuProducts.isEmpty() ? null : skuProducts.get(0);
-
-            productResponses.add(ProductResponse.builder()
-                    .id(product.getId())
-                    .name(product.getName())
-                    .imagePath(product.getImagePath())
-                    .price(firstSkuProduct.getPrice())
-                    .categoryId(product.getCategory().getId())
-                    .build());
-        }
-        return new PageImpl<>(productResponses, pageable, productPage.getTotalElements());
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
     @Override
-    public Page<ProductResponse> searchProducts(String searchName, Pageable pageable) {
-        Page<Product> productPage = productRepository.findAll(pageable);
-        List<ProductResponse> productResponses = new ArrayList<>();
-
-        for(Product product : productPage){
-            List<SkuProductResponse> skuProducts = product.getSkuProducts().stream().map(skuProduct ->
-                    SkuProductResponse.builder()
-                            .id(skuProduct.getId())
-                            .productId(skuProduct.getProduct().getId())
-                            .color(skuProduct.getColor())
-                            .size(skuProduct.getSize())
-                            .price(skuProduct.getPrice())
-                            .build()).toList();
-            SkuProductResponse firstSkuProduct = skuProducts.isEmpty() ? null : skuProducts.get(0);
-
-            productResponses.add(ProductResponse.builder()
-                    .id(product.getId())
-                    .name(product.getName())
-                    .imagePath(product.getImagePath())
-                    .price(firstSkuProduct.getPrice())
-                    .categoryId(product.getCategory().getId())
-                    .build());
-        }
-        return new PageImpl<>(productResponses, pageable, productPage.getTotalElements());
+    public Page<Product> fetchProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
     @Override
-    public Page<ProductResponse> findProductByIdCategory(Integer categoryId, Pageable pageable) {
-        Page<Product> productPage = productRepository.findByIdCategory(categoryId, pageable);
-        List<ProductResponse> productResponses = new ArrayList<>();
-
-        for(Product product : productPage){
-            List<SkuProductResponse> skuProducts = product.getSkuProducts().stream().map(skuProduct ->
-                    SkuProductResponse.builder()
-                            .id(skuProduct.getId())
-                            .productId(skuProduct.getProduct().getId())
-                            .color(skuProduct.getColor())
-                            .size(skuProduct.getSize())
-                            .price(skuProduct.getPrice())
-                            .build()).toList();
-            SkuProductResponse firstSkuProduct = skuProducts.isEmpty() ? null : skuProducts.get(0);
-
-            productResponses.add(ProductResponse.builder()
-                    .id(product.getId())
-                    .name(product.getName())
-                    .imagePath(product.getImagePath())
-                            .price(firstSkuProduct.getPrice())
-                    .categoryId(product.getCategory().getId())
-                    .build());
-        }
-        return new PageImpl<>(productResponses, pageable, productPage.getTotalElements());
+    public Page<Product> searchProducts(String searchName, Pageable pageable) {
+        return productRepository.searchProduct(searchName, pageable);
     }
 }
