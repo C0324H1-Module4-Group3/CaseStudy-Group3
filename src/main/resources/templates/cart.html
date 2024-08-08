@@ -21,7 +21,7 @@
                 <div class="row g-0">
 
                     <div class="col-lg-3 col-md-4">
-                        <img src="/img/aodau1.png" class="img-fluid rounded-start" alt="...">
+                        <img th:src="${c.sku.imagePath}" class="img-fluid rounded-start" alt="...">
                     </div>
 
                     <div class="col-md-8 col-lg-9">
@@ -37,27 +37,27 @@
 
                             </div>
 
-                            <p class="card-text">
-                                <small class="text-body-secondary">Color :
+<!--                            <p class="card-text">-->
+<!--                                <small class="text-body-secondary">Color :-->
 <!--                                    <a href="#" style="text-decoration: none">-->
 <!--                                        <img src="https://i0.wp.com/colourlex.com/wp-content/uploads/2021/02/naples-yellow-painted-swatch.jpg?ssl=1"-->
 <!--                                             alt="Description of the image" class="rounded-circle"-->
 <!--                                             style="width:20px;height:20px;">-->
 <!--                                    </a>-->
 
-                                    <a href="#" style="text-decoration: none">
-                                        <img src="https://htmlcolorcodes.com/assets/images/colors/red-color-solid-background-1920x1080.png"
-                                             alt="Description of the image" class="rounded-circle"
-                                             style="width:20px;height:20px;">
-                                    </a>
+<!--                                    <a href="#" style="text-decoration: none">-->
+<!--                                        <img src="https://htmlcolorcodes.com/assets/images/colors/red-color-solid-background-1920x1080.png"-->
+<!--                                             alt="Description of the image" class="rounded-circle"-->
+<!--                                             style="width:20px;height:20px;">-->
+<!--                                    </a>-->
 
 <!--                                    <a href="#" style="text-decoration: none">-->
 <!--                                        <img src="https://nguyenlieulammyphamvn.com/wp-content/uploads/2020/12/mau-xanh-duong-tan-nuoc.jpg"-->
 <!--                                             alt="Description of the image" class="rounded-circle"-->
 <!--                                             style="width:20px;height:20px;">-->
 <!--                                    </a>-->
-                                </small>
-                            </p>
+<!--                                </small>-->
+<!--                            </p>-->
 
                             <div class="d-flex">
                                 <p class="card-text">Cost per unit :</p>
@@ -207,8 +207,6 @@
                         <input type="hidden"  th:value="${user.userName}" name="userName">
 
                     </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Buy</button>
