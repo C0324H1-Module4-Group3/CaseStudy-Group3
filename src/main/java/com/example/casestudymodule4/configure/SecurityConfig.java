@@ -39,14 +39,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf.disable())
-//                Config các đường dẫn không cần đăng nhập
-                .authorizeHttpRequests((authorizeHttpRequests) ->
-                        authorizeHttpRequests
-                                .requestMatchers("/home","/login","/signup","/**").permitAll())
 //                Config các đường dẫn bắt buộc cần đăng nhập
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/logout").authenticated())
+                                .requestMatchers("/logout","/admin/**").authenticated())
+//                Config các đường dẫn không cần đăng nhập
+                .authorizeHttpRequests((authorizeHttpRequests) ->
+                        authorizeHttpRequests
+                                .requestMatchers("/home","/index","/login","/signup","/**").permitAll())
+                .authorizeHttpRequests((authorizeHttpRequests) ->
+                        authorizeHttpRequests
+                                .requestMatchers("/cart/add").authenticated() )// yêu cầu đăng nhập cho /cart/add
 //               Cấu hình lại form login
                 .formLogin((formLogin) ->
                         formLogin
@@ -57,16 +60,17 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/home"))
                 .logout((logout) ->
-                        logout.deleteCookies("remove")
+                        logout.deleteCookies("JSESSIONID")
                                 .invalidateHttpSession(false)
                                 .logoutUrl("/logout")
                                 .logoutSuccessUrl("/logoutSuccessful"))
                 .rememberMe((remember) ->
-                        remember.rememberMeParameter("rememberMe")
+                        remember.rememberMeParameter("remember-me")
                                 .tokenValiditySeconds(60 * 60 * 24 * 30))
                 .exceptionHandling((exceptionHandling) ->
                         exceptionHandling
-                                .accessDeniedPage("/403"));
+                                .accessDeniedPage("/403")
+                );
         return http.build();
     }
 

@@ -36,10 +36,9 @@ public class RestCartController {
     }
 
 
-    @GetMapping("/cart/{id}")
-    public ResponseEntity<?> Carts(@PathVariable Integer id){
-
-        Iterable<CartDto> list = cartService.findA(id);
+    @GetMapping("/cart/{userId}")
+    public ResponseEntity<?> Carts(@PathVariable Integer userId){
+        Iterable<CartDto> list = cartService.findA(userId);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
@@ -55,7 +54,6 @@ public class RestCartController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @GetMapping("/moneyTotal/{userId}")
     public ResponseEntity<?> moneyTotal(@PathVariable("userId") Integer userId){
         Iterable<Cart> list =  cartService.findCartsByUserId(userId);
@@ -69,18 +67,18 @@ public class RestCartController {
         return new ResponseEntity<>(elementBill,HttpStatus.OK);
     }
 
-    @GetMapping("/quantity/{size}/{skuId}")
-    public ResponseEntity<?> getQuantity(@PathVariable("size") String size,@PathVariable("skuId") Integer skuId){
-
-       SkuProduct skuProduct = iskProductService.findSkuProductByIdEqualsAndSizeEquals(skuId,size);
-       Integer quantity = skuProduct.getQuantity();
-        return new ResponseEntity<>(quantity,HttpStatus.OK);
-    }
-
     @PutMapping("/update/{cartId}")
     public ResponseEntity<?> update(@PathVariable("cartId") Integer cartId,@RequestParam("size") String size){
         cartService.updateCart(cartId,size);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/quantity/{size}/{skuId}")
+    public ResponseEntity<?> getQuantity(@PathVariable("size") String size,@PathVariable("skuId") Integer skuId){
+
+        SkuProduct skuProduct = iskProductService.findSkuProductByIdEqualsAndSizeEquals(skuId,size);
+        Integer quantity = skuProduct.getQuantity();
+        return new ResponseEntity<>(quantity,HttpStatus.OK);
     }
 
  }

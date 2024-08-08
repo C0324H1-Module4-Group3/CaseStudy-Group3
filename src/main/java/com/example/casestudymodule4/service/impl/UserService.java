@@ -37,6 +37,7 @@ public class UserService implements IUserService {
         User user = new User();
         user.setName(userDto.getName());
         user.setAddress(userDto.getAddress());
+        user.setDob(userDto.getDob());
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setUserName(userDto.getUserName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));

@@ -28,7 +28,7 @@ public class MailService {
     @Autowired
     ThymeleafService thymeleafService;
 
-    public String sendMail(String oderInfo,String paymentTime,String transactionId,Double totalPrice,String userName) {
+    public String sendMail(String oderInfo,String paymentTime,String transactionId,String totalPrice,String userName) {
         Properties props = new Properties();
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.starttls.enable", "true");

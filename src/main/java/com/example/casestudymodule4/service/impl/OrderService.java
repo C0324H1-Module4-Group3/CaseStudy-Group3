@@ -3,7 +3,9 @@ package com.example.casestudymodule4.service.impl;
 import com.example.casestudymodule4.dto.MonthlyRevenueDTO;
 import com.example.casestudymodule4.dto.OrderDetailDTO;
 import com.example.casestudymodule4.model.Order;
+import com.example.casestudymodule4.model.OrderDetail;
 import com.example.casestudymodule4.model.User;
+import com.example.casestudymodule4.repository.IOrderDetailRepository;
 import com.example.casestudymodule4.repository.IOrderRepository;
 import com.example.casestudymodule4.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private IOrderRepository orderRepository;
+    @Autowired
+    private IOrderDetailRepository orderDetailRepository;
 
 
 
@@ -63,8 +67,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public String findStatusByOrderId(Integer orderId) {
-        return null;
+    public void saveOrder(OrderDetail orderDetail) {
+        orderDetailRepository.save(orderDetail);
     }
 
 
@@ -74,9 +78,10 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void save(OrderDetailDTO orderDTO) {
+    public void save(OrderDetailDTO orderDetailDTO) {
 
     }
+
 
     @Override
     public Page<OrderDetailDTO> findAll(String name, Pageable pageable) {

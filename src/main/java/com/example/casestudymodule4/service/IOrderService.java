@@ -3,6 +3,7 @@ package com.example.casestudymodule4.service;
 import com.example.casestudymodule4.dto.MonthlyRevenueDTO;
 import com.example.casestudymodule4.dto.OrderDetailDTO;
 import com.example.casestudymodule4.model.Order;
+import com.example.casestudymodule4.model.OrderDetail;
 import com.example.casestudymodule4.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,5 +20,7 @@ public interface IOrderService extends IGenerateService<OrderDetailDTO> {
     List<Order> getAllOrder();
     void deleteOrder(String code);
     Order findOrderByCustomerAndStatus(User customer, String status);
-    String findStatusByOrderId(Integer orderId);
+    void saveOrder(OrderDetail orderDetail);
+
+
 }

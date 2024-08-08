@@ -41,8 +41,8 @@
 <nav th:replace="index :: navbar">
 </nav>
 
-<div class="container-fluid" style="padding-top: 160px; color: darkgoldenrod; font-style: italic; font-weight: bolder" >
-    <h5 class="message">Logout Successfully</h5>
+<div class="container-fluid" style="padding-top: 160px; color: darkgoldenrod; font-style: italic; font-weight: bolder" th:if="${message} != null">
+    <h5 class="message" th:text="${message}"></h5>
 </div>
 
 </body>

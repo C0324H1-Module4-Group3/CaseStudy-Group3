@@ -2,6 +2,7 @@ package com.example.casestudymodule4.dto;
 
 import com.example.casestudymodule4.annotation.UniqueEmail;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -15,6 +16,7 @@ public class UserDto implements Validator {
     private String name;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
 
     @NotBlank(message = "Name could not be blank")
