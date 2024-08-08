@@ -1,5 +1,6 @@
 package com.example.casestudymodule4.service;
 
+import com.example.casestudymodule4.model.Product;
 import com.example.casestudymodule4.model.SkuProduct;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +17,5 @@ public interface ISKProductService extends IGenerateService<SkuProduct>{
     SkuProduct findSkuProductByIdEqualsAndSizeEquals(Integer id,String size);
 
 
-
-    List<SkuProduct> searchSkuProducts(String keyword);
-
-
+    Page<SkuProduct> searchSkuProducts(String keyword, Pageable pageable);
 }
