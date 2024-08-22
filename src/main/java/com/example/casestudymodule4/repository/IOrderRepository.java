@@ -40,41 +40,64 @@ public interface IOrderRepository extends JpaRepository<Order, Integer> {
 
     Iterable<OrderDetailDTO> getOrderDetailDTO();
 
+//    @Query(nativeQuery = true, value = "SELECT\n" +
+//            "    o.id AS idOrder,\n" +
+//            "    u.name AS customerName,\n" +
+//            "    p.name AS productName,\n" +
+//            "    c.name AS categoryName,\n" +
+//            "    SUM(od.quantity * sp.price) AS totalMoney\n" +
+//            "FROM\n" +
+//            "    users u\n" +
+//            "        JOIN\n" +
+//            "    orders o ON u.id = o.customer_id\n" +
+//            "        JOIN\n" +
+//            "    order_details od ON o.id = od.order_id\n" +
+//            "        JOIN\n" +
+//            "    sku_products sp ON od.sku_id = sp.id\n" +
+//            "        JOIN\n" +
+//            "    products p ON sp.product_id = p.id\n" +
+//            "        JOIN\n" +
+//            "    categories c ON p.category_id = c.id\n" +
+//            "WHERE\n" +
+//            "    sp.status = 'Còn'\n" +
+//            "  AND o.booking_date BETWEEN :startDate AND :endDate\n" +
+//            "GROUP BY\n" +
+//            "    o.id, u.name, p.name, c.name;")
     @Query(nativeQuery = true, value = "SELECT\n" +
             "    o.id AS idOrder,\n" +
+            "    o.code as code,\n" +
             "    u.name AS customerName,\n" +
-            "    p.name AS productName,\n" +
-            "    c.name AS categoryName,\n" +
-            "    SUM(od.quantity * sp.price) AS totalMoney\n" +
+            "    o.delivery_address as address,\n" +
+            "    u.phone_number as phone,\n" +
+            "    o.total_money as totalMoney\n" +
             "FROM\n" +
             "    users u\n" +
-            "        JOIN\n" +
-            "    orders o ON u.id = o.customer_id\n" +
-            "        JOIN\n" +
-            "    order_details od ON o.id = od.order_id\n" +
-            "        JOIN\n" +
-            "    sku_products sp ON od.sku_id = sp.id\n" +
-            "        JOIN\n" +
-            "    products p ON sp.product_id = p.id\n" +
-            "        JOIN\n" +
-            "    categories c ON p.category_id = c.id\n" +
-            "WHERE\n" +
-            "    sp.status = 'Còn'\n" +
-            "  AND o.booking_date BETWEEN :startDate AND :endDate\n" +
+            "        JOIN orders o ON u.id = o.customer_id\n" +
+            "  WHERE o.booking_date BETWEEN :startDate AND :endDate\n" +
             "GROUP BY\n" +
-            "    o.id, u.name, p.name, c.name;")
+            "    o.id, u.name, o.code, delivery_address, phone_number, total_money;")
     Page<OrderDetailDTO> findAllByDate(String startDate, String endDate, Pageable pageable);
 
-    @Query(nativeQuery = true, value = "WITH monthly_revenue AS (" +
-            "SELECT DATE_FORMAT(o.booking_date, '%Y-%m') AS month_year, " +
-            "SUM(od.quantity * sp.price) AS total_revenue " +
-            "FROM orders o " +
-            "JOIN order_details od ON o.id = od.order_id " +
-            "JOIN sku_products sp ON od.sku_id = sp.id " +
-            "WHERE YEAR(o.booking_date) = :year " +
-            "GROUP BY month_year " +
-            "ORDER BY month_year) " +
-            "SELECT * FROM monthly_revenue")
+//    @Query(nativeQuery = true, value = "WITH monthly_revenue AS (" +
+//            "SELECT DATE_FORMAT(o.booking_date, '%Y-%m') AS month_year, " +
+//            "SUM(od.quantity * sp.price) AS total_revenue " +
+//            "FROM orders o " +
+//            "JOIN order_details od ON o.id = od.order_id " +
+//            "JOIN sku_products sp ON od.sku_id = sp.id " +
+//            "WHERE YEAR(o.booking_date) = :year " +
+//            "GROUP BY month_year " +
+//            "ORDER BY month_year) " +
+//            "SELECT * FROM monthly_revenue")
+
+    @Query(nativeQuery = true, value = "WITH monthly_revenue AS (\n" +
+            "    SELECT DATE_FORMAT(o.booking_date, '%Y-%m') AS month_year,\n" +
+            "           SUM(total_money) AS total_revenue\n" +
+            "    FROM orders o\n" +
+            "    WHERE YEAR(o.booking_date) = :year\n" +
+            "    GROUP BY month_year\n" +
+            "    ORDER BY month_year\n" +
+            ")\n" +
+            "SELECT * FROM monthly_revenue;")
     List<MonthlyRevenueDTO> getMonthlyRevenue(@Param("year") int year);
 
     Order findByCode(String code);
