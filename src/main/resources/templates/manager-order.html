@@ -118,9 +118,10 @@
         <thead>
         <tr>
             <th>No.</th>
+            <th>Code</th>
             <th>Customer</th>
-            <th>Product</th>
-            <th>Category</th>
+            <th>Delivery Address</th>
+            <th>Phone</th>
             <th>
                 Total
                 <button class="btn btn-light btn-sm" id="sortTotalMoneyAsc">
@@ -135,10 +136,11 @@
         <tbody id="orderTableBody">
         <tr th:each="orderDetailDTO, iterStat: ${orderDetailDTOs}">
             <td th:text="${iterStat.count}"></td>
+            <td th:text="${orderDetailDTO.code}"></td>
             <td th:text="${orderDetailDTO.customerName}"></td>
-            <td th:text="${orderDetailDTO.productName}"></td>
-            <td th:text="${orderDetailDTO.categoryName}"></td>
-            <td th:text="${orderDetailDTO.totalMoney} + '$'"></td>
+            <td th:text="${orderDetailDTO.address}"></td>
+            <td th:text="${orderDetailDTO.phone}"></td>
+            <td th:text="${orderDetailDTO.totalMoney} + 'VNĐ'"></td>
 <!--            <td>-->
 <!--                <button class="btn btn-danger"-->
 <!--                        th:onclick="'window.location.href = \'' + @{/admin/order/{idOrder}(idOrder=${orderDetailDTO.idOrder})} + '\''">-->
@@ -184,8 +186,8 @@
         const sortTable = (asc) => {
             const rows = Array.from(tableBody.querySelectorAll('tr'));
             rows.sort((rowA, rowB) => {
-                const totalA = parseFloat(rowA.children[4].textContent.replace(/[^0-9.-]+/g,""));
-                const totalB = parseFloat(rowB.children[4].textContent.replace(/[^0-9.-]+/g,""));
+                const totalA = parseFloat(rowA.children[5].textContent.replace(/[^0-9.-]+/g,""));
+                const totalB = parseFloat(rowB.children[5].textContent.replace(/[^0-9.-]+/g,""));
                 return asc ? totalA - totalB : totalB - totalA;
             });
 
