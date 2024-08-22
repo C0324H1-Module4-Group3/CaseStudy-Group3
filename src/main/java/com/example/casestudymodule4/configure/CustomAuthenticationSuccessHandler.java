@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                                         Authentication authentication) throws IOException, ServletException {
         String redirectUrl = "/home"; // Default redirect URL
 
+        // Check if the user has the role of "ROLE_ADMIN"
+        for (GrantedAuthority authority : authentication.getAuthorities()) {
+            if (authority.getAuthority().equals("ROLE_ADMIN")) {
+                redirectUrl = "/admin"; // Redirect to admin page
+                break;
+            }
+        }
+
         // Check if there's a redirect URL stored in the session
         String sessionRedirectUrl = (String) request.getSession().getAttribute("redirectAfterLogin");
         if (sessionRedirectUrl != null) {
@@ -29,7 +38,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             // Remove the redirect URL from the session after use
             request.getSession().removeAttribute("redirectAfterLogin");
         } else {
-            logger.info("No redirect URL found in session, redirecting to default: " + redirectUrl);
+            logger.info("No redirect URL found in session, redirecting to: " + redirectUrl);
         }
 
         response.sendRedirect(redirectUrl);
